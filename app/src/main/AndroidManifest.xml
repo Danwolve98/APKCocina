@@ -12,7 +12,7 @@
         android:theme="@style/Theme.APKCocina"
         tools:targetApi="31">
         <activity
-            android:name=".features.home.MainActivity"
+            android:name=".features.home.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
