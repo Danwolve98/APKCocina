@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">APKCocina</string>
+    <string name="app_name" translatable="false">APKCocina</string>
+
+    <!--INICIO-->
+    <string name="inicio">Inicio</string>
+    <string-array name="menu_items">
+        <item>"Recetas base"</item>
+        <item>"Recetas online"</item>
+        <item>"Crear receta"</item>
+        <item>¿Qué cocino hoy?</item>
+        <item>"Información"</item>
+    </string-array>
 </resources>

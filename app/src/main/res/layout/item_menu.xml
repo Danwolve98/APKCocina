@@ -4,17 +4,40 @@
     android:layout_height="150dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <ImageButton
+
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_item_menu"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@null"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:src="@drawable/primeros_platos"
+        tools:src="@drawable/recetas_base"
+        android:foreground="@drawable/top_light"
         android:scaleType="centerCrop"/>
 
-    <!--FILTRO-->
+    <!--FILTROS-->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/gradiante_item"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/wood_spoon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:rotation="-25"
+        android:rotationX="30"
+        android:layout_marginTop="40dp"
+        android:scaleType="centerInside"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,16 +45,42 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:background="@color/black_filter"/>
 
+
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_item_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         android:fontFamily="@font/karla_camilla"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:textAlignment="center"
+        android:gravity="center"
         android:textFontWeight="700"
         android:textSize="35sp"
         android:textColor="@color/white"
         tools:text="PRIMEROS PLATOS"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_internet"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:src="@drawable/internet"
+        android:background="@drawable/black_border"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:visibility="visible"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black_soft"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black_soft"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

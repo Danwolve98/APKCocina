@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="inicio">Home</string>
+    <string-array name="menu_items">
+        <item>"Base Recipes"</item>
+        <item>"Online Recipes"</item>
+        <item>"Create Recipe"</item>
+        <item>"What should I cook today?"</item>
+        <item>"Information"</item>
+    </string-array>
+</resources>

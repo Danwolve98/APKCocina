@@ -18,26 +18,34 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/bt_back_pressed_action_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/baseline_arrow_back_ios_new_24"
+            android:background="@null"
+            android:tint="@color/base_3"
+            android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
             />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_tittle_action_bar"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Inicio"
-            android:textStyle="italic|bold"
-            android:textColor="@color/black_soft"
             android:fontFamily="@font/beautiful_people"
+            android:gravity="center"
+            android:textAlignment="center"
             android:textAllCaps="false"
-            android:textSize="28sp"/>
+            android:textColor="@color/black_soft"
+            android:textSize="28sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toStartOf="@id/bt_filter_action_bar"
+            app:layout_constraintStart_toEndOf="@id/bt_back_pressed_action_bar"
+            app:layout_constraintTop_toTopOf="parent"
+            android:clickable="false"
+            android:text="@string/inicio"/>
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/bt_seach_action_bar"
@@ -47,9 +55,11 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginEnd="10dp"
             android:src="@drawable/search"
+            android:tint="@color/base_3"
             android:background="@null"
             android:scaleType="centerInside"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
             />
 
         <androidx.appcompat.widget.AppCompatImageButton
@@ -58,11 +68,13 @@
             android:layout_height="40dp"
             app:layout_constraintRight_toLeftOf="@id/bt_seach_action_bar"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             android:src="@drawable/filter"
+            android:tint="@color/base_3"
             android:background="@null"
             android:scaleType="centerInside"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
             />
 
         <View
@@ -82,7 +94,5 @@
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/cl_action_bar"
         app:layout_constraintBottom_toBottomOf="parent"/>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,54 @@
+package com.example.apkcocina.features.home.adapter
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.example.apkcocina.R
+import com.example.apkcocina.utils.extensions.visible
+
+class MenuItemsAdapter(var listItems : List<String>) : RecyclerView.Adapter<MenuItemsAdapter.ViewHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        return ViewHolder(layoutInflater.inflate(R.layout.item_menu,parent,false))
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.render(listItems[position],position)
+    }
+
+    override fun getItemCount(): Int = listItems.size
+
+    inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
+        fun render(item : String, position: Int){
+            view.findViewById<TextView>(R.id.tv_item_menu).text = item
+            var imageID = 0
+
+           when(position){
+                0 -> {
+                    imageID = R.drawable.recetas_base
+                }
+                1->{
+                    imageID = R.drawable.recetas_online
+                    view.findViewById<ImageView>(R.id.iv_internet).visible()
+                }
+                2->{
+                    imageID = R.drawable.recetas_base
+                }
+                3->{
+                    imageID = R.drawable.recetas_base
+                }
+                4->{
+                    imageID = R.drawable.recetas_online
+                }
+                else -> imageID = 0
+            }
+
+            view.findViewById<ImageView>(R.id.iv_item_menu).setImageResource(imageID)
+        }
+    }
+
+}
