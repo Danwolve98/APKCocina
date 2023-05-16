@@ -20,7 +20,7 @@
             android:id="@+id/bt_back_pressed_action_bar"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/baseline_arrow_back_ios_new_24"
+            android:src="@drawable/back_arrow"
             android:background="@null"
             android:tint="@color/base_3"
             android:scaleType="centerCrop"
@@ -85,14 +85,29 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        tools:layout="@layout/home_fragment"
         app:layout_constraintTop_toBottomOf="@id/cl_action_bar"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/MyBottomNavStyle"
+        app:itemIconSize="@dimen/_26sp"
+        app:menu="@menu/menu"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

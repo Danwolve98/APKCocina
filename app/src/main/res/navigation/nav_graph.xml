@@ -2,4 +2,23 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph" />
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/inicio_item_id">
+
+
+    <fragment
+        android:id="@+id/inicio_item_id"
+        android:name="com.example.apkcocina.features.home.fragment.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/home_fragment">
+
+    </fragment>
+    <fragment
+        android:id="@+id/perfil_item_id"
+        android:name="com.example.apkcocina.features.profile.fragment.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/profile_fragment">
+
+    </fragment>
+
+</navigation>

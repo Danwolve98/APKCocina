@@ -9,4 +9,6 @@
         <item>"What should I cook today?"</item>
         <item>"Information"</item>
     </string-array>
+    <string name="perfil">Profile</string>
+    <string name="ajustes">Settings</string>
 </resources>

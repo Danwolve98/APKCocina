@@ -3,6 +3,8 @@
 
     <!--INICIO-->
     <string name="inicio">Inicio</string>
+    <string name="perfil">Perfil</string>
+    <string name="ajustes">Ajustes</string>
     <string-array name="menu_items">
         <item>"Recetas base"</item>
         <item>"Recetas online"</item>
@@ -10,4 +12,11 @@
         <item>¿Qué cocino hoy?</item>
         <item>"Información"</item>
     </string-array>
+    
+    <!--PROFILE-->
+    <string name="nombre">Nombre</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="nacionalidad">Nacionalidad</string>
+    <string name="edad">Edad</string>
+
 </resources>
