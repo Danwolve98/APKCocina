@@ -8,5 +8,11 @@
         <item name="android:layout_width">150dp</item>
         <item name="android:layout_height">510dp</item>
     </style>
+
+    <style name="TextViewProfile" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20sp</item>
+    </style>
     
 </resources>

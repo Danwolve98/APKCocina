@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/base_4">
@@ -16,49 +17,65 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/et_profile_nombre"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_profile_nombre"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/iv_profile_picture"
         app:layout_constraintLeft_toRightOf="@id/guideline"
         app:layout_constraintRight_toLeftOf="@id/guideline2"
         android:layout_marginTop="20dp"
+        style="@style/TextViewProfile"
         android:hint="@string/nombre"
         />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/et_profile_apellidos"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_profile_apellidos"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/et_profile_nombre"
+        app:layout_constraintTop_toBottomOf="@id/tv_profile_nombre"
         app:layout_constraintLeft_toRightOf="@id/guideline"
         app:layout_constraintRight_toLeftOf="@id/guideline2"
         android:layout_marginTop="20dp"
+        style="@style/TextViewProfile"
         android:hint="@string/apellidos"
         />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/et_profile_nacionalidad"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_profile_nacionalidad"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/et_profile_apellidos"
+        app:layout_constraintTop_toBottomOf="@id/tv_profile_apellidos"
         app:layout_constraintLeft_toRightOf="@id/guideline"
         app:layout_constraintRight_toLeftOf="@id/guideline2"
         android:layout_marginTop="20dp"
+        style="@style/TextViewProfile"
         android:hint="@string/nacionalidad"
         />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/et_profile_edad"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_profile_edad"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/et_profile_nacionalidad"
+        app:layout_constraintTop_toBottomOf="@id/tv_profile_nacionalidad"
         app:layout_constraintLeft_toRightOf="@id/guideline"
         app:layout_constraintRight_toLeftOf="@id/guideline2"
         android:layout_marginTop="20dp"
+        style="@style/TextViewProfile"
         android:hint="@string/edad"
         />
+    
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        android:name="com.example.apkcocina.features.login.LoginFragment"
+        tools:layout="@layout/login_fragment"
+        android:visibility="visible"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -72,7 +89,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.92" />
+        app:layout_constraintGuide_percent="0.92"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

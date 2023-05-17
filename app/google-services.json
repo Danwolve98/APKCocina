@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "627721223060",
+    "project_id": "apkcocina",
+    "storage_bucket": "apkcocina.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627721223060:android:e1bdc99c8b44e03be7ad81",
+        "android_client_info": {
+          "package_name": "com.example.apkcocina"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "627721223060-s1e54erpct53g6vm7n77uvnrglfib36n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAB_3MCYyupb4GTeg1zKtxHLqUMswm3S4s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "627721223060-s1e54erpct53g6vm7n77uvnrglfib36n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

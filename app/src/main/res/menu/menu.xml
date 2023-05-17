@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/perfil_item_id" android:title="@string/perfil" android:icon="@drawable/profile_icon"/>
-    <item android:id="@+id/inicio_item_id" android:title="@string/inicio" android:icon="@drawable/home_icon"/>
-    <item android:id="@+id/ajustes_item_id" android:title="@string/ajustes" android:icon="@drawable/ajustes_icon"/>
+    <item android:id="@+id/perfil_fragment" android:title="@string/perfil" android:icon="@drawable/profile_icon"/>
+    <item android:id="@+id/inicio_fragment" android:title="@string/inicio" android:icon="@drawable/home_icon"/>
+    <item android:id="@+id/settings_fragment" android:title="@string/ajustes" android:icon="@drawable/ajustes_icon"/>
 </menu>

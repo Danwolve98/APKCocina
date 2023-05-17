@@ -9,6 +9,17 @@ open class APKCocinaActionBar(var title: String,
                            var haveSearch: Boolean,
                            var searchFunction: (() -> Unit)?): ConfigureActionBar
 
+
+class PrincipalActionBar(title:String) : APKCocinaActionBar(
+    title = title,
+    haveBack = false,
+/*    haveOrder = null,
+    orderFunction = null,*/
+    haveFilter = false,
+    filterFunction = null,
+    haveSearch = false,
+    searchFunction = null,
+)
 class TitleActionBar(title:String) : APKCocinaActionBar(
     title = title,
     haveBack = false,

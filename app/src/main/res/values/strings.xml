@@ -12,11 +12,22 @@
         <item>¿Qué cocino hoy?</item>
         <item>"Información"</item>
     </string-array>
-    
+
+    <!--LOGIN-->
+    <string name="correo">Correo</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="iniciar_sesion">Iniciar Sesión</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="no_tienes_cuenta">¿No tienes cuenta?\nRegístrate aquí</string>
+
     <!--PROFILE-->
     <string name="nombre">Nombre</string>
     <string name="apellidos">Apellidos</string>
     <string name="nacionalidad">Nacionalidad</string>
     <string name="edad">Edad</string>
+
+    <!--SETTINGS-->
+
+
 
 </resources>

@@ -16,6 +16,19 @@
         android:animateLayoutChanges="true"
         android:background="@color/base_1">
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/profile_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:tint="@color/black_soft"
+            android:layout_marginStart="10dp"
+            android:visibility="gone"/>
+
+
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/bt_back_pressed_action_bar"
             android:layout_width="50dp"
@@ -32,7 +45,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_tittle_action_bar"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/beautiful_people"
             android:gravity="center"
@@ -41,8 +54,8 @@
             android:textColor="@color/black_soft"
             android:textSize="28sp"
             android:textStyle="bold|italic"
-            app:layout_constraintEnd_toStartOf="@id/bt_filter_action_bar"
-            app:layout_constraintStart_toEndOf="@id/bt_back_pressed_action_bar"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:clickable="false"
             android:text="@string/inicio"/>
