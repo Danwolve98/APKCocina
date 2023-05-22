@@ -12,6 +12,9 @@
         android:label="HomeFragment"
         tools:layout="@layout/home_fragment">
 
+        <action
+            android:id="@+id/action_inicio_fragment_to_recetasBaseFragment"
+            app:destination="@id/recetasBaseFragment" />
     </fragment>
 
     <fragment
@@ -26,5 +29,10 @@
         android:name="com.example.apkcocina.features.settings.fragment.SettingsFragment"
         android:label="SettingsFragment"
         tools:layout="@layout/ajustes_fragment"/>
+    <fragment
+        android:id="@+id/recetasBaseFragment"
+        android:name="com.example.apkcocina.features.recetasBase.fragment.RecetasBaseFragment"
+        android:label="RecetasBaseFragment"
+        tools:layout="@layout/recetas_base_fragment"/>
 
 </navigation>

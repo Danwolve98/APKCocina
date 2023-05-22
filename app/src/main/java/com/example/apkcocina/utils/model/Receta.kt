@@ -5,7 +5,8 @@ class Receta(
     var tiempoPreparacion : Int,
     var alergenos: List<Alergenos>,
     var descripcion : String,
-    var imagenes : List<String>
+    var imagenes : List<String>,
+    var ingredientes : List<String>
 ) {
 
 }

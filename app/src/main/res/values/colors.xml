@@ -11,7 +11,7 @@
     <color name="black_filter">#80000000</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="background_semi_transparent_wood">#CCF7ECD4</color>
-    <color name="background_semi_transparent_black">#99000000</color>
+    <color name="background_semi_transparent_black">#73000000</color>
     //BASE COLORS
     <color name="base_1">#d6c7a5</color>
     <color name="base_2">#F7ECD4</color>

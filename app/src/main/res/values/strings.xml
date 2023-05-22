@@ -19,6 +19,7 @@
     <string name="iniciar_sesion">Iniciar Sesión</string>
     <string name="registrarse">Registrarse</string>
     <string name="no_tienes_cuenta">¿No tienes cuenta?\nRegístrate aquí</string>
+    <string name="reestablecer_contrasena">Reestablecer contraseña</string>
 
     <!--PROFILE-->
     <string name="nombre">Nombre</string>
@@ -29,5 +30,8 @@
     <!--SETTINGS-->
 
 
+
+    <!--RECETASBASE-->
+    <string name="recetas_base">Recetas Base</string>
 
 </resources>

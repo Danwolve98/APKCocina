@@ -22,7 +22,7 @@ class SettingsFragment : BaseFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        actionBar = TitleActionBar(getString(R.string.ajustes))
+        actionBar = TitleActionBar(getString(R.string.ajustes)).apply { haveBack=false }
         (activity as MainActivity).configureActionBar(this)
     }
 

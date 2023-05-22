@@ -5,12 +5,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.navigation.ActivityNavigator
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apkcocina.R
+import com.example.apkcocina.features.home.activity.MainActivity
 import com.example.apkcocina.utils.extensions.visible
+import com.google.firebase.auth.FirebaseUser
 
-class MenuItemsAdapter(var listItems : List<String>) : RecyclerView.Adapter<MenuItemsAdapter.ViewHolder>() {
+class MenuItemsAdapter(var listItems : List<String>,val mainActivity: MainActivity,val onItemClickListener:(Int) -> Unit) : RecyclerView.Adapter<MenuItemsAdapter.ViewHolder>() {
 
+    private var user : FirebaseUser? = mainActivity.user
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return ViewHolder(layoutInflater.inflate(R.layout.item_menu,parent,false))
@@ -30,19 +35,29 @@ class MenuItemsAdapter(var listItems : List<String>) : RecyclerView.Adapter<Menu
            when(position){
                 0 -> {
                     imageID = R.drawable.recetas_base
+                    view.setOnClickListener { onItemClickListener(R.id.action_inicio_fragment_to_recetasBaseFragment) }
                 }
                 1->{
                     imageID = R.drawable.recetas_online
                     view.findViewById<ImageView>(R.id.iv_internet).visible()
+                    if(user!=null){
+                        view.setOnClickListener { onItemClickListener(R.id.action_inicio_fragment_to_recetasBaseFragment) }
+                    } else{
+                        Toast.makeText(mainActivity.applicationContext, "USUARIO NO ENCONTRADO", Toast.LENGTH_SHORT).show()
+                    }
+
                 }
                 2->{
                     imageID = R.drawable.recetas_base
+                    view.setOnClickListener { onItemClickListener(R.id.action_inicio_fragment_to_recetasBaseFragment) }
                 }
                 3->{
                     imageID = R.drawable.recetas_base
+                    view.setOnClickListener { onItemClickListener(R.id.action_inicio_fragment_to_recetasBaseFragment) }
                 }
                 4->{
                     imageID = R.drawable.recetas_online
+                    view.setOnClickListener { onItemClickListener(R.id.action_inicio_fragment_to_recetasBaseFragment) }
                 }
                 else -> imageID = 0
             }

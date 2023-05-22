@@ -22,7 +22,7 @@ class PrincipalActionBar(title:String) : APKCocinaActionBar(
 )
 class TitleActionBar(title:String) : APKCocinaActionBar(
     title = title,
-    haveBack = false,
+    haveBack = true,
 /*    haveOrder = null,
     orderFunction = null,*/
     haveFilter = false,
