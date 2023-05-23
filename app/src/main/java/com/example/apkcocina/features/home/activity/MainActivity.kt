@@ -1,10 +1,7 @@
 package com.example.apkcocina.features.home.activity
 
-import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.os.bundleOf
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.apkcocina.R
@@ -12,13 +9,11 @@ import com.example.apkcocina.databinding.ActivityMainBinding
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.FilterActionBar
 import com.example.apkcocina.utils.base.PrincipalActionBar
-import com.example.apkcocina.utils.base.TitleActionBar
 import com.example.apkcocina.utils.extensions.invisible
 import com.example.apkcocina.utils.extensions.visible
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import org.intellij.lang.annotations.JdkConstants.TitledBorderTitlePosition
 
 
 class MainActivity : AppCompatActivity() {
@@ -75,8 +70,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-
     }
 
     fun setLoading(loading: Boolean){
@@ -92,8 +85,8 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun navigate(accion: Int){
-        navController.navigate(accion)
+    fun navigate(accion: Int,bundle: Bundle?){
+        navController.navigate(accion,bundle)
     }
 
 

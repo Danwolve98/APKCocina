@@ -1,7 +1,7 @@
 package com.example.apkcocina.utils.model
 
 
-    public enum class Alergenos{
+    enum class Alergenos{
         GLUTEN,
         CRUSTACEOS,
         HUEVOS,
