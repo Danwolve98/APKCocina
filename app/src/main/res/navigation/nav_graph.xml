@@ -14,7 +14,8 @@
 
         <action
             android:id="@+id/action_inicio_fragment_to_recetasBaseFragment"
-            app:destination="@id/recetasBaseFragment" />
+            app:destination="@id/recetasBaseFragment"
+            app:popUpTo="@id/inicio_fragment" />
     </fragment>
 
     <fragment
@@ -36,7 +37,10 @@
         tools:layout="@layout/recetas_base_fragment">
         <action
             android:id="@+id/action_recetasBaseFragment_to_recetaDetalle"
-            app:destination="@id/recetaDetalle" />
+            app:destination="@id/recetaDetalle"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/recetasBaseFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/recetaDetalle"
