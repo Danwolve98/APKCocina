@@ -19,7 +19,7 @@ import com.google.firebase.storage.StorageReference
 
 class RecetasAdapter(var listRecetas : List<Receta>,val onClickRecetaListener : (Receta) -> Unit):RecyclerView.Adapter<RecetasAdapter.ViewHolder>(){
 
-
+    private lateinit var firebaseStorage: StorageReference
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return ViewHolder(layoutInflater.inflate(R.layout.item_receta,parent,false))
@@ -40,7 +40,7 @@ class RecetasAdapter(var listRecetas : List<Receta>,val onClickRecetaListener : 
 
             view.setOnClickListener { onClickRecetaListener(receta) }
             val referencia = "${receta.imagenes!![0]}/${receta.imagenes!![0]}.jpg"
-            var firebaseStorage = FirebaseStorage.getInstance().getReference(referencia)
+            firebaseStorage = FirebaseStorage.getInstance().getReference(referencia)
 
             //ESTE LISTENER ES PARA CARGAR EL TEXTO JUNTO A LA IMAGEN
             firebaseStorage.downloadUrl.addOnSuccessListener {
