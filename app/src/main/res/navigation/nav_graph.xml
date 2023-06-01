@@ -38,9 +38,7 @@
         <action
             android:id="@+id/action_recetasBaseFragment_to_recetaDetalle"
             app:destination="@id/recetaDetalle"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/recetasBaseFragment"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/recetasBaseFragment" />
     </fragment>
     <fragment
         android:id="@+id/recetaDetalle"

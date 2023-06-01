@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.example.apkcocina.data.model.Receta
 import com.example.apkcocina.databinding.RecetaDetalleFragmentBinding
 import com.example.apkcocina.features.home.activity.MainActivity
@@ -46,7 +47,7 @@ class RecetaDetalle : BaseFragment() {
     }
 
     private fun initializeView() {
-
+        Glide.with(requireContext()).load(receta.imagenes?.get(0)).into(binding.ivDetalle)
 
 
 

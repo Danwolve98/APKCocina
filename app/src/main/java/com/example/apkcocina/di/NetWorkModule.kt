@@ -19,7 +19,7 @@ object NetWorkModule {
     @Singleton
     @Provides
     fun providesapkCocinaDataBase(@ApplicationContext appcontext:Context) : APKCocinaDataBase{
-        return Room.databaseBuilder(appcontext.applicationContext,APKCocinaDataBase::class.java,"APKCocinaDataBase").build()
+        return Room.databaseBuilder(appcontext.applicationContext,APKCocinaDataBase::class.java,"APKCocinaDataBase").fallbackToDestructiveMigration().build()
     }
 
     @Singleton

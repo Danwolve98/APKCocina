@@ -34,6 +34,7 @@ class RecetasBaseFragment() : BaseFragment() {
     private var _binding : RecetasBaseFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var mainActivity: MainActivity
+    private var listaRecetasBase : List<Receta>? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -49,32 +50,22 @@ class RecetasBaseFragment() : BaseFragment() {
             mainActivity.setLoading(it)
         })
         recetasBaseViewModel.mutableRecetas.observe(this, Observer {
-            binding.rvRecetasBase.adapter = RecetasAdapter(it,{onRecetaClickListener(it)})
+           listaRecetasBase = it
+            binding.rvRecetasBase.adapter = RecetasAdapter(listaRecetasBase!!,{onRecetaClickListener(it)})
         })
-        /*mainActivity.setLoading(true)
-        dbFirestore.collection("recetas").get(Source.DEFAULT)
-            .addOnSuccessListener {result->
-                result.documentChanges
-                for(r in result){
-                    val receta = r.toObject<Receta>()
-                    if(!recetas.contains(receta)){
-                        recetas.add(receta)
-                    }
-                }
-                mainActivity.setLoading(false)
-            }
-            .addOnFailureListener {
-                mainActivity.setLoading(false)
-            }*/
     }
-
+    private var view : View? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = RecetasBaseFragmentBinding.inflate(inflater,container,false)
-        return binding.root
+    ): View {
+        if(view == null){
+            _binding = RecetasBaseFragmentBinding.inflate(inflater,container,false)
+            view = _binding!!.root
+        }
+        return view as View
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -82,13 +73,8 @@ class RecetasBaseFragment() : BaseFragment() {
     }
 
     private fun initializeView() {
-        /*loadRecetas()*/
+        (activity as MainActivity).configureActionBar(this)
     }
-
-    /*//TODO CAMBIAR METODO PARA AGREGAR RECETAS SIN VERIFICAR TODAS
-    private fun loadRecetas(){
-        binding.rvRecetasBase.adapter = RecetasAdapter(recetas,{onRecetaClickListener(it)})
-    }*/
 
     private fun onRecetaClickListener(receta: Receta){ mainActivity.navigate(R.id.action_recetasBaseFragment_to_recetaDetalle,Bundle().apply { putSerializable("receta",receta) }) }
 
