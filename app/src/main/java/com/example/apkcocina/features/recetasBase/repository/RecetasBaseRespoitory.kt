@@ -20,7 +20,7 @@ class RecetasBaseRespoitory @Inject constructor(
         var recetas = mutableListOf<Receta>()
         val recetasBaseDAO = apkCocinaDataBase.recetasBaseDAO()
         if(recetasBaseDAO.getAllRecetasBase().isEmpty()){
-            firebaseFirestore.collection("recetas").get(Source.SERVER)
+            firebaseFirestore.collection(Receta.RECETAS_BASE).get(Source.SERVER)
                 .addOnSuccessListener {result->
                 result.documentChanges
                 for(r in result){

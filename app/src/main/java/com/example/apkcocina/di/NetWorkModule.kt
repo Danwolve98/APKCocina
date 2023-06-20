@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.apkcocina.utils.db.APKCocinaDataBase
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,4 +27,7 @@ object NetWorkModule {
     @Provides
     fun providesFirestore() :FirebaseFirestore = FirebaseFirestore.getInstance()
 
+    @Singleton
+    @Provides
+    fun providesStorage() : FirebaseStorage = FirebaseStorage.getInstance()
 }

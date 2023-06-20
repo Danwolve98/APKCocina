@@ -23,12 +23,15 @@ import com.google.firebase.firestore.Source
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class RecetasBaseFragment() : BaseFragment() {
 
+    @Inject
+    lateinit var firebaseStorage: FirebaseStorage
     val recetasBaseViewModel : RecetasBaseViewModel by viewModels()
     override lateinit var actionBar: APKCocinaActionBar
     private var _binding : RecetasBaseFragmentBinding? = null
@@ -51,7 +54,7 @@ class RecetasBaseFragment() : BaseFragment() {
         })
         recetasBaseViewModel.mutableRecetas.observe(this, Observer {
            listaRecetasBase = it
-            binding.rvRecetasBase.adapter = RecetasAdapter(listaRecetasBase!!,{onRecetaClickListener(it)})
+            binding.rvRecetasBase.adapter = RecetasAdapter(listaRecetasBase!!,{onRecetaClickListener(it)},firebaseStorage)
         })
     }
     private var view : View? = null

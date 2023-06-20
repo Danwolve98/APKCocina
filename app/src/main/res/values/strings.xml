@@ -20,6 +20,8 @@
     <string name="registrarse">Registrarse</string>
     <string name="no_tienes_cuenta">¿No tienes cuenta?\nRegístrate aquí</string>
     <string name="reestablecer_contrasena">Reestablecer contraseña</string>
+    <string name="enviado">Enviado</string>
+    <string name="chef_curioso">Chef curioso</string>
 
     <!--PROFILE-->
     <string name="nombre">Nombre</string>
@@ -38,5 +40,6 @@
 
     <!--RECETASDETALLE-->
 
-
+    <!--CREARRECETA-->
+    <string name="crear_receta">Crear Receta</string>
 </resources>

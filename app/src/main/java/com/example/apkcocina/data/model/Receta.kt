@@ -13,4 +13,17 @@ class Receta(
     var descripcion : String? = null,
     var imagenes : List<String>? = null,
     var ingredientes : HashMap<String,String>? = null
-): Serializable
+): Serializable{
+    companion object{
+        val RECETAS_BASE = "recetas"
+        val RECETAS_USUARIOS = "recetasUsuarios"
+    }
+    fun getReferencia() : String =
+        if(!imagenes.isNullOrEmpty())
+            "${imagenes!![0]}/${imagenes!![0]}.jpg"
+        else
+            ""
+
+
+
+}

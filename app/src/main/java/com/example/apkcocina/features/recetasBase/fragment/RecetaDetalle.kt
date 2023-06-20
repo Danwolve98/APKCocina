@@ -12,7 +12,11 @@ import com.example.apkcocina.features.home.activity.MainActivity
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.TitleActionBar
+import com.google.firebase.storage.FirebaseStorage
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class RecetaDetalle : BaseFragment() {
 
     override lateinit var actionBar: APKCocinaActionBar
@@ -20,6 +24,8 @@ class RecetaDetalle : BaseFragment() {
     private val binding get() = _binding!!
     private lateinit var mainActivity: MainActivity
     private lateinit var receta : Receta
+    @Inject
+    lateinit var firebaseStorage : FirebaseStorage
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -36,7 +42,7 @@ class RecetaDetalle : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = RecetaDetalleFragmentBinding.inflate(inflater,container,false)
         return binding.root
     }
@@ -47,8 +53,10 @@ class RecetaDetalle : BaseFragment() {
     }
 
     private fun initializeView() {
-        Glide.with(requireContext()).load(receta.imagenes?.get(0)).into(binding.ivDetalle)
-
+        val storageReference = firebaseStorage.getReference(receta.getReferencia())
+        storageReference.downloadUrl.addOnSuccessListener {
+            Glide.with(requireContext()).load(it.toString()).into(binding.ivDetalle)
+        }
 
 
     }

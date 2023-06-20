@@ -2,6 +2,7 @@ package com.example.apkcocina.features.profile.fragment.login
 
 import android.app.AlertDialog
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,7 +43,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = LoginFragmentBinding.inflate(inflater,container,false)
         return binding.root
@@ -68,8 +69,14 @@ class LoginFragment : Fragment() {
                             user.sendEmailVerification().addOnCompleteListener {verificacion ->
                                 if(verificacion.isSuccessful){
                                     mainActivity.setLoading(false)
-                                    showAlert("Se ha enviado un email de confirmación a la dirección: $correo")
-                                    //hideFragment()
+
+                                    val profileUpdates = UserProfileChangeRequest.Builder()
+                                        .setDisplayName(getString(R.string.chef_curioso))
+                                        .build()
+
+                                    user.updateProfile(profileUpdates)
+                                    showAlert(getString(R.string.enviado),"Se ha enviado un email de confirmación a la dirección: $correo")
+                                    hideFragment()
                                 } else{
                                     mainActivity.setLoading(false)
                                     showAlert<Void>(verificacion)
@@ -92,9 +99,11 @@ class LoginFragment : Fragment() {
                     fireBaseUserAdmin.signInWithEmailAndPassword(correo,contrasena).addOnCompleteListener {login->
                         if(login.isSuccessful){
                             mainActivity.setCurrentUser(fireBaseUserAdmin.currentUser!!)
-                            showAlert("Bienvenido ${fireBaseUserAdmin.currentUser!!.displayName}")
+                            showAlert("Bienvenido","Bienvenido ${fireBaseUserAdmin.currentUser!!.displayName}")
+                            mainActivity.setLoading(false)
                             hideFragment()
                         }else{
+                            mainActivity.setLoading(false)
                             showAlert<AuthResult>(login)
                         }
                     }
@@ -116,9 +125,9 @@ class LoginFragment : Fragment() {
         dialog.show()
     }
 
-    private fun showAlert(texto : String){
+    private fun showAlert(title : String,texto : String){
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Error")
+        builder.setTitle(title)
         builder.setMessage(texto)
         builder.setPositiveButton("Aceptar",null)
         val dialog = builder.create()

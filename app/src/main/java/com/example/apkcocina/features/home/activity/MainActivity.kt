@@ -2,6 +2,7 @@ package com.example.apkcocina.features.home.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.apkcocina.R
@@ -36,8 +37,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeView() {
         firebaseAuth = FirebaseAuth.getInstance()
-        //firebaseAuth.signOut()
+        firebaseAuth.signOut()
         user = firebaseAuth.currentUser
+        Log.e("NAME",user?.displayName ?: "sin nombre")
         setupWithNavController(binding.bottomNavigationView,navController)
 
         binding.btBackPressedActionBar.setOnClickListener{

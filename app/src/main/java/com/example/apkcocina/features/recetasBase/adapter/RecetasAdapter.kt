@@ -16,10 +16,12 @@ import com.example.apkcocina.R
 import com.example.apkcocina.data.model.Receta
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class RecetasAdapter(var listRecetas : List<Receta>,val onClickRecetaListener : (Receta) -> Unit):RecyclerView.Adapter<RecetasAdapter.ViewHolder>(){
+class RecetasAdapter(var listRecetas : List<Receta>,val onClickRecetaListener : (Receta) -> Unit,var firebaseStorage: FirebaseStorage):RecyclerView.Adapter<RecetasAdapter.ViewHolder>(){
 
-    private lateinit var firebaseStorage: StorageReference
+    private lateinit var storageReference: StorageReference
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return ViewHolder(layoutInflater.inflate(R.layout.item_receta,parent,false))
@@ -39,11 +41,11 @@ class RecetasAdapter(var listRecetas : List<Receta>,val onClickRecetaListener : 
             val tv_receta = view.findViewById<TextView>(R.id.tv_item_receta)
 
             view.setOnClickListener { onClickRecetaListener(receta) }
-            val referencia = "${receta.imagenes!![0]}/${receta.imagenes!![0]}.jpg"
-            firebaseStorage = FirebaseStorage.getInstance().getReference(referencia)
+            val referencia = receta.getReferencia()
+            storageReference = firebaseStorage.getReference(referencia)
 
             //ESTE LISTENER ES PARA CARGAR EL TEXTO JUNTO A LA IMAGEN
-            firebaseStorage.downloadUrl.addOnSuccessListener {
+            storageReference.downloadUrl.addOnSuccessListener {
                 Glide.with(view.context).load(it.toString()).listener(object : RequestListener<Drawable>{
                     override fun onLoadFailed(
                         e: GlideException?,

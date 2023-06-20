@@ -41,7 +41,7 @@ class MenuItemsAdapter(var listItems : List<String>,val mainActivity: MainActivi
                     imageID = R.drawable.recetas_online
                     view.findViewById<ImageView>(R.id.iv_internet).visible()
                     if(user!=null){
-                        view.setOnClickListener { onItemClickListener(R.id.action_inicio_fragment_to_recetasBaseFragment) }
+                        view.setOnClickListener { onItemClickListener(R.id.action_inicio_fragment_to_crearRecetaFragment) }
                     } else{
                         Toast.makeText(mainActivity.applicationContext, "USUARIO NO ENCONTRADO", Toast.LENGTH_SHORT).show()
                     }
@@ -53,7 +53,7 @@ class MenuItemsAdapter(var listItems : List<String>,val mainActivity: MainActivi
                 }
                 3->{
                     imageID = R.drawable.recetas_base
-                    view.setOnClickListener { onItemClickListener(R.id.action_inicio_fragment_to_recetasBaseFragment) }
+                    view.setOnClickListener { onItemClickListener(R.id.action_inicio_fragment_to_crearRecetaFragment) }
                 }
                 4->{
                     imageID = R.drawable.recetas_online
