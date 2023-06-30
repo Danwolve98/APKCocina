@@ -26,7 +26,6 @@ class ProfileFragment : BaseFragment() {
     private val binding get() = _binding!!
     private lateinit var mainActivity: MainActivity
 
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = requireActivity() as MainActivity
@@ -62,7 +61,6 @@ class ProfileFragment : BaseFragment() {
                 if(user.displayName == null)
                    user.updateProfile(userProfileChangeRequest {
                        displayName = getString(R.string.nombre)
-                       photoUri = null
                    })
                 tvProfileNombre.text = user.displayName.toString()
             }
