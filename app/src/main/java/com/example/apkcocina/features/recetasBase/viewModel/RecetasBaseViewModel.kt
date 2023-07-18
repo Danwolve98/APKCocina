@@ -3,7 +3,7 @@ package com.example.apkcocina.features.recetasBase.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.apkcocina.data.model.Receta
+import com.example.apkcocina.utils.model.Receta
 import com.example.apkcocina.features.recetasBase.usecase.GetRecetasBaseUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

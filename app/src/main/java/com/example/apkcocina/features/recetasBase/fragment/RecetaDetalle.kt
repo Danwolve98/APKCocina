@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
-import com.example.apkcocina.data.model.Receta
+import com.example.apkcocina.utils.model.Receta
 import com.example.apkcocina.databinding.RecetaDetalleFragmentBinding
 import com.example.apkcocina.features.home.activity.MainActivity
 import com.example.apkcocina.utils.base.APKCocinaActionBar

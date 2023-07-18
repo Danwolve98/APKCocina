@@ -2,14 +2,13 @@ package com.example.apkcocina.features.recetasBase.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.apkcocina.R
-import com.example.apkcocina.data.model.Receta
+import com.example.apkcocina.utils.model.Receta
 import com.example.apkcocina.databinding.RecetasBaseFragmentBinding
 import com.example.apkcocina.features.home.activity.MainActivity
 import com.example.apkcocina.features.recetasBase.adapter.RecetasAdapter
@@ -17,12 +16,6 @@ import com.example.apkcocina.features.recetasBase.viewModel.RecetasBaseViewModel
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.TitleActionBar
-import com.example.apkcocina.utils.model.Alergenos
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Source
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

@@ -13,13 +13,11 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.apkcocina.R
-import com.example.apkcocina.data.model.Receta
+import com.example.apkcocina.utils.model.Receta
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
-class RecetasAdapter(var listRecetas : List<Receta>,val onClickRecetaListener : (Receta) -> Unit,var firebaseStorage: FirebaseStorage):RecyclerView.Adapter<RecetasAdapter.ViewHolder>(){
+class RecetasAdapter(var listRecetas : List<Receta>, val onClickRecetaListener : (Receta) -> Unit, var firebaseStorage: FirebaseStorage):RecyclerView.Adapter<RecetasAdapter.ViewHolder>(){
 
     private lateinit var storageReference: StorageReference
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

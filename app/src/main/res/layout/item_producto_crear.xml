@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/transparent">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_producto_nombre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingVertical="10dp"
+        android:textStyle="italic"
+        android:textColor="@color/white"
+        android:paddingHorizontal="10dp"
+        android:gravity="left"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/et_producto_cantidad"
+        android:hint="Producto"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_producto_cantidad"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:textStyle="italic"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center"
+        android:paddingHorizontal="25dp"
+        android:background="@null"
+        android:hint="0"
+        android:inputType="numberDecimal"
+        android:maxLength="4"
+        app:layout_constraintStart_toEndOf="@id/et_producto_nombre"
+        app:layout_constraintEnd_toStartOf="@id/sp_producto_medida"
+        />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/sp_producto_medida"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/et_producto_cantidad"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

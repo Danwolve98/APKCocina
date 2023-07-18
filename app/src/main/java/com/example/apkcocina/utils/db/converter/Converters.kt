@@ -1,7 +1,6 @@
 package com.example.apkcocina.utils.db.converter
 
 import androidx.room.TypeConverter
-import com.example.apkcocina.data.model.Receta
 import com.example.apkcocina.utils.model.Alergenos
 import com.google.common.reflect.TypeToken
 import java.lang.reflect.Type

@@ -1,7 +1,6 @@
-package com.example.apkcocina.data.model
+package com.example.apkcocina.utils.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.apkcocina.utils.model.Alergenos
 import java.io.Serializable
 @Entity(tableName = "recetas")
 class Receta(
