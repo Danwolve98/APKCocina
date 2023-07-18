@@ -1,7 +1,6 @@
 package com.example.apkcocina.features.recetasBase.repository
 
-import android.content.Context
-import com.example.apkcocina.data.model.Receta
+import com.example.apkcocina.utils.model.Receta
 import com.example.apkcocina.utils.db.APKCocinaDataBase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source

@@ -1,6 +1,6 @@
 package com.example.apkcocina.features.recetasBase.usecase
 
-import com.example.apkcocina.data.model.Receta
+import com.example.apkcocina.utils.model.Receta
 import com.example.apkcocina.features.recetasBase.repository.RecetasBaseRespoitory
 import javax.inject.Inject
 

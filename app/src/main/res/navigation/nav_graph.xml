@@ -53,7 +53,7 @@
 
     <fragment
         android:id="@+id/crearRecetaFragment"
-        android:name="com.example.apkcocina.features.crearReceta.CrearRecetaFragment"
+        android:name="com.example.apkcocina.features.crearReceta.fragment.CrearRecetaFragment"
         android:label="CrearRecetaFragment"
         tools:layout="@layout/crear_receta_fragment"/>
 
