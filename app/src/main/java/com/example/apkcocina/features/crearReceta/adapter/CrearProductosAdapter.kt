@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apkcocina.R
@@ -19,19 +20,29 @@ class CrearProductosAdapter(var listProductos : List<Producto>) : RecyclerView.A
     override fun getItemCount(): Int = listProductos.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int){
-
+        holder.bind(position)
     }
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
-        val nombre = view.findViewById<EditText>(R.id.et_producto_nombre)
+    inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view){
+        fun bind(position: Int){
+            val nombre = view.findViewById<EditText>(R.id.et_producto_nombre)
+            val cantidad = view.findViewById<EditText>(R.id.et_producto_cantidad)
+
+            nombre.addTextChangedListener { editable->
+                listProductos[position].nombre = editable.toString()
+            }
+            cantidad.addTextChangedListener { editable->
+                listProductos[position].cantidad = editable.toString().toFloat()
+            }
+        }
     }
 
     fun updateRecetas(newList:List<Producto>){
-        val diff = ProductoDiff(listProductos,newList)
+        val diff = ProductoDiff(listProductos.toList(),newList.toList())
         val result = DiffUtil.calculateDiff(diff)
         listProductos = newList
         result.dispatchUpdatesTo(this)

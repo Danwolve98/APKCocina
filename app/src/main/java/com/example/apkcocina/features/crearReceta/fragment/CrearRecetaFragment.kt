@@ -1,5 +1,6 @@
 package com.example.apkcocina.features.crearReceta.fragment
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
@@ -17,6 +18,7 @@ import com.example.apkcocina.features.home.activity.MainActivity
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.TitleActionBar
+import com.example.apkcocina.utils.extensions.Constants
 import com.example.apkcocina.utils.model.Alergenos
 import com.example.apkcocina.utils.model.Producto
 import com.google.firebase.firestore.FirebaseFirestore
@@ -138,15 +140,19 @@ class CrearRecetaFragment : BaseFragment(){
             rvProductos.adapter = productosAdapter
 
             btAnadirProducto.setOnClickListener {
-                val newList = productosAdapter.listProductos
-                newList.toMutableList().add(Producto())
-                productosAdapter.updateRecetas(newList)
+                var newList = productosAdapter.listProductos
+                newList = newList.toMutableList().also {
+                 it.add(Producto())
+                }.toList()
+                productosAdapter.updateRecetas(newList.toList())
             }
 
         }
     }
 
-    fun startIncrementingCounter(handler : Handler,tiempo : Int,sum : Boolean) {
+    var delayCount = 500L
+    @SuppressLint("SuspiciousIndentation")
+    fun startIncrementingCounter(handler : Handler, tiempo : Int, sum : Boolean) {
         var counter = tiempo
         handler.postDelayed({
             if (isButtonPressed) {
@@ -154,10 +160,14 @@ class CrearRecetaFragment : BaseFragment(){
                     counter++
                 else
                     counter--
+
+                if(delayCount > Constants.MAX_DECEREMENT_DELAY)
+                delayCount -= Constants.DECREMENT_DELAY
+
                 binding.etMins.setText(counter.toString())
                 startIncrementingCounter(handler,counter,sum)
             }
-        }, 50L)
+        }, delayCount)
     }
 
 }
