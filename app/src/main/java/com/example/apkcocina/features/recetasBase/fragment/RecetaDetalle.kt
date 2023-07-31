@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.example.apkcocina.R
 import com.example.apkcocina.utils.model.Receta
 import com.example.apkcocina.databinding.RecetaDetalleFragmentBinding
 import com.example.apkcocina.features.home.activity.MainActivity
@@ -53,13 +54,29 @@ class RecetaDetalle : BaseFragment() {
     }
 
     private fun initializeView() {
+        cargarDatos()
+    }
+
+    private fun cargarDatos(){
         val storageReference = firebaseStorage.getReference(receta.getReferencia())
         storageReference.downloadUrl.addOnSuccessListener {
             Glide.with(requireContext()).load(it.toString()).into(binding.ivDetalle)
         }
-
-
+        binding.apply {
+            tvNombreReceta.text = receta.nombre
+            tvTiempoEstimado.text = formatearTiempo(receta.tiempoPreparacion)
+            tvDescripcion.text = receta.descripcion ?: getString(R.string.sin_descripcion)
+        }
     }
 
+    private fun formatearTiempo(tiempo:Int?) : String =
+        if(tiempo == null)
+            "?"
+        else{
+            val hours = tiempo / 60
+            val minutosRestantes = tiempo % 60
+
+            "%dh/%dmins".format(hours,minutosRestantes)
+        }
 
 }

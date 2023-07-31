@@ -39,7 +39,18 @@
 
 
     <!--RECETASDETALLE-->
-
+    <string name="sin_descripcion">Sin descripción</string>
     <!--CREARRECETA-->
     <string name="crear_receta">Crear Receta</string>
+
+
+    <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu lorem nunc. Duis suscipit quis velit sed porttitor. In et enim vitae mi condimentum convallis a non justo. Praesent finibus nunc vel scelerisque rhoncus. Vestibulum nec lectus nec enim interdum finibus in sit amet elit. Nullam maximus dui a congue pretium. Quisque aliquet odio ex, sit amet laoreet nulla venenatis at. In consequat dui eros, sit amet fringilla arcu ultrices rutrum. Aliquam placerat ante ligula, consequat scelerisque est pulvinar non. Quisque eget nulla ut tellus fermentum placerat. In non nisi ac magna scelerisque faucibus. Integer scelerisque dapibus euismod. Fusce dapibus mi commodo sagittis feugiat. In tellus leo, egestas at pulvinar eu, rutrum quis ligula. Pellentesque mattis elementum imperdiet.
+
+        Donec nec ex mi. Donec auctor pulvinar ante ut sollicitudin. Proin luctus neque et neque placerat, quis volutpat tortor lacinia. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Phasellus mattis turpis elit, ut volutpat libero dignissim at. Praesent nisi lectus, hendrerit nec risus ac, ultrices congue est. Morbi posuere tincidunt ipsum sed semper. Maecenas a ultrices urna, et pellentesque elit. Mauris eu ipsum eget lectus vulputate faucibus sit amet id nulla. Nullam augue nunc, semper et elit at, tempus pretium est.
+
+        Mauris laoreet sed nunc in tempus. Duis dictum volutpat maximus. Curabitur ac hendrerit enim. Integer mattis diam eu scelerisque euismod. Quisque vestibulum augue mollis mi semper vulputate. Fusce vitae neque et ligula bibendum feugiat a eget enim. Fusce vel posuere nulla, quis rhoncus nisl. Donec sagittis leo sit amet sem sollicitudin egestas. Vivamus dui erat, consectetur vitae nisl non, pharetra hendrerit erat. Nunc vel elit eu urna tempor finibus. Morbi id sollicitudin ipsum.
+
+        Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In consequat, magna ut consequat viverra, est dui elementum nibh, ac pulvinar risus dui ac lorem. Cras quis sagittis libero. Nullam egestas cursus ex, nec pharetra lorem posuere eu. Suspendisse venenatis magna ligula, ac gravida libero fermentum et. Pellentesque lobortis venenatis pulvinar. Praesent nisl enim, interdum ut nibh id, maximus viverra dui.
+
+        Suspendisse elit justo, sagittis porta dui nec, sodales tincidunt magna. Integer vestibulum tristique sem at suscipit. Vivamus hendrerit eros id ex imperdiet bibendum. Fusce varius ex sapien, a congue tellus ornare in. Duis vitae sagittis mauris. Donec eu nibh non purus cursus consectetur sodales nec ipsum. Morbi eget diam nec ex tempor luctus ut sit amet tellus.</string>
 </resources>
