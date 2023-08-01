@@ -31,10 +31,20 @@ class ProfileViewModel @Inject constructor(
     }
 
 
-    fun loginClick(email : String,contrasena : String) : Either<String?,Boolean> {
+    fun login(email : String,contrasena : String) : Either<String?,Boolean> {
         return if (isValidEmailPassw(email, contrasena) != null) {
             viewModelScope.async {
                 loginUseCase.invoke(email, contrasena)
+            }.isCompleted.right()
+        }else{
+            isValidEmailPassw(email, contrasena).left()
+        }
+    }
+
+    fun register(email : String,contrasena : String) : Either<String?,Boolean> {
+        return if (isValidEmailPassw(email, contrasena) != null) {
+            viewModelScope.async {
+                registerUseCase.invoke(email, contrasena)
             }.isCompleted.right()
         }else{
             isValidEmailPassw(email, contrasena).left()

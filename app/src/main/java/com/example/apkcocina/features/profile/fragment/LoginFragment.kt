@@ -1,4 +1,4 @@
-package com.example.apkcocina.features.profile.fragment.login
+package com.example.apkcocina.features.profile.fragment
 
 import android.app.AlertDialog
 import android.content.Context
