@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.apkcocina"
-        minSdk 28
+        minSdk 22
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -87,5 +87,8 @@ dependencies {
 
     //VIEWMODEL SCOPE
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1'
+
+    //EITHER
+    implementation "io.arrow-kt:arrow-core:0.13.3"
 
 }

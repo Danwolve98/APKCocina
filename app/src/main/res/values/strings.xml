@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">APKCocina</string>
+    <string name="app_name" translatable="false">APKocina</string>
 
     <!--INICIO-->
     <string name="inicio">Inicio</string>

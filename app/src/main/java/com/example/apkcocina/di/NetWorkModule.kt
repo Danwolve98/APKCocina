@@ -3,6 +3,7 @@ package com.example.apkcocina.di
 import android.content.Context
 import androidx.room.Room
 import com.example.apkcocina.utils.db.APKCocinaDataBase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import dagger.Module
@@ -30,4 +31,8 @@ object NetWorkModule {
     @Singleton
     @Provides
     fun providesStorage() : FirebaseStorage = FirebaseStorage.getInstance()
+
+    @Singleton
+    @Provides
+    fun providesAuth() : FirebaseAuth = FirebaseAuth.getInstance().also { it.setLanguageCode("es") }
 }

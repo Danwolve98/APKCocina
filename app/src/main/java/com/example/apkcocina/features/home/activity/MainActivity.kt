@@ -16,11 +16,13 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var firebaseAuth: FirebaseAuth
+    @Inject
+    lateinit var firebaseAuth: FirebaseAuth
     var user : FirebaseUser? = null
     private lateinit var binding : ActivityMainBinding
     private val navController by lazy { (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController }
@@ -36,7 +38,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializeView() {
-        firebaseAuth = FirebaseAuth.getInstance()
         firebaseAuth.signOut()
         user = firebaseAuth.currentUser
         Log.e("NAME",user?.displayName ?: "sin nombre")
