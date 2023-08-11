@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">APKocina</string>
 
+    <string name="error_login">Error al intentar hacer login</string>
+
     <!--INICIO-->
     <string name="inicio">Inicio</string>
     <string name="perfil">Perfil</string>
@@ -22,6 +24,12 @@
     <string name="reestablecer_contrasena">Reestablecer contraseña</string>
     <string name="enviado">Enviado</string>
     <string name="chef_curioso">Chef curioso</string>
+    <string name="contrasena_demasiado_corta">Contraseña demasiado corta</string>
+    <string name="contrasena_debe_incluir_al_menos_una_mayuscula">Contraseña debe incluir al menos una mayúscula</string>
+    <string name="contrasena_debe_incluir_al_menos_un_caracter_especial">Contraseña debe incluir al menos un carácter especial</string>
+    <string name="escribe_un_email_valido">Escribe un email valido</string>
+    <string name="email_o_contrasena_no_validos">Email o contraseña no válidos</string>
+    <string name="usuario_no_existe">Usuario no existe</string>
 
     <!--PROFILE-->
     <string name="nombre">Nombre</string>

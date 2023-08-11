@@ -25,6 +25,24 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
+    <style name="FormEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="singleLine">true</item>
+        <item name="maxLines">1</item>
+        <item name="android:paddingRight">16dp</item>0
+        <item name="android:textColorHint">@color/black_soft</item>
+    </style>
 
+    <style name="FormTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="android:gravity">center_vertical</item>
+        <item name="errorEnabled">true</item>
+        <item name="android:textColorHint">@color/base_3</item>
+        <item name="boxStrokeColor">@color/base_4</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="errorTextColor">@color/red</item>
+        <item name="hintTextColor">@color/red</item>
+    </style>
     
 </resources>

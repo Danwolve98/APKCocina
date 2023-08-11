@@ -7,20 +7,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.apkcocina.R
 import com.example.apkcocina.databinding.LoginFragmentBinding
 import com.example.apkcocina.features.home.activity.MainActivity
+import com.example.apkcocina.features.profile.viewModel.ProfileViewModel
 import com.example.apkcocina.utils.extensions.invisible
+import com.example.apkcocina.utils.states.LoginResult
 import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.UserProfileChangeRequest
-import com.google.firebase.auth.ktx.actionCodeSettings
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -34,7 +38,7 @@ class LoginFragment : Fragment() {
     lateinit var fireBaseAuth : FirebaseAuth
     private lateinit var authListener : AuthStateListener
 
-
+    private val profileViewModel: ProfileViewModel by viewModels()
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = requireActivity() as MainActivity
@@ -63,40 +67,38 @@ class LoginFragment : Fragment() {
             btRegistrarse.setOnClickListener { registrar() }
             btIniciarSesion.setOnClickListener { login() }
         }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                profileViewModel.profileViewState.collect{ loginViewState->
+                    mainActivity.setLoading(loginViewState.isLoading)
+                    with(binding){
+                        updateView(etCorreoLogin,loginViewState.isValidEmail)
+                        updateView(etContrasenaLogin,loginViewState.isValidPassword)
+                    }
+                }
+            }
+        }
+
+    }
+
+
+    private fun updateView(et: AppCompatEditText, valid: Boolean) {
+        if(!valid)
+            et.setTextColor(requireContext().getColor(R.color.red))
+        else
+            et.setTextColor(requireContext().getColor(R.color.green_base))
     }
 
     private fun login() {
-        mainActivity.setLoading(true)
         val correo = binding.etCorreoLogin.text.toString()
         val contrasena = binding.etContrasenaLogin.text.toString()
-        if (validEntryTexts(correo, contrasena)) {
-            fireBaseAuth.signInWithEmailAndPassword(correo, contrasena)
-                .addOnCompleteListener { login ->
-                    if (login.isSuccessful && fireBaseAuth.currentUser?.isEmailVerified == true) {
-                        mainActivity.setCurrentUser(fireBaseAuth.currentUser!!)
-                        showAlert(
-                            "Bienvenido",
-                            "Bienvenido ${fireBaseAuth.currentUser!!.displayName}"
-                        )
-                        mainActivity.setLoading(false)
-                        hideFragment()
-                    } else if(fireBaseAuth.currentUser?.isEmailVerified == true){
-                        showAlert(
-                            "Error",
-                            "Este usuario no esta verificado, te hemos enviado una verificación a tu correo"
-                        )
-                        enviarEmailVerificacion(fireBaseAuth.currentUser,correo)
-                    } else{
-                        mainActivity.setLoading(false)
-                        showAlert<AuthResult>(login)
-                    }
-                }
-        }
+        profileViewModel.login(correo,contrasena)
     }
 
     private fun registrar() {
         mainActivity.setLoading(true)
-        val correo = binding.etCorreoLogin.text.toString()
+        /*val correo = binding.etCorreoLogin.text.toString()
         val contrasena = binding.etContrasenaLogin.text.toString()
         if (validEntryTexts(correo, contrasena)) {
             fireBaseAuth.createUserWithEmailAndPassword(correo, contrasena)
@@ -104,7 +106,7 @@ class LoginFragment : Fragment() {
                     if (creacionTask.isSuccessful) {
                         val user = fireBaseAuth.currentUser!!
                         mainActivity.setCurrentUser(user)
-                        enviarEmailVerificacion(user, correo)
+                        enviarEmailVerificacion(correo)
                     } else {
                         mainActivity.setLoading(false)
                         Toast.makeText(
@@ -115,48 +117,11 @@ class LoginFragment : Fragment() {
                         showAlert<AuthResult>(creacionTask)
                     }
                 }
-        }
+        }*/
     }
 
-    private fun enviarEmailVerificacion(user: FirebaseUser?, correo: String) {
-        val actionCodeSettings = actionCodeSettings {
-            url = "https://google.com"
-            handleCodeInApp = true
-            //setAndroidPackageName("com.example.apkcocina", true, "22")
-        }
+    private fun enviarEmailVerificacion(correo: String) {
 
-        user?.sendEmailVerification(actionCodeSettings)?.addOnCompleteListener { emailSent ->
-            if (emailSent.isSuccessful) {
-                showAlert(
-                    getString(R.string.enviado),
-                    "Se ha enviado un email de confirmación a la dirección: $correo"
-                )
-                authListener = AuthStateListener {
-                    if (user.isEmailVerified) {
-                        mainActivity.setLoading(false)
-                        val profileUpdates = UserProfileChangeRequest.Builder()
-                            .setDisplayName(getString(R.string.chef_curioso))
-                            .build()
-                        user.updateProfile(profileUpdates)
-                        hideFragment()
-                        showAlert(
-                            getString(R.string.enviado),
-                            "Email verificado con éxito, bienvenido ${user.displayName}"
-                        )
-                        mainActivity.setCurrentUser(fireBaseAuth.currentUser!!)
-                        fireBaseAuth.removeAuthStateListener { authListener }
-                    }else {
-                        mainActivity.setLoading(false)
-                        showAlert<Void>(emailSent)
-                    }
-                }
-
-                fireBaseAuth.addAuthStateListener {authListener}
-            }else{
-                mainActivity.setLoading(false)
-                showAlert<Void>(emailSent)
-            }
-        }
     }
 
 
