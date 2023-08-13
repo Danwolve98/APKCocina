@@ -127,7 +127,7 @@
         android:id="@+id/cl_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="3dp"
+        android:elevation="5dp"
         android:background="@color/background_semi_transparent_black"
         android:visibility="gone"
         >

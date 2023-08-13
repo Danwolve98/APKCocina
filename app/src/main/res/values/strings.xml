@@ -2,6 +2,9 @@
     <string name="app_name" translatable="false">APKocina</string>
 
     <string name="error_login">Error al intentar hacer login</string>
+    <string name="error_register">Error al intentar registrarse</string>
+    <string name="se_ha_enviado_un_email_de_verificacion_a_tu_correo">Se ha enviado un email de verificación a tu correo</string>
+    <string name="verificacion_con_exito">Verificación con éxito</string>
 
     <!--INICIO-->
     <string name="inicio">Inicio</string>

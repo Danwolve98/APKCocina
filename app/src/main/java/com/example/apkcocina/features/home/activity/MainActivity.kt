@@ -3,6 +3,7 @@ package com.example.apkcocina.features.home.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.apkcocina.R
@@ -82,6 +83,7 @@ class MainActivity : AppCompatActivity() {
         }else{
             binding.clLoading.invisible()
         }
+        Log.e("ACTIVO",binding.clLoading.isVisible.toString())
     }
 
     fun setCurrentUser(newUser : FirebaseUser) {

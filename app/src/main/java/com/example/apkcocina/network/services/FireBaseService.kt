@@ -1,14 +1,15 @@
 package com.example.apkcocina.network.services
 
 import android.content.Context
-import android.util.Log
-import android.widget.Toast
+import arrow.core.left
 import com.example.apkcocina.R
 import com.example.apkcocina.utils.states.LoginResult
+import com.example.apkcocina.utils.states.RegisterResult
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -35,16 +36,23 @@ class FireBaseService @Inject constructor(
         runCatching {
             auth.signInWithEmailAndPassword(email, password).await()
         }.onFailure {
-            when(val problema = it){
-                is FirebaseAuthInvalidCredentialsException-> Log.e("PAPAPA",problema.message!!)
-                is FirebaseAuthInvalidUserException->Log.e("PEPEPEPEPE",problema.message!!)
-                else->Log.e("POOOOOOOOO",problema.message!!)
+            return when(it){
+                is FirebaseAuthInvalidCredentialsException-> LoginResult.NoValidPassword
+                is FirebaseAuthInvalidUserException->LoginResult.NoExistAccount
+                else->LoginResult.NotLogged
             }
         }.toLoginResult()
 
-    suspend fun createAccount(email: String, password: String): AuthResult? {
-        return auth.createUserWithEmailAndPassword(email, password).await()
-    }
+    suspend fun createAccount(email: String, password: String) : RegisterResult =
+        runCatching {
+            auth.createUserWithEmailAndPassword(email, password).await()
+        }.onFailure {
+            return when(it){
+                is FirebaseAuthUserCollisionException-> RegisterResult.DuplicatedAccount
+                else -> {RegisterResult.Error(it.message.toString())}
+            }
+        }.toRegisterResult()
+
 
     suspend fun sendVerificationEmail() = runCatching {
         auth.currentUser?.sendEmailVerification()?.await()
@@ -63,6 +71,14 @@ class FireBaseService @Inject constructor(
                 LoginResult.Logged(result.user!!)
             else
                 LoginResult.UnverifiedEmail
+        }
+    }
+
+    private fun Result<AuthResult>.toRegisterResult() = when (val result = getOrNull()) {
+        null -> RegisterResult.Error(context.getString(R.string.error_login))
+        else -> {
+            checkNotNull(result.user)
+            RegisterResult.Registered(result.user!!)
         }
     }
 

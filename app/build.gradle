@@ -72,6 +72,8 @@ dependencies {
 
     //corrutinas
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.2'
 
     //FIREBASE
     implementation platform('com.google.firebase:firebase-bom:32.2.0')

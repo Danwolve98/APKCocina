@@ -3,9 +3,11 @@ package com.example.apkcocina.features.profile.fragment
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.Fragment
@@ -19,12 +21,13 @@ import com.example.apkcocina.databinding.LoginFragmentBinding
 import com.example.apkcocina.features.home.activity.MainActivity
 import com.example.apkcocina.features.profile.viewModel.ProfileViewModel
 import com.example.apkcocina.utils.extensions.invisible
-import com.example.apkcocina.utils.states.LoginResult
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -33,6 +36,7 @@ class LoginFragment : Fragment() {
     private var _binding : LoginFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var mainActivity : MainActivity
+    private var frameLayout : FragmentContainerView? = null
 
     @Inject
     lateinit var fireBaseAuth : FirebaseAuth
@@ -58,7 +62,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        frameLayout = requireActivity().findViewById(R.id.fragment_container_login)
         initializeView()
     }
 
@@ -68,15 +72,52 @@ class LoginFragment : Fragment() {
             btIniciarSesion.setOnClickListener { login() }
         }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED){
-                profileViewModel.profileViewState.collect{ loginViewState->
-                    mainActivity.setLoading(loginViewState.isLoading)
-                    with(binding){
-                        updateView(etCorreoLogin,loginViewState.isValidEmail)
-                        updateView(etContrasenaLogin,loginViewState.isValidPassword)
-                    }
+        initialiceListeners()
+    }
+
+
+    private fun initialiceListeners() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileViewModel.profileViewState.collect { profileViewState ->
+                    withContext(Dispatchers.Main){ mainActivity.setLoading(profileViewState.isLoading) }
                 }
+            }
+        }
+
+        profileViewModel.loginResult.observe(viewLifecycleOwner){ event ->
+            event.getContentIfNotHandled()?.let{loginResult->
+                mainActivity.setCurrentUser(loginResult.user)
+                frameLayout?.invisible()
+            }
+        }
+
+        profileViewModel.loginError.observe(viewLifecycleOwner){ event ->
+            event.getContentIfNotHandled()?.let{loginError->
+                Toast.makeText(requireContext(),loginError,Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        profileViewModel.registerResult.observe(viewLifecycleOwner){ event ->
+            event.getContentIfNotHandled()?.let{registerResult->
+                mainActivity.setCurrentUser(registerResult.user)
+                if(!registerResult.user.isEmailVerified){
+                    profileViewModel.sendEmailVerification()
+                }
+            }
+        }
+
+        profileViewModel.verifiedEmail.observe(viewLifecycleOwner){ event ->
+            event.getContentIfNotHandled()?.let{verified->
+                if(verified){
+                    Toast.makeText(requireContext(),getString(R.string.verificacion_con_exito),Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        profileViewModel.registerError.observe(viewLifecycleOwner){ event ->
+            event.getContentIfNotHandled()?.let{registerError->
+                Toast.makeText(requireContext(),registerError,Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -97,27 +138,9 @@ class LoginFragment : Fragment() {
     }
 
     private fun registrar() {
-        mainActivity.setLoading(true)
-        /*val correo = binding.etCorreoLogin.text.toString()
+        val correo = binding.etCorreoLogin.text.toString()
         val contrasena = binding.etContrasenaLogin.text.toString()
-        if (validEntryTexts(correo, contrasena)) {
-            fireBaseAuth.createUserWithEmailAndPassword(correo, contrasena)
-                .addOnCompleteListener { creacionTask ->
-                    if (creacionTask.isSuccessful) {
-                        val user = fireBaseAuth.currentUser!!
-                        mainActivity.setCurrentUser(user)
-                        enviarEmailVerificacion(correo)
-                    } else {
-                        mainActivity.setLoading(false)
-                        Toast.makeText(
-                            requireContext(),
-                            creacionTask.exception.toString(),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        showAlert<AuthResult>(creacionTask)
-                    }
-                }
-        }*/
+        profileViewModel.register(correo,contrasena)
     }
 
     private fun enviarEmailVerificacion(correo: String) {
