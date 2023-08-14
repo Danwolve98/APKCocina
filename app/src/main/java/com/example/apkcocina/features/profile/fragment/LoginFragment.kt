@@ -101,9 +101,6 @@ class LoginFragment : Fragment() {
         profileViewModel.registerResult.observe(viewLifecycleOwner){ event ->
             event.getContentIfNotHandled()?.let{registerResult->
                 mainActivity.setCurrentUser(registerResult.user)
-                if(!registerResult.user.isEmailVerified){
-                    profileViewModel.sendEmailVerification()
-                }
             }
         }
 
@@ -111,6 +108,8 @@ class LoginFragment : Fragment() {
             event.getContentIfNotHandled()?.let{verified->
                 if(verified){
                     Toast.makeText(requireContext(),getString(R.string.verificacion_con_exito),Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(requireContext(),"Hubo un problema al verificar la cuenta",Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -142,11 +141,6 @@ class LoginFragment : Fragment() {
         val contrasena = binding.etContrasenaLogin.text.toString()
         profileViewModel.register(correo,contrasena)
     }
-
-    private fun enviarEmailVerificacion(correo: String) {
-
-    }
-
 
     private fun validEntryTexts(correo : String, contrasena : String) = correo.isNotEmpty() && contrasena.isNotEmpty()
 

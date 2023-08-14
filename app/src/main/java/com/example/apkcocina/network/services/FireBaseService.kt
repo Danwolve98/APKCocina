@@ -25,9 +25,10 @@ class FireBaseService @Inject constructor(
     ) {
 
     val verifiedAccount: Flow<Boolean> = flow {
-        while (true) {
-            val verified = verifyEmailIsVerified()
-            emit(verified)
+        var verifiedEmail = false
+        while (!verifiedEmail) {
+            verifiedEmail = verifyEmailIsVerified()
+            emit(verifiedEmail)
             delay(2000)
         }
     }

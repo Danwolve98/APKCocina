@@ -91,8 +91,10 @@ class ProfileViewModel @Inject constructor(
                         _registerError.value = Event(registerResult.error)
                         _profileViewState.value=ProfileState(isLoading = false)
                     }
-                    else -> {_registerError.value = Event("error desconocido")
-                        _profileViewState.value=ProfileState(isLoading = false)}
+                    RegisterResult.DuplicatedAccount-> {
+                        _registerError.value = Event("Cuenta ya existente, inicie sesión")
+                        _profileViewState.value=ProfileState(isLoading = false)
+                    }
                 }
             }
         }else{
@@ -107,12 +109,12 @@ class ProfileViewModel @Inject constructor(
                 Toast.makeText(context,context.getString(R.string.se_ha_enviado_un_email_de_verificacion_a_tu_correo),Toast.LENGTH_SHORT).show()
             }
             verifyEmailUseCase().catch {
-
+                _verifiedEmail.value = Event(false)
             }.collect{verificado->
                 if(verificado){
-                    //verifyEmailUseCase().cancellable()
                     _verifiedEmail.value = Event(verificado)
                     _profileViewState.value=ProfileState(isLoading = false)
+                    this.cancel()
                 }
             }
         }
