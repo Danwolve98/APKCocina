@@ -73,6 +73,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="parent"
+        android:tag="@string/ajustes"
         android:name="com.example.apkcocina.features.profile.fragment.LoginFragment"
         tools:layout="@layout/login_fragment"
         android:visibility="visible"/>

@@ -95,6 +95,4 @@ class MainActivity : AppCompatActivity() {
         navController.navigate(accion,bundle)
     }
 
-
-
 }

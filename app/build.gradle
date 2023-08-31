@@ -93,5 +93,8 @@ dependencies {
     //EITHER
     implementation "io.arrow-kt:arrow-core:0.13.3"
 
+    //Lottie
+    implementation 'com.airbnb.android:lottie:5.0.3'
+
 
 }

@@ -40,7 +40,6 @@ class LoginFragment : Fragment() {
 
     @Inject
     lateinit var fireBaseAuth : FirebaseAuth
-    private lateinit var authListener : AuthStateListener
 
     private val profileViewModel: ProfileViewModel by viewModels()
     override fun onAttach(context: Context) {
@@ -71,16 +70,15 @@ class LoginFragment : Fragment() {
             btRegistrarse.setOnClickListener { registrar() }
             btIniciarSesion.setOnClickListener { login() }
         }
-
         initialiceListeners()
     }
 
 
     private fun initialiceListeners() {
-        lifecycleScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch{
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 profileViewModel.profileViewState.collect { profileViewState ->
-                    withContext(Dispatchers.Main){ mainActivity.setLoading(profileViewState.isLoading) }
+                    mainActivity.setLoading(profileViewState.isLoading)
                 }
             }
         }
@@ -108,8 +106,10 @@ class LoginFragment : Fragment() {
             event.getContentIfNotHandled()?.let{verified->
                 if(verified){
                     Toast.makeText(requireContext(),getString(R.string.verificacion_con_exito),Toast.LENGTH_SHORT).show()
+                    frameLayout?.invisible()
                 }else{
-                    Toast.makeText(requireContext(),"Hubo un problema al verificar la cuenta",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(),getString(R.string.hubo_un_problema_al_verificar_la_cuenta),Toast.LENGTH_SHORT).show()
+                    mainActivity.supportFragmentManager.beginTransaction().remove(this).commit()
                 }
             }
         }
@@ -121,7 +121,6 @@ class LoginFragment : Fragment() {
         }
 
     }
-
 
     private fun updateView(et: AppCompatEditText, valid: Boolean) {
         if(!valid)

@@ -22,9 +22,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.cancellable
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 @HiltViewModel
@@ -64,11 +62,11 @@ class ProfileViewModel @Inject constructor(
                 _profileViewState.value= ProfileState(isLoading = true)
                 when(val loginResult = loginUseCase(email,contrasena)){
                     is LoginResult.Logged -> _loginResult.value = Event(loginResult)
-                    is LoginResult.Error -> _loginError.value = Event("error desconocido")
-                    is LoginResult.NoExistAccount->Event("cuenta no existe")
-                    is LoginResult.NoValidPassword->Event("contraseña incorrecta")
+                    is LoginResult.Error -> _loginError.value = Event(loginResult.error)
+                    is LoginResult.NoExistAccount->Event(context.getString(R.string.usuario_no_existe))
+                    is LoginResult.NoValidPassword->Event(context.getString(R.string.email_o_contrasena_no_validos))
                     LoginResult.UnverifiedEmail -> sendEmailVerification()
-                    else ->  _loginError.value = Event("error desconocido")
+                    else ->  _loginError.value = Event(context.getString(R.string.error_default))
                     }
                 _profileViewState.value=ProfileState(isLoading = false)
             }
@@ -92,7 +90,7 @@ class ProfileViewModel @Inject constructor(
                         _profileViewState.value=ProfileState(isLoading = false)
                     }
                     RegisterResult.DuplicatedAccount-> {
-                        _registerError.value = Event("Cuenta ya existente, inicie sesión")
+                        _registerError.value = Event(context.getString(R.string.cuenta_ya_existente_inicie_sesion))
                         _profileViewState.value=ProfileState(isLoading = false)
                     }
                 }

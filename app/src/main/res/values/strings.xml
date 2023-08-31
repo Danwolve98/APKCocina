@@ -1,11 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">APKocina</string>
 
-    <string name="error_login">Error al intentar hacer login</string>
-    <string name="error_register">Error al intentar registrarse</string>
-    <string name="se_ha_enviado_un_email_de_verificacion_a_tu_correo">Se ha enviado un email de verificación a tu correo</string>
-    <string name="verificacion_con_exito">Verificación con éxito</string>
-
     <!--INICIO-->
     <string name="inicio">Inicio</string>
     <string name="perfil">Perfil</string>
@@ -32,8 +27,16 @@
     <string name="contrasena_debe_incluir_al_menos_un_caracter_especial">Contraseña debe incluir al menos un carácter especial</string>
     <string name="escribe_un_email_valido">Escribe un email valido</string>
     <string name="email_o_contrasena_no_validos">Email o contraseña no válidos</string>
-    <string name="usuario_no_existe">Usuario no existe</string>
-
+    <string name="usuario_no_existe">Usuario no existe, regístrate</string>
+    <string name="error_login">Error al intentar hacer login</string>
+    <string name="error_register">Error al intentar registrarse</string>
+    <string name="se_ha_enviado_un_email_de_verificacion_a_tu_correo">Se ha enviado un email de verificación a tu correo</string>
+    <string name="cuenta_no_verificada_se_ha_enviado_un_email_de_verificacion_a_tu_correo">Cuenta no verificada,se ha enviado un email de verificación a tu correo</string>
+    <string name="verificacion_con_exito">Verificación con éxito</string>
+    <string name="error_default">Ha ocurrido un error</string>
+    <string name="cuenta_ya_existente_inicie_sesion">Cuenta ya existente, inicie sesión</string>
+    <string name="hubo_un_problema_al_verificar_la_cuenta">Hubo un problema al verificar la cuenta</string>
+    <string name="verificando">Verificando...</string>
     <!--PROFILE-->
     <string name="nombre">Nombre</string>
     <string name="apellidos">Apellidos</string>
@@ -41,8 +44,6 @@
     <string name="edad">Edad</string>
 
     <!--SETTINGS-->
-
-
 
     <!--RECETASBASE-->
     <string name="recetas_base">Recetas Base</string>
