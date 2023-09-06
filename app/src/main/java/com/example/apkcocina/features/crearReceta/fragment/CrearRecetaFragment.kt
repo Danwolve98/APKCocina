@@ -27,19 +27,17 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CrearRecetaFragment : BaseFragment(){
+class CrearRecetaFragment() : BaseFragment<CrearRecetaFragmentBinding>(){
 
     @Inject
     lateinit var firebaseStorage: FirebaseStorage
     @Inject
     lateinit var firestore: FirebaseFirestore
     override lateinit var actionBar: APKCocinaActionBar
-    private var _binding : CrearRecetaFragmentBinding? = null
-    private val binding get() = _binding!!
+
     private lateinit var mainActivity: MainActivity
     private lateinit var receta : Receta
     private var isButtonPressed : Boolean = false
-
 
     private var productosAdapter = CrearProductosAdapter(listOf())
     override fun onAttach(context: Context) {
@@ -47,18 +45,6 @@ class CrearRecetaFragment : BaseFragment(){
         mainActivity = requireActivity() as MainActivity
         actionBar = TitleActionBar(getString(R.string.crear_receta))
         (activity as MainActivity).configureActionBar(this)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = CrearRecetaFragmentBinding.inflate(inflater,container,false)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

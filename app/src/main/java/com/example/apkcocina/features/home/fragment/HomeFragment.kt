@@ -14,11 +14,9 @@ import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.PrincipalActionBar
 
-class HomeFragment : BaseFragment() {
+class HomeFragment() : BaseFragment<HomeFragmentBinding>() {
 
     override lateinit var actionBar: APKCocinaActionBar
-    private var _binding : HomeFragmentBinding? = null
-    private val binding get() = _binding!!
     private lateinit var mainActivity : MainActivity
 
     override fun onAttach(context: Context) {
@@ -26,17 +24,6 @@ class HomeFragment : BaseFragment() {
         mainActivity = requireActivity() as MainActivity
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = HomeFragmentBinding.inflate(inflater,container,false)
-        return binding.root
-    }
 
     companion object {
         fun newInstance() = HomeFragment()

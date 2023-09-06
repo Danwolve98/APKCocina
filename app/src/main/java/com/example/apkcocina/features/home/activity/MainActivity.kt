@@ -3,9 +3,11 @@ package com.example.apkcocina.features.home.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import androidx.viewbinding.ViewBinding
 import com.example.apkcocina.R
 import com.example.apkcocina.databinding.ActivityMainBinding
 import com.example.apkcocina.utils.base.BaseFragment
@@ -53,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    fun configureActionBar(fragment : BaseFragment){
+    fun<vb : ViewBinding> configureActionBar(fragment : BaseFragment<vb>){
         val actionBar = fragment.actionBar
         binding.apply {
             ivLogo.invisible()

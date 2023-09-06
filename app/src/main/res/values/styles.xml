@@ -38,11 +38,11 @@
     <style name="FormTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="android:gravity">center_vertical</item>
         <item name="errorEnabled">true</item>
-        <item name="android:textColorHint">@color/base_3</item>
-        <item name="boxStrokeColor">@color/base_4</item>
-        <item name="boxStrokeWidth">1dp</item>
+        <item name="android:textColorHint">@color/base_6</item>
+        <item name="boxStrokeColor">@color/green_base</item>
+        <item name="boxStrokeWidth">2dp</item>
         <item name="errorTextColor">@color/red</item>
-        <item name="hintTextColor">@color/red</item>
+        <item name="hintTextColor">@color/black</item>
     </style>
     
 </resources>

@@ -21,14 +21,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RecetasBaseFragment() : BaseFragment() {
+class RecetasBaseFragment() : BaseFragment<RecetasBaseFragmentBinding>() {
 
     @Inject
     lateinit var firebaseStorage: FirebaseStorage
     val recetasBaseViewModel : RecetasBaseViewModel by viewModels()
     override lateinit var actionBar: APKCocinaActionBar
-    private var _binding : RecetasBaseFragmentBinding? = null
-    private val binding get() = _binding!!
+
     private lateinit var mainActivity: MainActivity
     private var listaRecetasBase : List<Receta>? = null
 
@@ -56,8 +55,8 @@ class RecetasBaseFragment() : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         if(view == null){
-            _binding = RecetasBaseFragmentBinding.inflate(inflater,container,false)
-            view = _binding!!.root
+            binding = RecetasBaseFragmentBinding.inflate(inflater,container,false)
+            view = binding!!.root
         }
         return view as View
     }

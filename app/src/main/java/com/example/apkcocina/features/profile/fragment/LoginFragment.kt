@@ -20,6 +20,8 @@ import com.example.apkcocina.R
 import com.example.apkcocina.databinding.LoginFragmentBinding
 import com.example.apkcocina.features.home.activity.MainActivity
 import com.example.apkcocina.features.profile.viewModel.ProfileViewModel
+import com.example.apkcocina.utils.base.APKCocinaActionBar
+import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.extensions.invisible
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
@@ -31,13 +33,11 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LoginFragment : Fragment() {
+class LoginFragment() : BaseFragment<LoginFragmentBinding>() {
 
-    private var _binding : LoginFragmentBinding? = null
-    private val binding get() = _binding!!
     private lateinit var mainActivity : MainActivity
     private var frameLayout : FragmentContainerView? = null
-
+    override lateinit var actionBar: APKCocinaActionBar
     @Inject
     lateinit var fireBaseAuth : FirebaseAuth
 
@@ -45,18 +45,6 @@ class LoginFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = requireActivity() as MainActivity
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = LoginFragmentBinding.inflate(inflater,container,false)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

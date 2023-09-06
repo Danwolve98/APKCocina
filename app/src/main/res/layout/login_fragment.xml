@@ -24,19 +24,27 @@
             app:layout_constraintStart_toEndOf="@id/guideline3"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_correo_login"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il_correo_login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:backgroundTint="@color/black_soft"
             android:hint="@string/correo"
-            android:text="bombeto987@gmail.com"
             android:textColor="@color/black_soft"
-            android:textColorHint="@color/black_soft"
+            style="@style/FormTextInputLayout"
             app:layout_constraintEnd_toStartOf="@id/guideline4"
             app:layout_constraintStart_toEndOf="@id/guideline3"
-            app:layout_constraintTop_toBottomOf="@id/iv_login_logo" />
+            app:layout_constraintTop_toBottomOf="@id/iv_login_logo">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_correo_login"
+                android:layout_width="match_parent"
+                android:text="bombeto987@gmail.com"
+                style="@style/FormEditText"
+                android:inputType="textEmailAddress"
+                android:layout_height="match_parent"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_contrasena_login"
@@ -51,7 +59,7 @@
             android:inputType="textPassword"
             app:layout_constraintEnd_toStartOf="@id/guideline4"
             app:layout_constraintStart_toEndOf="@id/guideline3"
-            app:layout_constraintTop_toBottomOf="@id/et_correo_login" />
+            app:layout_constraintTop_toBottomOf="@id/il_correo_login"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/bt_iniciar_sesion"

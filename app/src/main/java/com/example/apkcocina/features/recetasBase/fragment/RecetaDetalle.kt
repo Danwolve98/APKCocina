@@ -18,11 +18,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RecetaDetalle : BaseFragment() {
+class RecetaDetalle : BaseFragment<RecetaDetalleFragmentBinding>() {
 
     override lateinit var actionBar: APKCocinaActionBar
-    private var _binding : RecetaDetalleFragmentBinding? = null
-    private val binding get() = _binding!!
+
     private lateinit var mainActivity: MainActivity
     private lateinit var receta : Receta
     @Inject
@@ -34,18 +33,6 @@ class RecetaDetalle : BaseFragment() {
         mainActivity = requireActivity() as MainActivity
         actionBar = TitleActionBar(receta.nombre.toString())
         (activity as MainActivity).configureActionBar(this)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = RecetaDetalleFragmentBinding.inflate(inflater,container,false)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
