@@ -27,6 +27,11 @@
     <string name="contrasena_debe_incluir_al_menos_un_caracter_especial">Contraseña debe incluir al menos un carácter especial</string>
     <string name="escribe_un_email_valido">Escribe un email valido</string>
     <string name="email_o_contrasena_no_validos">Email o contraseña no válidos</string>
+    <string name="email_no_es_valido">Email no válido</string>
+    <string name="contrasena_no_es_valida">Constraseña no válida:</string>
+    <string name="debe_contener_una_mayuscula">*Debe contener al menos una mayúscula</string>
+    <string name="debe_contener_un_numero">*Debe contener al menos un dígito</string>
+    <string name="debe_tener_minimo_seis_caracteres">*Debe contener una longitud mínima de 6</string>
     <string name="usuario_no_existe">Usuario no existe, regístrate</string>
     <string name="error_login">Error al intentar hacer login</string>
     <string name="error_register">Error al intentar registrarse</string>

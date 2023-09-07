@@ -6,10 +6,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup
 import com.example.apkcocina.R
 import com.example.apkcocina.utils.model.Receta
 import com.example.apkcocina.databinding.CrearRecetaFragmentBinding
@@ -18,7 +16,7 @@ import com.example.apkcocina.features.home.activity.MainActivity
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.TitleActionBar
-import com.example.apkcocina.utils.extensions.Constants
+import com.example.apkcocina.utils.base.Constants
 import com.example.apkcocina.utils.model.Alergenos
 import com.example.apkcocina.utils.model.Producto
 import com.google.firebase.firestore.FirebaseFirestore

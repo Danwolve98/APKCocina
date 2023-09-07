@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatEditText
@@ -23,6 +24,8 @@ import com.example.apkcocina.features.profile.viewModel.ProfileViewModel
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.extensions.invisible
+import com.example.apkcocina.utils.extensions.loseFocusAfterAction
+import com.example.apkcocina.utils.extensions.onTextChanged
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
@@ -54,11 +57,33 @@ class LoginFragment() : BaseFragment<LoginFragmentBinding>() {
     }
 
     private fun initializeView() {
-        binding.apply {
+
+        with(binding){
             btRegistrarse.setOnClickListener { registrar() }
             btIniciarSesion.setOnClickListener { login() }
+
+            ilCorreoLogin.setErrorIconOnClickListener{
+                etCorreoLogin.text!!.clear()
+            }
+
+            etCorreoLogin.loseFocusAfterAction(EditorInfo.IME_ACTION_NEXT)
+            etCorreoLogin.onTextChanged { onFieldChanged() }
+
+            etContrasenaLogin.loseFocusAfterAction(EditorInfo.IME_ACTION_DONE)
+            etContrasenaLogin.setOnFocusChangeListener { _, hasFocus -> onFieldChanged(hasFocus) }
+            etContrasenaLogin.onTextChanged { onFieldChanged() }
         }
+
         initialiceListeners()
+    }
+
+    private fun onFieldChanged(hasFocus: Boolean = false) {
+        if (!hasFocus) {
+            profileViewModel.onFieldsChanged(
+                email = binding.etCorreoLogin.text.toString(),
+                password = binding.etContrasenaLogin.text.toString()
+            )
+        }
     }
 
 
@@ -67,6 +92,10 @@ class LoginFragment() : BaseFragment<LoginFragmentBinding>() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 profileViewModel.profileViewState.collect { profileViewState ->
                     mainActivity.setLoading(profileViewState.isLoading)
+                    binding.ilCorreoLogin.error =
+                        if(profileViewState.isValidEmail)null else getString(R.string.email_no_es_valido)
+                    binding.ilContrasenaLogin.error =
+                        if(profileViewState.isValidPassword.first)null else profileViewState.isValidPassword.second
                 }
             }
         }

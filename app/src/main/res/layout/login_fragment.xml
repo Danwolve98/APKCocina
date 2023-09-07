@@ -22,7 +22,7 @@
             android:src="@drawable/apkocina_logo"
             app:layout_constraintEnd_toStartOf="@id/guideline4"
             app:layout_constraintStart_toEndOf="@id/guideline3"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/il_correo_login"
@@ -32,34 +32,44 @@
             android:hint="@string/correo"
             android:textColor="@color/black_soft"
             style="@style/FormTextInputLayout"
+            app:endIconMode="clear_text"
             app:layout_constraintEnd_toStartOf="@id/guideline4"
             app:layout_constraintStart_toEndOf="@id/guideline3"
             app:layout_constraintTop_toBottomOf="@id/iv_login_logo">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_correo_login"
-                android:layout_width="match_parent"
-                android:text="bombeto987@gmail.com"
                 style="@style/FormEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:inputType="textEmailAddress"
-                android:layout_height="match_parent"/>
+                android:text="bombeto987@gmail.com" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_contrasena_login"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il_contrasena_login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:backgroundTint="@color/black_soft"
+            android:layout_marginTop="20dp"
             android:hint="@string/contrasena"
-            android:text="popopo"
             android:textColor="@color/black_soft"
-            android:textColorHint="@color/black_soft"
-            android:inputType="textPassword"
+            style="@style/FormTextInputLayout"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/base_6"
             app:layout_constraintEnd_toStartOf="@id/guideline4"
             app:layout_constraintStart_toEndOf="@id/guideline3"
-            app:layout_constraintTop_toBottomOf="@id/il_correo_login"/>
+            app:layout_constraintTop_toBottomOf="@id/il_correo_login">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_contrasena_login"
+                style="@style/FormEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
+                android:text="popopo"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/bt_iniciar_sesion"
@@ -70,7 +80,7 @@
             android:text="@string/iniciar_sesion"
             app:layout_constraintEnd_toStartOf="@id/guideline4"
             app:layout_constraintStart_toEndOf="@id/guideline3"
-            app:layout_constraintTop_toBottomOf="@id/et_contrasena_login" />
+            app:layout_constraintTop_toBottomOf="@id/il_contrasena_login" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/bt_registrarse"

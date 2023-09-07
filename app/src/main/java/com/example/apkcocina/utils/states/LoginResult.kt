@@ -19,4 +19,4 @@ sealed class RegisterResult(){
 
 class ProfileState(var isLoading: Boolean = false,
                    var isValidEmail: Boolean = true,
-                   var isValidPassword: Boolean = true)
+                   var isValidPassword: Pair<Boolean,String?> = Pair(true,null))

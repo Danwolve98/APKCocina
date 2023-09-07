@@ -1,6 +1,7 @@
 package com.example.apkcocina.utils.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import java.io.Serializable
 @Entity(tableName = "recetas")
 class Receta(
@@ -22,7 +23,5 @@ class Receta(
             "${imagenes!![0]}/${imagenes!![0]}.jpg"
         else
             ""
-
-
 
 }

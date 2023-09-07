@@ -31,7 +31,7 @@
         <item name="android:paddingLeft">16dp</item>
         <item name="singleLine">true</item>
         <item name="maxLines">1</item>
-        <item name="android:paddingRight">16dp</item>0
+        <item name="android:paddingRight">16dp</item>
         <item name="android:textColorHint">@color/black_soft</item>
     </style>
 
@@ -39,9 +39,10 @@
         <item name="android:gravity">center_vertical</item>
         <item name="errorEnabled">true</item>
         <item name="android:textColorHint">@color/base_6</item>
-        <item name="boxStrokeColor">@color/green_base</item>
+        <item name="boxStrokeColor">@color/stroke_color_selector</item>
         <item name="boxStrokeWidth">2dp</item>
         <item name="errorTextColor">@color/red</item>
+        <item name="boxStrokeErrorColor">@color/red</item>
         <item name="hintTextColor">@color/black</item>
     </style>
     

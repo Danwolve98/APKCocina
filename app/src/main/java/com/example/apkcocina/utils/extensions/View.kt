@@ -18,3 +18,10 @@ fun View.hideKeyboard(completed: () -> Unit = {}) {
     val wasOpened = inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
     if (!wasOpened) completed()
 }
+
+fun View.dismissKeyboard(completed: () -> Unit = {}) {
+    val inputMethodManager =
+        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    val wasOpened = inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
+    if (!wasOpened) completed()
+}

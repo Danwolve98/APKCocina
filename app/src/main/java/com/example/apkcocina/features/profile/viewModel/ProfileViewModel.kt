@@ -57,7 +57,7 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun login(email : String,contrasena : String) {
-        if (isValidEmail(email) && isValidPassword(contrasena)) {
+        if (isValidEmail(email) && isValidPassword(contrasena).first) {
             viewModelScope.launch() {
                 _profileViewState.value= ProfileState(isLoading = true)
                 when(val loginResult = loginUseCase(email,contrasena)){
@@ -76,7 +76,7 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun register(email : String,contrasena : String){
-        if (isValidEmail(email) && isValidPassword(contrasena)) {
+        if (isValidEmail(email) && isValidPassword(contrasena).first) {
             viewModelScope.launch() {
                 _profileViewState.value= ProfileState(isLoading = true)
                 when(val registerResult = registerUseCase(email,contrasena)){
@@ -117,10 +117,37 @@ class ProfileViewModel @Inject constructor(
             }
         }
 
+    fun onFieldsChanged(email: String, password: String) {
+        _profileViewState.value = ProfileState(
+            isValidEmail = isValidEmail(email),
+            isValidPassword = isValidPassword(password)
+        )
+    }
+
     private fun isValidEmail(correo: String) =
         Patterns.EMAIL_ADDRESS.matcher(correo).matches() || correo.isEmpty()
 
-    private fun isValidPassword(contrasena: String): Boolean =
-        contrasena.length >= MIN_LONG_ENTRY || contrasena.isEmpty()
+    private fun isValidPassword(contrasena: String): Pair<Boolean,String?>{
+        var errorText = context.getString(R.string.contrasena_no_es_valida)
+        var valid = true
+
+        if(contrasena.length < MIN_LONG_ENTRY || contrasena.isEmpty()){
+            errorText = errorText.plus("\n\t"+context.getString(R.string.debe_tener_minimo_seis_caracteres))
+            valid = false
+        }
+
+        if(!contrasena.any{it.isUpperCase()}){
+            errorText = errorText.plus("\n\t"+context.getString(R.string.debe_contener_una_mayuscula))
+            valid = false
+        }
+
+        if(!contrasena.any{it.isDigit()}){
+            errorText = errorText.plus("\n\t"+context.getString(R.string.debe_contener_un_numero))
+            valid = false
+        }
+
+        return Pair(valid,errorText)
+    }
+
 
 }

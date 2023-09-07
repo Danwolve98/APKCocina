@@ -52,14 +52,13 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromStringtoHashMap(value: String?): HashMap<String,String>? {
-        val listType: Type = object : com.google.gson.reflect.TypeToken<HashMap<String,String>?>() {}.type
-        return Gson().fromJson(value, listType)
+    fun fromHashMap(value: HashMap<String, String>?): String? {
+        return Gson().toJson(value)
     }
 
     @TypeConverter
-    fun fromHashMaptoString(list: HashMap<String,String>?): String {
-        return Gson().toJson(list)
+    fun toHashMap(value: String?): HashMap<String, String>? {
+        return Gson().fromJson(value, object : TypeToken<HashMap<String, String>>() {}.type)
     }
 
 }

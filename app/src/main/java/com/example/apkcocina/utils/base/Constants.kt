@@ -1,4 +1,4 @@
-package com.example.apkcocina.utils.extensions
+package com.example.apkcocina.utils.base
 
 class Constants {
 
