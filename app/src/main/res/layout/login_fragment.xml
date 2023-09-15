@@ -40,6 +40,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_correo_login"
                 style="@style/FormEditText"
+                android:imeOptions="actionNext"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textEmailAddress"
@@ -64,6 +65,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_contrasena_login"
                 style="@style/FormEditText"
+                android:imeOptions="actionDone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textPassword"

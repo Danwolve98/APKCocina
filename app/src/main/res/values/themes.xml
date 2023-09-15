@@ -11,7 +11,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <item name="android:fontFamily">@font/karla_camilla</item>
+       <!-- <item name="android:fontFamily">@font/karla_camilla</item>-->
         <!-- Customize your theme here. -->
     </style>
 </resources>
