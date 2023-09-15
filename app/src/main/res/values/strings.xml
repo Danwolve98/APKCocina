@@ -39,6 +39,7 @@
     <string name="cuenta_no_verificada_se_ha_enviado_un_email_de_verificacion_a_tu_correo">Cuenta no verificada,se ha enviado un email de verificación a tu correo</string>
     <string name="verificacion_con_exito">Verificación con éxito</string>
     <string name="error_default">Ha ocurrido un error</string>
+    <string name="error_update_profile">No se ha podido actualizar el usuario, inténtelo más tarde</string>
     <string name="cuenta_ya_existente_inicie_sesion">Cuenta ya existente, inicie sesión</string>
     <string name="hubo_un_problema_al_verificar_la_cuenta">Hubo un problema al verificar la cuenta</string>
     <string name="verificando">Verificando...</string>

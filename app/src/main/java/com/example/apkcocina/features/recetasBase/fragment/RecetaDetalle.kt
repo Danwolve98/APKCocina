@@ -1,6 +1,7 @@
 package com.example.apkcocina.features.recetasBase.fragment
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +30,13 @@ class RecetaDetalle : BaseFragment<RecetaDetalleFragmentBinding>() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        receta = arguments?.getSerializable("receta") as Receta
+
+        receta = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getSerializable("receta",Receta::class.java) ?: Receta()
+        }else{
+            arguments?.getSerializable("receta") as Receta
+        }
+
         mainActivity = requireActivity() as MainActivity
         actionBar = TitleActionBar(receta.nombre.toString())
         (activity as MainActivity).configureActionBar(this)

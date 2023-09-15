@@ -27,6 +27,4 @@ val getRecetasBaseUseCase: GetRecetasBaseUseCase
             loading.postValue(false)
         }
     }
-
-
 }

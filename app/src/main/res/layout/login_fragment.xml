@@ -163,5 +163,4 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.92"/>
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

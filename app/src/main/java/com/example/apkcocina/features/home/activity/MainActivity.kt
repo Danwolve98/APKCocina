@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         firebaseAuth.signOut()
         user = firebaseAuth.currentUser
         Log.e("NAME",user?.displayName ?: "sin nombre")
+
         setupWithNavController(binding.bottomNavigationView,navController)
 
         binding.btBackPressedActionBar.setOnClickListener{
