@@ -41,8 +41,6 @@ class LoginFragment() : BaseFragment<LoginFragmentBinding>() {
     private lateinit var mainActivity : MainActivity
     private var frameLayout : FragmentContainerView? = null
     override lateinit var actionBar: APKCocinaActionBar
-    @Inject
-    lateinit var fireBaseAuth : FirebaseAuth
 
     private val profileViewModel: ProfileViewModel by viewModels()
     override fun onAttach(context: Context) {
@@ -136,7 +134,6 @@ class LoginFragment() : BaseFragment<LoginFragmentBinding>() {
                 Toast.makeText(requireContext(),registerError,Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 
     private fun updateView(et: AppCompatEditText, valid: Boolean) {

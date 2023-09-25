@@ -23,20 +23,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/gradiante_item"/>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/wood_spoon"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:rotation="-25"
-        android:rotationX="30"
-        android:layout_marginTop="40dp"
-        android:scaleType="centerInside"/>
+        />
 
     <View
         android:layout_width="match_parent"
@@ -51,7 +38,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        android:fontFamily="@font/karla_camilla"
         app:layout_constraintBottom_toBottomOf="parent"
         android:gravity="center"
         android:textFontWeight="700"

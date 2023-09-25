@@ -23,5 +23,4 @@ class Receta(
             "${imagenes!![0]}/${imagenes!![0]}.jpg"
         else
             ""
-
 }

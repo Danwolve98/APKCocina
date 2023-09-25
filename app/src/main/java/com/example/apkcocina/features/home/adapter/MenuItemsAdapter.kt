@@ -43,20 +43,19 @@ class MenuItemsAdapter(var listItems : List<String>,val mainActivity: MainActivi
                     if(user!=null){
                         view.setOnClickListener { onItemClickListener(R.id.action_inicio_fragment_to_crearRecetaFragment) }
                     } else{
-                        Toast.makeText(mainActivity.applicationContext, "USUARIO NO ENCONTRADO", Toast.LENGTH_SHORT).show()
+                        view.isEnabled = false
                     }
-
                 }
                 2->{
-                    imageID = R.drawable.recetas_base
+                    imageID = R.drawable.crear_receta
                     view.setOnClickListener { onItemClickListener(R.id.action_inicio_fragment_to_recetasBaseFragment) }
                 }
                 3->{
-                    imageID = R.drawable.recetas_base
+                    imageID = R.drawable.que_cocino_hoy
                     view.setOnClickListener { onItemClickListener(R.id.action_inicio_fragment_to_crearRecetaFragment) }
                 }
                 4->{
-                    imageID = R.drawable.recetas_online
+                    imageID = R.drawable.mas_info
                     view.setOnClickListener { onItemClickListener(R.id.action_inicio_fragment_to_recetasBaseFragment) }
                 }
                 else -> imageID = 0
