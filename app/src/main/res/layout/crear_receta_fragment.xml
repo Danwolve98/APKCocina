@@ -61,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingVertical="10dp"
-                    android:divider="@drawable/divider_alergenos"
+                    android:divider="@drawable/divider_horizontal_10dp"
                     android:gravity="start"
                     android:orientation="horizontal"
                     android:showDividers="middle">
@@ -69,85 +69,85 @@
                     <ToggleButton
                         android:id="@+id/tb_gluten"
                         style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/gluten"
+                        android:background="@drawable/al_gluten"
                         tools:checked="true" />
 
                     <ToggleButton
                         android:id="@+id/tb_crustaceos"
                         style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/crustaceos"
+                        android:background="@drawable/al_crustaceos"
                         tools:checked="true" />
 
                     <ToggleButton
                         android:id="@+id/tb_huevos"
                         style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/huevo"
+                        android:background="@drawable/al_huevo"
                         tools:checked="true" />
 
                     <ToggleButton
                         android:id="@+id/tb_pescado"
                         style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/pescado"
+                        android:background="@drawable/al_pescado"
                         tools:checked="true" />
 
                     <ToggleButton
                         android:id="@+id/tb_cacahuetes"
                         style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/cacahuetes"
+                        android:background="@drawable/al_cacahuetes"
                         tools:checked="true" />
 
                     <ToggleButton
                         android:id="@+id/tb_soja"
                         style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/soja"
+                        android:background="@drawable/al_soja"
                         tools:checked="true" />
 
                     <ToggleButton
                         android:id="@+id/tb_lacteos"
                         style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/lacteos"
+                        android:background="@drawable/al_lacteos"
                         tools:checked="true" />
 
                     <ToggleButton
                         android:id="@+id/tb_frutos_cascara"
                         style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/frutos_de_cascara"
+                        android:background="@drawable/al_frutos_de_cascara"
                         tools:checked="true" />
 
                     <ToggleButton
                         android:id="@+id/tb_apio"
                         style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/apio"
+                        android:background="@drawable/al_apio"
                         tools:checked="true" />
 
                     <ToggleButton
                         android:id="@+id/tb_mostaza"
                         style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/dioxido_de_azufre_y_sulfitos"
+                        android:background="@drawable/al_dioxido_de_azufre_y_sulfitos"
                         tools:checked="true" />
 
                     <ToggleButton
                         android:id="@+id/tb_granos_sesamo"
                         style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/granos_de_sesamo"
+                        android:background="@drawable/al_granos_de_sesamo"
                         tools:checked="true" />
 
                     <ToggleButton
                         android:id="@+id/tb_dioxido_de_azufre_y_sulfitos"
                         style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/moluscos"
+                        android:background="@drawable/al_moluscos"
                         tools:checked="true" />
 
                     <ToggleButton
                         android:id="@+id/tb_moluscos"
                         style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/apio"
+                        android:background="@drawable/al_apio"
                         tools:checked="true" />
 
                     <ToggleButton
                         android:id="@+id/tb_altramuces"
                         style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/altramuces"
+                        android:background="@drawable/al_altramuces"
                         tools:checked="true" />
                 </LinearLayout>
 
@@ -216,7 +216,7 @@
                     android:background="@null"
                     android:layout_marginStart="10dp"
                     android:tint="@color/white"
-                    android:src="@drawable/baseline_add_box_24"
+                    android:src="@drawable/ic_add"
                     android:scaleType="centerCrop"
                     app:layout_constraintStart_toEndOf="@id/tv_tiempo"
                     app:layout_constraintEnd_toStartOf="@id/et_mins"
@@ -243,7 +243,7 @@
                     android:layout_width="40dp"
                     android:layout_height="0dp"
                     android:background="@null"
-                    android:src="@drawable/baseline_indeterminate_check_box_24"
+                    android:src="@drawable/ic_remove"
                     android:scaleType="centerCrop"
                     android:tint="@color/white"
                     app:layout_constraintStart_toEndOf="@id/et_mins"
@@ -274,7 +274,7 @@
                 android:layout_width="40dp"
                 android:layout_height="0dp"
                 android:tint="@color/white"
-                android:src="@drawable/baseline_add_box_24"
+                android:src="@drawable/ic_add"
                 android:scaleType="centerCrop"
                 android:background="@null"
                 app:layout_constraintTop_toTopOf="@id/tv_productos"

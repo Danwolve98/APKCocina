@@ -13,15 +13,15 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="20dp">
-
+            android:layout_marginHorizontal="20dp"
+            >
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_profile_picture"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/background_profile"
-                android:src="@drawable/chef_icon"
+                android:src="@drawable/ic_chef"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -129,26 +129,27 @@
                 app:layout_constraintBottom_toBottomOf="@id/tv_birthday"
                 app:layout_constraintStart_toEndOf="@id/tv_birthday"
                 android:layout_marginStart="10dp"
-                android:src="@drawable/baseline_cake_24"
+                android:src="@drawable/ic_tarta"
                 app:backgroundTint="@color/base_6"
                 app:tint="@color/white"/>
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragment_container_login"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="parent"
-                app:layout_constraintRight_toLeftOf="parent"
-                android:tag="@string/ajustes"
-                android:name="com.example.apkcocina.features.profile.fragment.LoginFragment"
-                tools:layout="@layout/login_fragment"
-                android:visibility="gone"/>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        android:tag="@string/ajustes"
+        android:name="com.example.apkcocina.features.profile.fragment.LoginFragment"
+        tools:layout="@layout/login_fragment"
+        android:visibility="visible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

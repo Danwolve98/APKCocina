@@ -19,7 +19,6 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:background="@null"
-            tools:src="@drawable/recetas"
             />
 
         <androidx.appcompat.widget.AppCompatTextView

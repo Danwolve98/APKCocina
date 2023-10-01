@@ -12,7 +12,7 @@
         android:background="@null"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:src="@drawable/recetas_base"
+        tools:src="@drawable/im_recetas_base"
         android:foreground="@drawable/top_light"
         android:scaleType="centerCrop"/>
 
@@ -51,8 +51,6 @@
         android:layout_height="50dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:src="@drawable/internet"
-        android:background="@drawable/black_border"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:visibility="gone"

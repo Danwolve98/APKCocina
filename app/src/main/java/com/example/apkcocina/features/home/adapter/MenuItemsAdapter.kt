@@ -5,8 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.navigation.ActivityNavigator
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apkcocina.R
 import com.example.apkcocina.features.home.activity.MainActivity
@@ -34,11 +32,11 @@ class MenuItemsAdapter(var listItems : List<String>,val mainActivity: MainActivi
 
            when(position){
                 0 -> {
-                    imageID = R.drawable.recetas_base
+                    imageID = R.drawable.im_recetas_base
                     view.setOnClickListener { onItemClickListener(R.id.action_inicio_fragment_to_recetasBaseFragment) }
                 }
                 1->{
-                    imageID = R.drawable.recetas_online
+                    imageID = R.drawable.im_recetas_online
                     view.findViewById<ImageView>(R.id.iv_internet).visible()
                     if(user!=null){
                         view.setOnClickListener { onItemClickListener(R.id.action_inicio_fragment_to_crearRecetaFragment) }
@@ -47,15 +45,15 @@ class MenuItemsAdapter(var listItems : List<String>,val mainActivity: MainActivi
                     }
                 }
                 2->{
-                    imageID = R.drawable.crear_receta
+                    imageID = R.drawable.im_crear_receta
                     view.setOnClickListener { onItemClickListener(R.id.action_inicio_fragment_to_recetasBaseFragment) }
                 }
                 3->{
-                    imageID = R.drawable.que_cocino_hoy
+                    imageID = R.drawable.im_que_cocino_hoy
                     view.setOnClickListener { onItemClickListener(R.id.action_inicio_fragment_to_crearRecetaFragment) }
                 }
                 4->{
-                    imageID = R.drawable.mas_info
+                    imageID = R.drawable.im_mas_info
                     view.setOnClickListener { onItemClickListener(R.id.action_inicio_fragment_to_recetasBaseFragment) }
                 }
                 else -> imageID = 0

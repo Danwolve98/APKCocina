@@ -14,10 +14,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Source
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -65,7 +63,7 @@ class FireBaseService @Inject constructor(
             }
         }.toRegisterResult()
 
-    suspend fun updateUser(nombre: String? = null, apellidos : String? = null, nacionalidad:String? = null, cumpleanos : Date?=null, photoUri : Uri? = null) : Pair<Boolean,String> {
+    /*suspend fun updateUser(nombre: String? = null, apellidos : String? = null, nacionalidad:String? = null, cumpleanos : Date?=null, photoUri : Uri? = null) : Pair<Boolean,String> {
         if (auth.currentUser != null) {
             if(!updateUserAuth(nombre,photoUri))
                 return Pair(false,context.getString(R.string.error_update_profile))
@@ -79,7 +77,7 @@ class FireBaseService @Inject constructor(
         else {
             false
         }
-    }
+    }*/
 
     fun updateUserAuth(name: String? = null, photoUri: Uri? = null) : Boolean {
         var successful = false
@@ -90,7 +88,7 @@ class FireBaseService @Inject constructor(
             )
             .setPhotoUri(
                 photoUri.notNullorDefault(notNullAction =  { return@notNullorDefault photoUri },
-                nullAction = { return@notNullorDefault auth.currentUser?.photoUrl.notNullorDefault(context.getDrawable(R.drawable.chef_icon)?.getUri())})
+                nullAction = { return@notNullorDefault auth.currentUser?.photoUrl.notNullorDefault(context.getDrawable(R.drawable.ic_chef)?.getUri())})
             )
             .build()
 
