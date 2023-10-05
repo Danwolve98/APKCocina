@@ -288,7 +288,6 @@
                 android:id="@+id/rv_productos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/gradient_layout"
                 tools:listitem="@layout/item_producto_crear"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@id/tv_productos"
