@@ -3,22 +3,17 @@ package com.example.apkcocina.features.profile.fragment
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatEditText
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.apkcocina.R
-import com.example.apkcocina.databinding.LoginFragmentBinding
+import com.example.apkcocina.databinding.FrgLoginBinding
 import com.example.apkcocina.features.home.activity.MainActivity
 import com.example.apkcocina.features.profile.viewModel.ProfileViewModel
 import com.example.apkcocina.utils.base.APKCocinaActionBar
@@ -27,16 +22,11 @@ import com.example.apkcocina.utils.extensions.invisible
 import com.example.apkcocina.utils.extensions.loseFocusAfterAction
 import com.example.apkcocina.utils.extensions.onTextChanged
 import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class LoginFragment() : BaseFragment<LoginFragmentBinding>() {
+class LoginFragment() : BaseFragment<FrgLoginBinding>() {
 
     private lateinit var mainActivity : MainActivity
     private var frameLayout : FragmentContainerView? = null

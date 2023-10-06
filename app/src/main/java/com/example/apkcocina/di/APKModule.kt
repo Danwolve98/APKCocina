@@ -16,13 +16,17 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object NetWorkModule {
+object APKModule {
 
     @Singleton
     @Provides
-    fun providesapkCocinaDataBase(@ApplicationContext appcontext:Context) : APKCocinaDataBase{
+    fun providesapkCocinaDataBase(appcontext:Context) : APKCocinaDataBase{
         return Room.databaseBuilder(appcontext.applicationContext,APKCocinaDataBase::class.java,"APKCocinaDataBase").fallbackToDestructiveMigration().build()
     }
+
+    @Singleton
+    @Provides
+    fun providesContext(@ApplicationContext appContext : Context) : Context = appContext
 
     @Singleton
     @Provides

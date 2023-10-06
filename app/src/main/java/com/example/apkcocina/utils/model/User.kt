@@ -6,6 +6,7 @@ import java.util.Calendar
 import java.util.Date
 
 data class User(
+    var id : String,
     var nombre : String? = null,
     var apellidos : String? = null,
     var recetas : List<Receta>? = null,

@@ -40,6 +40,7 @@
     <string name="verificacion_con_exito">Verificación con éxito</string>
     <string name="error_default">Ha ocurrido un error</string>
     <string name="error_update_profile">No se ha podido actualizar el usuario, inténtelo más tarde</string>
+    <string name="no_se_ha_podido_recoger_informacion_del_usuario">No se ha podido recoger información del usuario</string>
     <string name="cuenta_ya_existente_inicie_sesion">Cuenta ya existente, inicie sesión</string>
     <string name="hubo_un_problema_al_verificar_la_cuenta">Hubo un problema al verificar la cuenta</string>
     <string name="verificando">Verificando...</string>
@@ -48,6 +49,7 @@
     <string name="apellidos">Apellidos</string>
     <string name="nacionalidad">Nacionalidad</string>
     <string name="edad">Edad</string>
+    <string name="mis_recetas">Mis recetas</string>
 
     <!--SETTINGS-->
 

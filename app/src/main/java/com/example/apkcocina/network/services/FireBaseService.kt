@@ -2,6 +2,7 @@ package com.example.apkcocina.network.services
 
 import android.content.Context
 import android.net.Uri
+import androidx.room.Update
 import com.example.apkcocina.R
 import com.example.apkcocina.utils.base.Constants
 import com.example.apkcocina.utils.extensions.getUri
@@ -9,6 +10,7 @@ import com.example.apkcocina.utils.extensions.notNullorDefault
 import com.example.apkcocina.utils.model.User
 import com.example.apkcocina.utils.states.LoginResult
 import com.example.apkcocina.utils.states.RegisterResult
+import com.example.apkcocina.utils.states.UpdateResult
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -28,7 +30,7 @@ import javax.inject.Singleton
 
 @Singleton
 class FireBaseService @Inject constructor(
-    @ApplicationContext val context: Context,
+    private val context: Context,
     private val auth: FirebaseAuth,
     private val store: FirebaseFirestore
     ) {
@@ -63,29 +65,28 @@ class FireBaseService @Inject constructor(
             }
         }.toRegisterResult()
 
-    /*suspend fun updateUser(nombre: String? = null, apellidos : String? = null, nacionalidad:String? = null, cumpleanos : Date?=null, photoUri : Uri? = null) : Pair<Boolean,String> {
+    suspend fun updateUser(nombre: String? = null, apellidos : String? = null, nacionalidad:String? = null, cumpleanos : Date?=null, photoUri : Uri? = null) : UpdateResult {
+        var updateResult : UpdateResult = UpdateResult.Error()
         if (auth.currentUser != null) {
-            if(!updateUserAuth(nombre,photoUri))
-                return Pair(false,context.getString(R.string.error_update_profile))
-
-            val document = store.collection(User.USUARIOS).document(auth.currentUser!!.uid).get().addOnSuccessListener {
-                val usuario = it as User
-            }.addOnFailureListener{
-
+            if(updateUserAuth(photoUri)){
+                val document = store.collection(User.USUARIOS).document(auth.currentUser!!.uid).get()
+                    .addOnSuccessListener {
+                        val usuario = it as User
+                        updateResult = UpdateResult.Updated(usuario)
+                    }
+                    .addOnFailureListener{
+                        UpdateResult.Error(context.getString(R.string.no_se_ha_podido_recoger_informacion_del_usuario))
+                    }
             }
+        } else {
+            updateResult = UpdateResult.Error(context.getString(R.string.usuario_no_existe))
         }
-        else {
-            false
-        }
-    }*/
+        return updateResult
+    }
 
-    fun updateUserAuth(name: String? = null, photoUri: Uri? = null) : Boolean {
+    fun updateUserAuth(photoUri: Uri? = null) : Boolean {
         var successful = false
         val requestUpdateUser = UserProfileChangeRequest.Builder()
-            .setDisplayName(
-                name.notNullorDefault(notNullAction =  { return@notNullorDefault name },
-                    nullAction = { return@notNullorDefault auth.currentUser?.displayName.notNullorDefault(context.getString(R.string.chef_curioso)) })
-            )
             .setPhotoUri(
                 photoUri.notNullorDefault(notNullAction =  { return@notNullorDefault photoUri },
                 nullAction = { return@notNullorDefault auth.currentUser?.photoUrl.notNullorDefault(context.getDrawable(R.drawable.ic_chef)?.getUri())})
@@ -98,7 +99,6 @@ class FireBaseService @Inject constructor(
         }
         return successful
     }
-
 
     suspend fun sendVerificationEmail() = runCatching {
         auth.currentUser?.sendEmailVerification()?.await()
@@ -125,7 +125,7 @@ class FireBaseService @Inject constructor(
         else -> {
             val user = result.user
             checkNotNull(user)
-            store.collection(User.USUARIOS).document(user.uid).set(User(user.displayName!!))
+            store.collection(User.USUARIOS).document(user.uid).set(User(user.uid,user.displayName!!))
             RegisterResult.Registered(user)
         }
     }

@@ -3,13 +3,11 @@ package com.example.apkcocina.features.recetasBase.fragment
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.example.apkcocina.R
+import com.example.apkcocina.databinding.FrgRecetaDetalleBinding
 import com.example.apkcocina.utils.model.Receta
-import com.example.apkcocina.databinding.RecetaDetalleFragmentBinding
 import com.example.apkcocina.features.home.activity.MainActivity
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
@@ -19,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RecetaDetalle : BaseFragment<RecetaDetalleFragmentBinding>() {
+class RecetaDetalle : BaseFragment<FrgRecetaDetalleBinding>() {
 
     override lateinit var actionBar: APKCocinaActionBar
 

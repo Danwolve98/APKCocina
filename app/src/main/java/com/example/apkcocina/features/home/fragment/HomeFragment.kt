@@ -2,19 +2,16 @@ package com.example.apkcocina.features.home.fragment
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.example.apkcocina.R
-import com.example.apkcocina.databinding.HomeFragmentBinding
+import com.example.apkcocina.databinding.FrgHomeBinding
 import com.example.apkcocina.features.home.activity.MainActivity
 import com.example.apkcocina.features.home.adapter.MenuItemsAdapter
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.PrincipalActionBar
 
-class HomeFragment() : BaseFragment<HomeFragmentBinding>() {
+class HomeFragment() : BaseFragment<FrgHomeBinding>() {
 
     override lateinit var actionBar: APKCocinaActionBar
     private lateinit var mainActivity : MainActivity
@@ -22,11 +19,6 @@ class HomeFragment() : BaseFragment<HomeFragmentBinding>() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = requireActivity() as MainActivity
-    }
-
-
-    companion object {
-        fun newInstance() = HomeFragment()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

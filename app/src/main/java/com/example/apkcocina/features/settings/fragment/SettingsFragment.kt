@@ -2,19 +2,15 @@ package com.example.apkcocina.features.settings.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.example.apkcocina.R
-import com.example.apkcocina.databinding.AjustesFragmentBinding
-import com.example.apkcocina.databinding.ProfileFragmentBinding
-import com.example.apkcocina.databinding.RecetaDetalleFragmentBinding
+import com.example.apkcocina.databinding.FrgAjustesBinding
 import com.example.apkcocina.features.home.activity.MainActivity
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.TitleActionBar
 
-class SettingsFragment : BaseFragment<RecetaDetalleFragmentBinding>() {
+class SettingsFragment : BaseFragment<FrgAjustesBinding>() {
 
     override lateinit var actionBar: APKCocinaActionBar
     override fun onAttach(context: Context) {

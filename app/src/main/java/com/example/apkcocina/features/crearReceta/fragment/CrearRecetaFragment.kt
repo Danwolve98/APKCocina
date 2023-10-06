@@ -10,7 +10,7 @@ import android.view.MotionEvent
 import android.view.View
 import com.example.apkcocina.R
 import com.example.apkcocina.utils.model.Receta
-import com.example.apkcocina.databinding.CrearRecetaFragmentBinding
+import com.example.apkcocina.databinding.FrgCrearRecetaBinding
 import com.example.apkcocina.features.crearReceta.adapter.CrearProductosAdapter
 import com.example.apkcocina.features.home.activity.MainActivity
 import com.example.apkcocina.utils.base.APKCocinaActionBar
@@ -25,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CrearRecetaFragment() : BaseFragment<CrearRecetaFragmentBinding>(){
+class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
 
     @Inject
     lateinit var firebaseStorage: FirebaseStorage
@@ -79,7 +79,7 @@ class CrearRecetaFragment() : BaseFragment<CrearRecetaFragmentBinding>(){
         binding.apply {
             val handler = Handler(Looper.myLooper()!!)
 
-            btMinsSum.setOnTouchListener { _, motionEvent ->
+            btMinsSum.setOnTouchListener { view, motionEvent ->
                 when (motionEvent.action) {
                     MotionEvent.ACTION_DOWN -> {
                         etMins.setText((etMins.text.toString().toInt() + 1).toString())
@@ -92,6 +92,7 @@ class CrearRecetaFragment() : BaseFragment<CrearRecetaFragmentBinding>(){
                         true
                     }
                     MotionEvent.ACTION_UP -> {
+                        view.performClick()
                         isButtonPressed = true
                         handler.removeCallbacksAndMessages(null)
                         true
@@ -100,7 +101,7 @@ class CrearRecetaFragment() : BaseFragment<CrearRecetaFragmentBinding>(){
                 }
             }
 
-            btMinsRes.setOnTouchListener { _, motionEvent ->
+            btMinsRes.setOnTouchListener { view, motionEvent ->
                 when (motionEvent.action) {
                     MotionEvent.ACTION_DOWN -> {
                         etMins.setText((etMins.text.toString().toInt() - 1).toString())
@@ -113,6 +114,7 @@ class CrearRecetaFragment() : BaseFragment<CrearRecetaFragmentBinding>(){
                         true
                     }
                     MotionEvent.ACTION_UP -> {
+                        view.performClick()
                         isButtonPressed = false
                         handler.removeCallbacksAndMessages(null)
                         true

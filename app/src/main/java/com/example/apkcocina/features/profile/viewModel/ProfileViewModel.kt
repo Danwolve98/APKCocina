@@ -1,6 +1,7 @@
 package com.example.apkcocina.features.profile.viewModel
 
 import android.content.Context
+import android.net.Uri
 import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
@@ -12,26 +13,30 @@ import com.example.apkcocina.R
 import com.example.apkcocina.network.usecases.CreateAccountUseCase
 import com.example.apkcocina.network.usecases.LoginUseCase
 import com.example.apkcocina.network.usecases.SendEmailVerificationUseCase
+import com.example.apkcocina.network.usecases.UpdateUserUseCase
 import com.example.apkcocina.network.usecases.VerifyEmailUseCase
 import com.example.apkcocina.utils.core.Event
 import com.example.apkcocina.utils.states.LoginResult
 import com.example.apkcocina.utils.states.ProfileState
 import com.example.apkcocina.utils.states.RegisterResult
+import com.example.apkcocina.utils.states.UpdateResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    @ApplicationContext val context : Context,
+    private  val context : Context,
     private val loginUseCase : LoginUseCase,
     private val sendEmailVerificationUseCase: SendEmailVerificationUseCase,
     private val registerUseCase: CreateAccountUseCase,
-    private val verifyEmailUseCase: VerifyEmailUseCase
+    private val verifyEmailUseCase: VerifyEmailUseCase,
+    private val updateUserUseCase: UpdateUserUseCase
 ) : ViewModel() {
 
     private val _profileViewState = MutableStateFlow(ProfileState())
@@ -39,6 +44,9 @@ class ProfileViewModel @Inject constructor(
 
     private val _loginResult = MutableLiveData<Event<LoginResult.Logged>>()
     val loginResult: LiveData<Event<LoginResult.Logged>> = _loginResult
+
+    private val _updateResult = MutableLiveData<Event<UpdateResult>>()
+    val updateResult: LiveData<Event<UpdateResult>> = _updateResult
 
     private val _loginError = MutableLiveData<Event<String>>()
     val loginError: LiveData<Event<String>> = _loginError
@@ -99,6 +107,16 @@ class ProfileViewModel @Inject constructor(
             Log.e("error validacion","correo o contraseña no validos")
         }
     }
+
+    fun updateUser(
+        nombre: String? = null,
+        apellidos : String? = null,
+        nacionalidad:String? = null,
+        cumpleanos : Date?=null,
+        photoUri : Uri? = null) =
+            viewModelScope.launch {
+                 _updateResult.value = Event(updateUserUseCase.invoke(nombre,apellidos,nacionalidad,cumpleanos,photoUri))
+            }
 
     fun sendEmailVerification() =
         viewModelScope.launch() {

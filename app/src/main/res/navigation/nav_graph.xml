@@ -10,7 +10,7 @@
         android:id="@+id/inicio_fragment"
         android:name="com.example.apkcocina.features.home.fragment.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/home_fragment">
+        tools:layout="@layout/frg_home">
 
         <action
             android:id="@+id/action_inicio_fragment_to_recetasBaseFragment"
@@ -26,19 +26,19 @@
         android:id="@+id/perfil_fragment"
         android:name="com.example.apkcocina.features.profile.fragment.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/profile_fragment">
+        tools:layout="@layout/frg_profile">
     </fragment>
 
     <fragment
         android:id="@+id/settings_fragment"
         android:name="com.example.apkcocina.features.settings.fragment.SettingsFragment"
         android:label="SettingsFragment"
-        tools:layout="@layout/ajustes_fragment"/>
+        tools:layout="@layout/frg_ajustes"/>
     <fragment
         android:id="@+id/recetasBaseFragment"
         android:name="com.example.apkcocina.features.recetasBase.fragment.RecetasBaseFragment"
         android:label="RecetasBaseFragment"
-        tools:layout="@layout/recetas_base_fragment">
+        tools:layout="@layout/frg_recetas_base">
         <action
             android:id="@+id/action_recetasBaseFragment_to_recetaDetalle"
             app:destination="@id/recetaDetalle"
@@ -49,12 +49,12 @@
         android:id="@+id/recetaDetalle"
         android:name="com.example.apkcocina.features.recetasBase.fragment.RecetaDetalle"
         android:label="RecetaDetalle"
-        tools:layout="@layout/receta_detalle_fragment"/>
+        tools:layout="@layout/frg_receta_detalle"/>
 
     <fragment
         android:id="@+id/crearRecetaFragment"
         android:name="com.example.apkcocina.features.crearReceta.fragment.CrearRecetaFragment"
         android:label="CrearRecetaFragment"
-        tools:layout="@layout/crear_receta_fragment"/>
+        tools:layout="@layout/frg_crear_receta"/>
 
 </navigation>

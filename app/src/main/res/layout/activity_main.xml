@@ -106,7 +106,7 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        tools:layout="@layout/home_fragment"
+        tools:layout="@layout/frg_home"
         app:layout_constraintTop_toBottomOf="@id/cl_action_bar"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
         app:defaultNavHost="true"

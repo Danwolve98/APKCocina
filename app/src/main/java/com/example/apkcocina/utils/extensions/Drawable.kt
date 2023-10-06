@@ -1,5 +1,6 @@
 package com.example.apkcocina.utils.extensions
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
@@ -13,6 +14,7 @@ import javax.inject.Inject
 
 fun Drawable.getUri(): Uri? {
     // Convierte el Drawable en un Bitmap
+
     val bitmap = when (this) {
         is BitmapDrawable -> this.bitmap
         else -> {

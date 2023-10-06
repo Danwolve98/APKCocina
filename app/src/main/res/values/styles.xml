@@ -40,10 +40,36 @@
         <item name="errorEnabled">true</item>
         <item name="android:textColorHint">@color/base_6</item>
         <item name="boxStrokeColor">@color/stroke_color_selector_login</item>
-        <item name="boxStrokeWidth">2dp</item>
+        <item name="boxStrokeWidth">1dp</item>
         <item name="errorTextColor">@color/red</item>
         <item name="boxStrokeErrorColor">@color/red</item>
         <item name="hintTextColor">@color/black</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.circleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="MaterialToggle" parent="MaterialButton">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="iconPadding">0dp</item>
+        <item name="android:checkable">true</item>
+        <item name="toggleCheckedStateOnClick">true</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconTint">@color/white</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.App.circleImageView</item>
+    </style>
+
+    <style name="MaterialButton" parent="Widget.Material3.Button.ElevatedButton">
+        <item name="rippleColor">@color/base_1</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="backgroundTint">@color/base_6</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
     </style>
     
 </resources>

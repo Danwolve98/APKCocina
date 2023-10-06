@@ -15,16 +15,27 @@
             android:layout_height="match_parent"
             android:layout_marginHorizontal="20dp"
             >
-            <androidx.appcompat.widget.AppCompatImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_profile_picture"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/background_profile"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circleImageView"
                 android:src="@drawable/ic_chef"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/bt_edit_profile"
+                style="@style/MaterialToggle"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="5dp"
+                app:icon="@drawable/edit_profile_selector"
+                app:iconSize="25dp"
+                app:layout_constraintBottom_toTopOf="@id/il_nombre_perfil"
+                app:layout_constraintEnd_toEndOf="@id/il_nombre_perfil"
+                />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/il_nombre_perfil"
@@ -46,6 +57,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_nombre_perfil"
                     style="@style/FormEditText"
+                    android:enabled="false"
                     android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -72,6 +84,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_apellidos_perfil"
+                    android:enabled="false"
                     style="@style/FormEditText"
                     android:textColor="@color/white"
                     android:layout_width="match_parent"
@@ -101,6 +114,7 @@
                     android:id="@+id/et_nacionalidad_perfil"
                     style="@style/FormEditText"
                     android:textColor="@color/white"
+                    android:enabled="false"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="none"
@@ -113,7 +127,7 @@
                 android:layout_width="110dp"
                 android:layout_height="40dp"
                 android:textSize="16sp"
-                android:text="06/12/2020"
+                tools:text="Nacimiento"
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:foreground="@drawable/white_stroke_transparent_background"
@@ -130,9 +144,19 @@
                 app:layout_constraintStart_toEndOf="@id/tv_birthday"
                 android:layout_marginStart="10dp"
                 android:src="@drawable/ic_tarta"
+                android:visibility="gone"
                 app:backgroundTint="@color/base_6"
                 app:tint="@color/white"/>
 
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_birthday"
+                android:layout_marginTop="20dp"
+                android:text="@string/mis_recetas"
+                style="@style/MaterialButton"
+                android:textStyle="bold"
+                android:textAllCaps="false"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -149,7 +173,7 @@
         app:layout_constraintRight_toLeftOf="parent"
         android:tag="@string/ajustes"
         android:name="com.example.apkcocina.features.profile.fragment.LoginFragment"
-        tools:layout="@layout/login_fragment"
-        android:visibility="visible"/>
+        tools:layout="@layout/frg_login"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

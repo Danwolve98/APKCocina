@@ -2,14 +2,12 @@ package com.example.apkcocina.features.recetasBase.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.apkcocina.R
+import com.example.apkcocina.databinding.FrgRecetasBaseBinding
 import com.example.apkcocina.utils.model.Receta
-import com.example.apkcocina.databinding.RecetasBaseFragmentBinding
 import com.example.apkcocina.features.home.activity.MainActivity
 import com.example.apkcocina.features.recetasBase.adapter.RecetasAdapter
 import com.example.apkcocina.features.recetasBase.viewModel.RecetasBaseViewModel
@@ -21,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RecetasBaseFragment() : BaseFragment<RecetasBaseFragmentBinding>() {
+class RecetasBaseFragment() : BaseFragment<FrgRecetasBaseBinding>() {
 
     @Inject
     lateinit var firebaseStorage: FirebaseStorage
@@ -49,18 +47,6 @@ class RecetasBaseFragment() : BaseFragment<RecetasBaseFragmentBinding>() {
             binding.rvRecetasBase.adapter = RecetasAdapter(listaRecetasBase!!,{onRecetaClickListener(it)},firebaseStorage)
         })
     }
-    private var view : View? = null
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        if(view == null){
-            binding = RecetasBaseFragmentBinding.inflate(inflater,container,false)
-            view = binding!!.root
-        }
-        return view as View
-    }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
