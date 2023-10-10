@@ -7,7 +7,7 @@ import java.util.Date
 import javax.inject.Inject
 
 class UpdateUserUseCase @Inject constructor(private val fireBaseService : FireBaseService) {
-    suspend operator fun invoke(
+    operator fun invoke(
         nombre: String? = null,
         apellidos : String? = null,
         nacionalidad:String? = null,

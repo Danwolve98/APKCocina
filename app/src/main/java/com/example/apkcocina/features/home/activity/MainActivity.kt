@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var firebaseAuth: FirebaseAuth
-    var user : FirebaseUser? = null
     private lateinit var binding : ActivityMainBinding
     private val navController by lazy { (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,8 +43,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeView() {
         firebaseAuth.signOut()
-        user = firebaseAuth.currentUser
-        Log.e("NAME",user?.displayName ?: "sin nombre")
 
         setupWithNavController(binding.bottomNavigationView,navController)
 
@@ -89,10 +86,6 @@ class MainActivity : AppCompatActivity() {
             binding.clLoading.invisible()
         }
         Log.e("ACTIVO",binding.clLoading.isVisible.toString())
-    }
-
-    fun setCurrentUser(newUser : FirebaseUser) {
-        user = newUser
     }
 
 

@@ -31,7 +31,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private  val context : Context,
+    @ApplicationContext private val context : Context,
     private val loginUseCase : LoginUseCase,
     private val sendEmailVerificationUseCase: SendEmailVerificationUseCase,
     private val registerUseCase: CreateAccountUseCase,
@@ -113,10 +113,9 @@ class ProfileViewModel @Inject constructor(
         apellidos : String? = null,
         nacionalidad:String? = null,
         cumpleanos : Date?=null,
-        photoUri : Uri? = null) =
-            viewModelScope.launch {
-                 _updateResult.value = Event(updateUserUseCase.invoke(nombre,apellidos,nacionalidad,cumpleanos,photoUri))
-            }
+        photoUri : Uri? = null) {
+        _updateResult.value = Event(updateUserUseCase.invoke(nombre,apellidos,nacionalidad,cumpleanos,photoUri))
+    }
 
     fun sendEmailVerification() =
         viewModelScope.launch() {

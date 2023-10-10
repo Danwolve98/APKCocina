@@ -1,7 +1,9 @@
 package com.example.apkcocina.features.profile.fragment
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -19,6 +21,7 @@ import com.example.apkcocina.utils.extensions.visibilityCheck
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
 import java.util.Calendar
 
 @AndroidEntryPoint
@@ -44,13 +47,13 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
     private fun initializeView() {
         profileViewModel.loginResult.observe(viewLifecycleOwner) { event ->
             event.getContentIfNotHandled()?.let { loginResult ->
-                if (loginResult.user.displayName == null) {
-                    loginResult.user.updateProfile(userProfileChangeRequest {
-                        displayName = getString(R.string.chef_curioso)
-                    })
-                }
-                mainActivity.setCurrentUser(loginResult.user)
                 binding.fragmentContainerLogin.invisible()
+            }
+        }
+
+        profileViewModel.updateResult.observe(viewLifecycleOwner) { event ->
+            event.getContentIfNotHandled()?.let { updateResult ->
+                Toast.makeText(requireContext(), "Datos actualizados correctamente", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -71,8 +74,25 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
         }
     }
 
+    //TODO ESTAS HACIENDO ESTO AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     private fun mostrarAlertDialog() {
-        Toast.makeText(requireContext(), "MOSTRAR ALERT DIALOG", Toast.LENGTH_SHORT).show()
+        val alertDialog = AlertDialog.Builder(requireContext())
+            .setTitle("Guardar perfil")
+            .setMessage("¿Seguro que desea guardar esta configuración?")
+            .setPositiveButton("Aceptar"){ dialogInterface: DialogInterface, i: Int ->
+                with(binding){
+                    profileViewModel.updateUser(
+                        etNombrePerfil.text.toString(),
+                        etApellidosPerfil.text.toString(),
+                        etNacionalidadPerfil.text.toString(),
+                        (SimpleDateFormat("dd/MM/yyyy")).parse(tvBirthday.text.toString()),
+                        null)
+                    dialogInterface.dismiss()
+                }
+            }
+            .setNegativeButton("Cancelar"){ dialogInterface: DialogInterface, i: Int ->
+                dialogInterface.dismiss()
+            }.show()
     }
 
     private fun activarEditables(activar : Boolean) =

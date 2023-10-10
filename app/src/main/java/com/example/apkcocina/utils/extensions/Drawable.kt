@@ -6,13 +6,14 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import com.example.apkcocina.utils.base.Constants
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
 import javax.inject.Inject
 
-fun Drawable.getUri(): Uri? {
+fun Drawable.getUri(context : Context): Uri? {
     // Convierte el Drawable en un Bitmap
 
     val bitmap = when (this) {
@@ -31,7 +32,7 @@ fun Drawable.getUri(): Uri? {
 
     // Guarda el Bitmap en un archivo temporal
     try {
-        val cachePath = File(this.getContext().cacheDir, Constants.PROFILE_IMAGES_CACHE)
+        val cachePath = File(context.cacheDir, Constants.PROFILE_IMAGES_CACHE)
         cachePath.mkdirs()
         val stream: OutputStream = FileOutputStream(cachePath.absolutePath + "/temp_image.png")
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
@@ -42,7 +43,7 @@ fun Drawable.getUri(): Uri? {
     }
 
     // Obtiene la Uri del archivo temporal
-    val imagePath = File(this.getContext().cacheDir, Constants.PROFILE_IMAGES_CACHE)
+    val imagePath = File(context.cacheDir, Constants.PROFILE_IMAGES_CACHE)
     val newFile = File(imagePath, "temp_image.png")
     return Uri.fromFile(newFile)
 }

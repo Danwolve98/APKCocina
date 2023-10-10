@@ -9,11 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.apkcocina.R
 import com.example.apkcocina.features.home.activity.MainActivity
 import com.example.apkcocina.utils.extensions.visible
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 class MenuItemsAdapter(var listItems : List<String>,val mainActivity: MainActivity,val onItemClickListener:(Int) -> Unit) : RecyclerView.Adapter<MenuItemsAdapter.ViewHolder>() {
 
-    private var user : FirebaseUser? = mainActivity.user
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return ViewHolder(layoutInflater.inflate(R.layout.item_menu,parent,false))
@@ -38,11 +40,11 @@ class MenuItemsAdapter(var listItems : List<String>,val mainActivity: MainActivi
                 1->{
                     imageID = R.drawable.im_recetas_online
                     view.findViewById<ImageView>(R.id.iv_internet).visible()
-                    if(user!=null){
+                   /* if(auth.currentUser!=null){*/
                         view.setOnClickListener { onItemClickListener(R.id.action_inicio_fragment_to_crearRecetaFragment) }
-                    } else{
+                    /*} else{
                         view.isEnabled = false
-                    }
+                    }*/
                 }
                 2->{
                     imageID = R.drawable.im_crear_receta

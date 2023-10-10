@@ -90,7 +90,6 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
 
         profileViewModel.loginResult.observe(viewLifecycleOwner){ event ->
             event.getContentIfNotHandled()?.let{loginResult->
-                mainActivity.setCurrentUser(loginResult.user)
                 frameLayout?.invisible()
             }
         }
@@ -103,7 +102,7 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
 
         profileViewModel.registerResult.observe(viewLifecycleOwner){ event ->
             event.getContentIfNotHandled()?.let{registerResult->
-                mainActivity.setCurrentUser(registerResult.user)
+
             }
         }
 

@@ -30,7 +30,7 @@ import javax.inject.Singleton
 
 @Singleton
 class FireBaseService @Inject constructor(
-    private val context: Context,
+    @ApplicationContext val context: Context,
     private val auth: FirebaseAuth,
     private val store: FirebaseFirestore
     ) {
@@ -65,7 +65,7 @@ class FireBaseService @Inject constructor(
             }
         }.toRegisterResult()
 
-    suspend fun updateUser(nombre: String? = null, apellidos : String? = null, nacionalidad:String? = null, cumpleanos : Date?=null, photoUri : Uri? = null) : UpdateResult {
+    fun updateUser(nombre: String? = null, apellidos : String? = null, nacionalidad:String? = null, cumpleanos : Date?=null, photoUri : Uri? = null) : UpdateResult {
         var updateResult : UpdateResult = UpdateResult.Error()
         if (auth.currentUser != null) {
             if(updateUserAuth(photoUri)){
@@ -88,8 +88,9 @@ class FireBaseService @Inject constructor(
         var successful = false
         val requestUpdateUser = UserProfileChangeRequest.Builder()
             .setPhotoUri(
-                photoUri.notNullorDefault(notNullAction =  { return@notNullorDefault photoUri },
-                nullAction = { return@notNullorDefault auth.currentUser?.photoUrl.notNullorDefault(context.getDrawable(R.drawable.ic_chef)?.getUri())})
+                photoUri.notNullorDefault(
+                    notNullAction =  { return@notNullorDefault photoUri },
+                    nullAction = { return@notNullorDefault auth.currentUser?.photoUrl.notNullorDefault(context.getDrawable(R.drawable.ic_chef)?.getUri(context))})
             )
             .build()
 
@@ -125,7 +126,10 @@ class FireBaseService @Inject constructor(
         else -> {
             val user = result.user
             checkNotNull(user)
-            store.collection(User.USUARIOS).document(user.uid).set(User(user.uid,user.displayName!!))
+            store.collection(User.USUARIOS).document(user.uid).set(User(
+                user.uid,
+                context.getString(R.string.chef),
+                context.getString(R.string.curioso)))
             RegisterResult.Registered(user)
         }
     }

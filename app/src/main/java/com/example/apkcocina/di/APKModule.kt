@@ -20,13 +20,9 @@ object APKModule {
 
     @Singleton
     @Provides
-    fun providesapkCocinaDataBase(appcontext:Context) : APKCocinaDataBase{
+    fun providesapkCocinaDataBase(@ApplicationContext appcontext:Context) : APKCocinaDataBase{
         return Room.databaseBuilder(appcontext.applicationContext,APKCocinaDataBase::class.java,"APKCocinaDataBase").fallbackToDestructiveMigration().build()
     }
-
-    @Singleton
-    @Provides
-    fun providesContext(@ApplicationContext appContext : Context) : Context = appContext
 
     @Singleton
     @Provides

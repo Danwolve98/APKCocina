@@ -21,7 +21,8 @@
     <string name="no_tienes_cuenta">¿No tienes cuenta?\nRegístrate aquí</string>
     <string name="reestablecer_contrasena">Reestablecer contraseña</string>
     <string name="enviado">Enviado</string>
-    <string name="chef_curioso">Chef curioso</string>
+    <string name="chef">Chef</string>
+    <string name="curioso">Curioso</string>
     <string name="contrasena_demasiado_corta">Contraseña demasiado corta</string>
     <string name="contrasena_debe_incluir_al_menos_una_mayuscula">Contraseña debe incluir al menos una mayúscula</string>
     <string name="contrasena_debe_incluir_al_menos_un_caracter_especial">Contraseña debe incluir al menos un carácter especial</string>
