@@ -1,17 +1,22 @@
 package com.example.apkcocina.utils.model
 
-import java.security.MessageDigest
-import java.security.SecureRandom
+import com.google.firebase.firestore.PropertyName
 import java.util.Calendar
 import java.util.Date
 
 data class User(
+    @PropertyName("id")
     var id : String,
+    @PropertyName("nombre")
     var nombre : String? = null,
+    @PropertyName("apellidos")
     var apellidos : String? = null,
-    var recetas : List<Receta>? = null,
-    var nacionalidad : String = "Española",
-    var cumpleanos : Date = Calendar.getInstance().time){
+    @PropertyName("recetas")
+    var recetas : List<Int>? = null,
+    @PropertyName("nacionalidad")
+    var nacionalidad : String? = "Española",
+    @PropertyName("cumpleanos")
+    var cumpleanos : Date? = Calendar.getInstance().time){
     companion object{
         const val USUARIOS = "users"
     }

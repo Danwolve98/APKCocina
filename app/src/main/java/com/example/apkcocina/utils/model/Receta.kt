@@ -2,7 +2,9 @@ package com.example.apkcocina.utils.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
+import com.google.errorprone.annotations.Keep
 import java.io.Serializable
+@Keep
 @Entity(tableName = "recetas")
 class Receta(
     @PrimaryKey(autoGenerate = true)
