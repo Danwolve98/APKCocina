@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -75,61 +76,47 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/bt_iniciar_sesion"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/il_contrasena2_login"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/base_3"
-                android:text="@string/iniciar_sesion"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:autoSizeMaxTextSize="18sp"
-                android:autoSizeMinTextSize="14sp"
-                android:autoSizeTextType="uniform"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/confirmar_contrasena"
+                android:textColor="@color/black_soft"
+                style="@style/FormTextInputLayout"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/base_6"
                 app:layout_constraintEnd_toStartOf="@id/guideline4"
                 app:layout_constraintStart_toEndOf="@id/guideline3"
-                app:layout_constraintTop_toBottomOf="@id/il_contrasena_login" />
+                app:layout_constraintTop_toBottomOf="@id/il_contrasena_login">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_contrasena2_login"
+                    style="@style/FormEditText"
+                    android:imeOptions="actionDone"
+                    android:textSize="16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:inputType="textPassword"
+                    android:text="Rambombai99"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bt_registrarse"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/base_5"
-                android:text="@string/registrarse"
-                android:textStyle="bold"
                 android:autoSizeMaxTextSize="18sp"
                 android:autoSizeMinTextSize="14sp"
                 android:autoSizeTextType="uniform"
+                android:background="@color/base_5"
+                android:text="@string/registrarse"
                 android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/il_contrasena2_login"
                 app:layout_constraintEnd_toStartOf="@id/guideline4"
                 app:layout_constraintStart_toEndOf="@id/guideline3"
-                app:layout_constraintTop_toBottomOf="@id/bt_iniciar_sesion" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_todavia_no_estas_registrado"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="@string/no_tienes_cuenta"
-                android:textColor="@color/black_soft"
-                app:layout_constraintEnd_toStartOf="@id/guideline4"
-                app:layout_constraintStart_toEndOf="@id/guideline3"
-                app:layout_constraintTop_toBottomOf="@id/bt_registrarse" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_olvidaste_tu_contrasena"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/reestablecer_contrasena"
-                android:textColor="@color/purple_700"
-                app:layout_constraintEnd_toStartOf="@id/guideline4"
-                app:layout_constraintStart_toEndOf="@id/guideline3"
-                android:layout_marginTop="20dp"
-                app:layout_constraintTop_toBottomOf="@id/tv_todavia_no_estas_registrado" />
+                tools:layout_editor_absoluteY="492dp" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline3"

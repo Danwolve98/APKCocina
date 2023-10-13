@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import java.lang.reflect.ParameterizedType
 
@@ -13,6 +16,7 @@ abstract class BaseFragment<vb : ViewBinding> : Fragment() {
 
     abstract var actionBar : APKCocinaActionBar
     lateinit var binding : vb
+    private val navigator : NavController by lazy { findNavController() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,4 +33,7 @@ abstract class BaseFragment<vb : ViewBinding> : Fragment() {
         binding = method.invoke(null, inflater, container, false) as vb
         return binding
     }
+
+    protected fun navigate(action : Int) = navigator.navigate(action)
+    protected fun navigate(navDirections: NavDirections) = navigator.navigate(navDirections)
 }

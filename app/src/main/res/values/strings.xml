@@ -16,11 +16,14 @@
     <!--LOGIN-->
     <string name="correo">Correo</string>
     <string name="contrasena">Contraseña</string>
+    <string name="confirmar_contrasena">Confirmar contrasena</string>
     <string name="iniciar_sesion">Iniciar Sesión</string>
     <string name="registrarse">Registrarse</string>
     <string name="no_tienes_cuenta">¿No tienes cuenta?\nRegístrate aquí</string>
+    <string name="se_enviara_un_correo_para_reestablecer_la_contrasena">Se enviará un correo para restablecer\nla contraseña</string>
     <string name="reestablecer_contrasena">Reestablecer contraseña</string>
     <string name="enviado">Enviado</string>
+    <string name="enviar">Enviar</string>
     <string name="chef">Chef</string>
     <string name="curioso">Curioso</string>
     <string name="contrasena_demasiado_corta">Contraseña demasiado corta</string>
@@ -51,7 +54,8 @@
     <string name="nacionalidad">Nacionalidad</string>
     <string name="edad">Edad</string>
     <string name="mis_recetas">Mis recetas</string>
-
+    <!--REGISTER-->
+    <string name="register">Registro</string>
     <!--SETTINGS-->
 
     <!--RECETASBASE-->

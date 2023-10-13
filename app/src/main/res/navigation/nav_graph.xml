@@ -27,6 +27,9 @@
         android:name="com.example.apkcocina.features.profile.fragment.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/frg_profile">
+        <action
+            android:id="@+id/action_perfil_fragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <fragment
@@ -56,5 +59,27 @@
         android:name="com.example.apkcocina.features.crearReceta.fragment.CrearRecetaFragment"
         android:label="CrearRecetaFragment"
         tools:layout="@layout/frg_crear_receta"/>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.apkcocina.features.profile.fragment.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/frg_login">
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_reestablecerContrasenaFragment"
+            app:destination="@id/reestablecerContrasenaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.apkcocina.features.profile.fragment.RegisterFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/frg_register"/>
+    <fragment
+        android:id="@+id/reestablecerContrasenaFragment"
+        android:name="com.example.apkcocina.features.profile.fragment.ReestablecerContrasenaFragment"
+        android:label="ReestablecerContrasenaFragment"
+        tools:layout="@layout/frg_reestablecer_contrasena"/>
 
 </navigation>

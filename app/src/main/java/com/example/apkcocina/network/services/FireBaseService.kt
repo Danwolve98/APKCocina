@@ -4,7 +4,6 @@ import android.content.Context
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
-import androidx.room.Update
 import com.example.apkcocina.R
 import com.example.apkcocina.utils.base.Constants
 import com.example.apkcocina.utils.extensions.getUri
@@ -79,7 +78,7 @@ class FireBaseService @Inject constructor(
     ): UpdateResult {
         var updateResult: UpdateResult = UpdateResult.Error()
         if (auth.currentUser != null) {
-            /*if(updateUserAuth(photoUri)){*/
+            if(updateUserAuth(photoUri)){
             val document = store.collection(User.USUARIOS).document(auth.currentUser!!.uid)
             document.get()                                                                              //GET
                 .addOnSuccessListener { documentSnapshot ->
@@ -101,16 +100,15 @@ class FireBaseService @Inject constructor(
                             ).show()
                         }
                 }
-            }
+                }
                 .addOnFailureListener {
                     UpdateResult.Error(context.getString(R.string.no_se_ha_podido_recoger_informacion_del_usuario))
                 }
-            /*   }
+            }
         } else {
             updateResult = UpdateResult.Error(context.getString(R.string.usuario_no_existe))
-        }*/
-
         }
+
         return updateResult
     }
 

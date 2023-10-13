@@ -163,17 +163,4 @@
 
     </ScrollView>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_container_login"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
-        android:tag="@string/ajustes"
-        android:name="com.example.apkcocina.features.profile.fragment.LoginFragment"
-        tools:layout="@layout/frg_login"
-        android:visibility="visible"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

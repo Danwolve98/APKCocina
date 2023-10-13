@@ -1,5 +1,6 @@
 package com.example.apkcocina.features.profile.fragment
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
@@ -19,14 +20,19 @@ import com.example.apkcocina.utils.extensions.invisible
 import com.example.apkcocina.utils.extensions.playAnimation
 import com.example.apkcocina.utils.extensions.visibilityCheck
 import com.google.android.material.button.MaterialButton
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.firestore.auth.User
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FrgProfileBinding>() {
 
+    @Inject
+    lateinit var firebaseAuth: FirebaseAuth
     override lateinit var actionBar: APKCocinaActionBar
     private lateinit var mainActivity: MainActivity
 
@@ -34,6 +40,15 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        if(firebaseAuth.currentUser != null){
+            if(!firebaseAuth.currentUser!!.isEmailVerified){
+                profileViewModel.sendEmailVerification()
+                Toast.makeText(requireContext(), "Se requiere validar la cuenta", Toast.LENGTH_SHORT).show()
+                navigate(R.id.action_perfil_fragment_to_loginFragment)
+            }
+        }else{
+            navigate(R.id.action_perfil_fragment_to_loginFragment)
+        }
         mainActivity = requireActivity() as MainActivity
         actionBar = TitleActionBar(getString(R.string.perfil)).apply { haveBack = false }
         (activity as MainActivity).configureActionBar(this)
@@ -47,7 +62,7 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
     private fun initializeView() {
         profileViewModel.loginResult.observe(viewLifecycleOwner) { event ->
             event.getContentIfNotHandled()?.let { loginResult ->
-                binding.fragmentContainerLogin.invisible()
+
             }
         }
 
@@ -76,7 +91,7 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
 
     //TODO ESTAS HACIENDO ESTO AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     private fun mostrarAlertDialog() {
-        val alertDialog = AlertDialog.Builder(requireContext())
+        AlertDialog.Builder(requireContext())
             .setTitle("Guardar perfil")
             .setMessage("¿Seguro que desea guardar esta configuración?")
             .setPositiveButton("Aceptar"){ dialogInterface: DialogInterface, i: Int ->
@@ -102,7 +117,6 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
             etNacionalidadPerfil.isEnabled = activar
             btDate.visibilityCheck(activar)
         }
-
 
     private fun showDatePickerDialog() {
         val calendar = Calendar.getInstance()

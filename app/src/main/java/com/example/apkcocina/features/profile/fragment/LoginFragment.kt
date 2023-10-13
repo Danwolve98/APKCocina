@@ -7,7 +7,6 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatEditText
-import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -18,18 +17,20 @@ import com.example.apkcocina.features.home.activity.MainActivity
 import com.example.apkcocina.features.profile.viewModel.ProfileViewModel
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
-import com.example.apkcocina.utils.extensions.invisible
 import com.example.apkcocina.utils.extensions.loseFocusAfterAction
 import com.example.apkcocina.utils.extensions.onTextChanged
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment() : BaseFragment<FrgLoginBinding>() {
 
+    @Inject
+    lateinit var firebaseAuth: FirebaseAuth
     private lateinit var mainActivity : MainActivity
-    private var frameLayout : FragmentContainerView? = null
     override lateinit var actionBar: APKCocinaActionBar
 
     private val profileViewModel: ProfileViewModel by viewModels()
@@ -40,15 +41,15 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        frameLayout = requireActivity().findViewById(R.id.fragment_container_login)
         initializeView()
     }
 
     private fun initializeView() {
 
         with(binding){
-            btRegistrarse.setOnClickListener { registrar() }
+            btRegistrarse.setOnClickListener { navigate(R.id.action_loginFragment_to_registerFragment) }
             btIniciarSesion.setOnClickListener { login() }
+            tvOlvidasteTuContrasena.setOnClickListener { navigate(R.id.action_loginFragment_to_reestablecerContrasenaFragment) }
 
             ilCorreoLogin.setErrorIconOnClickListener{
                 etCorreoLogin.text!!.clear()
@@ -61,7 +62,6 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
             etContrasenaLogin.setOnFocusChangeListener { _, hasFocus -> onFieldChanged(hasFocus) }
             etContrasenaLogin.onTextChanged { onFieldChanged() }
         }
-
         initialiceListeners()
     }
 
@@ -90,7 +90,7 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
 
         profileViewModel.loginResult.observe(viewLifecycleOwner){ event ->
             event.getContentIfNotHandled()?.let{loginResult->
-                frameLayout?.invisible()
+
             }
         }
 
@@ -110,7 +110,6 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
             event.getContentIfNotHandled()?.let{verified->
                 if(verified){
                     Toast.makeText(requireContext(),getString(R.string.verificacion_con_exito),Toast.LENGTH_SHORT).show()
-                    frameLayout?.invisible()
                 }else{
                     Toast.makeText(requireContext(),getString(R.string.hubo_un_problema_al_verificar_la_cuenta),Toast.LENGTH_SHORT).show()
                     mainActivity.supportFragmentManager.beginTransaction().remove(this).commit()
@@ -162,10 +161,6 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
         builder.setPositiveButton("Aceptar",null)
         val dialog = builder.create()
         dialog.show()
-    }
-
-    private fun hideFragment(){
-       mainActivity.findViewById<FragmentContainerView>(R.id.fragment_container_login).invisible()
     }
 }
 

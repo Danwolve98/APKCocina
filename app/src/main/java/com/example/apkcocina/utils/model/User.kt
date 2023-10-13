@@ -4,9 +4,9 @@ import com.google.firebase.firestore.PropertyName
 import java.util.Calendar
 import java.util.Date
 
-data class User(
+class User(
     @PropertyName("id")
-    var id : String,
+    var id : String? = "",
     @PropertyName("nombre")
     var nombre : String? = null,
     @PropertyName("apellidos")
@@ -17,6 +17,7 @@ data class User(
     var nacionalidad : String? = "Española",
     @PropertyName("cumpleanos")
     var cumpleanos : Date? = Calendar.getInstance().time){
+
     companion object{
         const val USUARIOS = "users"
     }
