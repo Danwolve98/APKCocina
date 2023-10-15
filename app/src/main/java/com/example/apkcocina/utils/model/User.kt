@@ -16,7 +16,7 @@ class User(
     @PropertyName("nacionalidad")
     var nacionalidad : String? = "Española",
     @PropertyName("cumpleanos")
-    var cumpleanos : Date? = Calendar.getInstance().time){
+    var cumpleanos : Calendar? = null){
 
     companion object{
         const val USUARIOS = "users"

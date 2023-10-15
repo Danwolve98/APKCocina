@@ -26,6 +26,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import java.io.File
+import java.util.Calendar
 import java.util.Date
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -73,7 +74,7 @@ class FireBaseService @Inject constructor(
         nombre: String? = null,
         apellidos: String? = null,
         nacionalidad: String? = null,
-        cumpleanos: Date? = null,
+        cumpleanos: Calendar? = null,
         photoUri: Uri? = null
     ): UpdateResult {
         var updateResult: UpdateResult = UpdateResult.Error()

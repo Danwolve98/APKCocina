@@ -1,6 +1,5 @@
 package com.example.apkcocina.features.profile.fragment
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
@@ -8,6 +7,8 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.viewModels
 import com.example.apkcocina.R
 import com.example.apkcocina.databinding.FrgProfileBinding
@@ -16,16 +17,14 @@ import com.example.apkcocina.features.profile.viewModel.ProfileViewModel
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.TitleActionBar
-import com.example.apkcocina.utils.extensions.invisible
 import com.example.apkcocina.utils.extensions.playAnimation
 import com.example.apkcocina.utils.extensions.visibilityCheck
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
-import com.google.firebase.firestore.auth.User
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -40,7 +39,7 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if(firebaseAuth.currentUser != null){
+        /*if(firebaseAuth.currentUser != null){
             if(!firebaseAuth.currentUser!!.isEmailVerified){
                 profileViewModel.sendEmailVerification()
                 Toast.makeText(requireContext(), "Se requiere validar la cuenta", Toast.LENGTH_SHORT).show()
@@ -48,7 +47,7 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
             }
         }else{
             navigate(R.id.action_perfil_fragment_to_loginFragment)
-        }
+        }*/
         mainActivity = requireActivity() as MainActivity
         actionBar = TitleActionBar(getString(R.string.perfil)).apply { haveBack = false }
         (activity as MainActivity).configureActionBar(this)
@@ -82,6 +81,7 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
             val bt = it as MaterialButton
             if(bt.isChecked){
                 activarEditables(true)
+                bt.icon = ResourcesCompat.getDrawable(resources,R.drawable.ic_save_profile,null)
             }else{
                 activarEditables(false)
                 mostrarAlertDialog()
@@ -89,8 +89,12 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
         }
     }
 
-    //TODO ESTAS HACIENDO ESTO AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     private fun mostrarAlertDialog() {
+        var date : Calendar? = null
+        if(!binding.tvBirthday.text.isNullOrEmpty()){
+            date = Calendar.getInstance()
+            date.time = SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH).parse(binding.tvBirthday.text.toString())!!
+        }
         AlertDialog.Builder(requireContext())
             .setTitle("Guardar perfil")
             .setMessage("¿Seguro que desea guardar esta configuración?")
@@ -100,13 +104,16 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
                         etNombrePerfil.text.toString(),
                         etApellidosPerfil.text.toString(),
                         etNacionalidadPerfil.text.toString(),
-                        (SimpleDateFormat("dd/MM/yyyy")).parse(tvBirthday.text.toString()),
+                        date,
                         null)
+
                     dialogInterface.dismiss()
+                    btEditProfile.icon = ResourcesCompat.getDrawable(resources,R.drawable.ic_edit_profile,null)
                 }
             }
             .setNegativeButton("Cancelar"){ dialogInterface: DialogInterface, i: Int ->
                 dialogInterface.dismiss()
+                binding.btEditProfile.icon = ResourcesCompat.getDrawable(resources,R.drawable.ic_edit_profile,null)
             }.show()
     }
 
@@ -120,16 +127,27 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
 
     private fun showDatePickerDialog() {
         val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+        var year = calendar.get(Calendar.YEAR)
+        var month = calendar.get(Calendar.MONTH)
+        var dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+
+        with(binding.tvBirthday){
+            if(!text.isNullOrEmpty()){
+                val date = Calendar.getInstance().apply {
+                    time = SimpleDateFormat("dd/MM/yyyy",Locale.FRENCH).parse(text.toString())!!
+                }
+                year = date.get(Calendar.YEAR)
+                month = date.get(Calendar.MONTH)
+                dayOfMonth = date.get(Calendar.DAY_OF_MONTH)
+            }
+        }
 
         val datePickerDialog = DatePickerDialog(
             requireContext(),
             android.R.style.Theme_Holo_Dialog_MinWidth,
-            { _, year, mounth, day ->
+            { _, anio, mes, dia ->
                 // Aquí puedes manejar la fecha seleccionada
-                binding.tvBirthday.text = "$day/$mounth/$year"
+                binding.tvBirthday.text = "$dia/$mes/$anio"
             },
             year,
             month,

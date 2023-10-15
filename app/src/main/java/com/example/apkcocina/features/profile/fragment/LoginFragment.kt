@@ -51,6 +51,7 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
             btIniciarSesion.setOnClickListener { login() }
             tvOlvidasteTuContrasena.setOnClickListener { navigate(R.id.action_loginFragment_to_reestablecerContrasenaFragment) }
 
+            ilContrasenaLogin.errorIconDrawable = null
             ilCorreoLogin.setErrorIconOnClickListener{
                 etCorreoLogin.text!!.clear()
             }

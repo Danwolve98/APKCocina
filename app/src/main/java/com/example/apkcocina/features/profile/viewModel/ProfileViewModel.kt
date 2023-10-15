@@ -26,6 +26,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import java.util.Calendar
 import java.util.Date
 import javax.inject.Inject
 
@@ -112,7 +113,7 @@ class ProfileViewModel @Inject constructor(
         nombre: String? = null,
         apellidos : String? = null,
         nacionalidad:String? = null,
-        cumpleanos : Date?=null,
+        cumpleanos : Calendar?=null,
         photoUri : Uri? = null) {
         _updateResult.value = Event(updateUserUseCase.invoke(nombre,apellidos,nacionalidad,cumpleanos,photoUri))
     }
