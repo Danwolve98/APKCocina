@@ -61,6 +61,11 @@
     <!--RECETASBASE-->
     <string name="recetas_base">Recetas Base</string>
 
+    <!--AJUSTES-->
+    <string name="idioma">Idioma</string>
+    <string name="inicar_sesion">Iniciar\nsesión</string>
+    <string name="ayuda">Ayuda</string>
+    <string name="compartir">Compartir</string>
 
 
     <!--RECETASDETALLE-->
