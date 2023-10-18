@@ -73,7 +73,24 @@
     </style>
 
     <style name="MaterialButtonAjustes" parent="Widget.Material3.Button.ElevatedButton">
-
+        <item name="android:width">120dp</item>
+        <item name="android:height">120dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="cornerRadius">10dp</item>
+        <item name="autoSizeMaxTextSize">20sp</item>
+        <item name="autoSizeMinTextSize">12sp</item>
+        <item name="autoSizeTextType">uniform</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="iconTint">@color/black</item>
+        <item name="iconGravity">textTop</item>
+        <item name="iconSize">60dp</item>
+        <item name="android:fontFamily">@font/rasa_regular</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:lines">1</item>
+        <item name="android:stateListAnimator">@animator/animator_button</item>
     </style>
     
 </resources>
