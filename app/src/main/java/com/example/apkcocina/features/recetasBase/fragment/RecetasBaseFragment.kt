@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import com.example.apkcocina.R
 import com.example.apkcocina.databinding.FrgRecetasBaseBinding
 import com.example.apkcocina.utils.model.Receta
-import com.example.apkcocina.features.home.activity.MainActivity
+import com.example.apkcocina.MainActivity
 import com.example.apkcocina.features.recetasBase.adapter.RecetasAdapter
 import com.example.apkcocina.features.recetasBase.viewModel.RecetasBaseViewModel
 import com.example.apkcocina.utils.base.APKCocinaActionBar
@@ -30,10 +30,9 @@ class RecetasBaseFragment() : BaseFragment<FrgRecetasBaseBinding>() {
     private var listaRecetasBase : List<Receta>? = null
 
     override fun onAttach(context: Context) {
-        super.onAttach(context)
         mainActivity = requireActivity() as MainActivity
         actionBar = TitleActionBar(getString(R.string.recetas_base))
-        (activity as MainActivity).configureActionBar(this)
+        super.onAttach(context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

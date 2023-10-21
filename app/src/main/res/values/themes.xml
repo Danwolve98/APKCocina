@@ -11,8 +11,8 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <item name="android:spotShadowAlpha">0.3</item>
-        <item name="android:ambientShadowAlpha">0.3</item>
+        <item name="android:spotShadowAlpha">0.4</item>
+        <item name="android:ambientShadowAlpha">0.4</item>
        <!-- <item name="android:fontFamily">@font/karla_camilla</item>-->
         <!-- Customize your theme here. -->
     </style>

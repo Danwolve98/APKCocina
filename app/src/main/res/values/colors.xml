@@ -13,6 +13,7 @@
     <color name="black_soft">#2B2B2B</color>
     <color name="gray">#808080</color>
     <color name="red">#C30000</color>
+    <color name="red_soft">#F47878</color>
     <color name="black_filter">#80000000</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="background_semi_transparent_wood">#CCF7ECD4</color>

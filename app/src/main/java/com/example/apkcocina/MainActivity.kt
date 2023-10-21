@@ -1,15 +1,12 @@
-package com.example.apkcocina.features.home.activity
+package com.example.apkcocina
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.core.view.isVisible
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.viewbinding.ViewBinding
-import com.example.apkcocina.R
 import com.example.apkcocina.databinding.ActivityMainBinding
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.FilterActionBar
@@ -18,7 +15,6 @@ import com.example.apkcocina.utils.extensions.invisible
 import com.example.apkcocina.utils.extensions.visible
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -33,7 +29,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         val analytics = FirebaseAnalytics.getInstance(this)
         analytics.logEvent("InitScreen",Bundle().apply { putString("message","Integración con FireBase completada") })
@@ -89,7 +84,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun navigate(accion: Int,bundle: Bundle?){
+    fun navigate(accion: Int,bundle: Bundle? = null){
         navController.navigate(accion,bundle)
     }
 

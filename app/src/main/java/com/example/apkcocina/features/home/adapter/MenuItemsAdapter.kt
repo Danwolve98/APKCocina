@@ -7,14 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apkcocina.R
-import com.example.apkcocina.features.home.activity.MainActivity
 import com.example.apkcocina.utils.extensions.visible
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
-class MenuItemsAdapter(var listItems : List<String>,val mainActivity: MainActivity,val onItemClickListener:(Int) -> Unit) : RecyclerView.Adapter<MenuItemsAdapter.ViewHolder>() {
+class MenuItemsAdapter(var listItems : List<String>,val onItemClickListener:(Int) -> Unit) : RecyclerView.Adapter<MenuItemsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

@@ -2,5 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/perfil_fragment" android:title="@string/perfil" android:icon="@drawable/ic_profile"/>
     <item android:id="@+id/inicio_fragment" android:title="@string/inicio" android:icon="@drawable/ic_home"/>
+    <item android:id="@+id/recetasFav_fragment" android:title="@string/fav" android:icon="@drawable/ic_fav"/>
     <item android:id="@+id/settings_fragment" android:title="@string/ajustes" android:icon="@drawable/ic_ajustes"/>
 </menu>

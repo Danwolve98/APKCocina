@@ -12,7 +12,7 @@ import com.example.apkcocina.R
 import com.example.apkcocina.utils.model.Receta
 import com.example.apkcocina.databinding.FrgCrearRecetaBinding
 import com.example.apkcocina.features.crearReceta.adapter.CrearProductosAdapter
-import com.example.apkcocina.features.home.activity.MainActivity
+import com.example.apkcocina.MainActivity
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.TitleActionBar
@@ -33,16 +33,13 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
     lateinit var firestore: FirebaseFirestore
     override lateinit var actionBar: APKCocinaActionBar
 
-    private lateinit var mainActivity: MainActivity
     private lateinit var receta : Receta
     private var isButtonPressed : Boolean = false
 
     private var productosAdapter = CrearProductosAdapter(listOf())
     override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mainActivity = requireActivity() as MainActivity
         actionBar = TitleActionBar(getString(R.string.crear_receta))
-        (activity as MainActivity).configureActionBar(this)
+        super.onAttach(context)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

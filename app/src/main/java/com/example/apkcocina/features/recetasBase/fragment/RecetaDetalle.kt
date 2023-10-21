@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.example.apkcocina.R
 import com.example.apkcocina.databinding.FrgRecetaDetalleBinding
 import com.example.apkcocina.utils.model.Receta
-import com.example.apkcocina.features.home.activity.MainActivity
+import com.example.apkcocina.MainActivity
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.TitleActionBar
@@ -27,7 +27,6 @@ class RecetaDetalle : BaseFragment<FrgRecetaDetalleBinding>() {
     lateinit var firebaseStorage : FirebaseStorage
 
     override fun onAttach(context: Context) {
-        super.onAttach(context)
 
         receta = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arguments?.getSerializable("receta",Receta::class.java) ?: Receta()
@@ -35,9 +34,8 @@ class RecetaDetalle : BaseFragment<FrgRecetaDetalleBinding>() {
             arguments?.getSerializable("receta") as Receta
         }
 
-        mainActivity = requireActivity() as MainActivity
         actionBar = TitleActionBar(receta.nombre.toString())
-        (activity as MainActivity).configureActionBar(this)
+        super.onAttach(context)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -4,6 +4,7 @@
     <!--INICIO-->
     <string name="inicio">Inicio</string>
     <string name="perfil">Perfil</string>
+    <string name="fav">Fav</string>
     <string name="ajustes">Ajustes</string>
     <string-array name="menu_items">
         <item>"Recetas base"</item>
@@ -63,10 +64,18 @@
 
     <!--AJUSTES-->
     <string name="idioma">Idioma</string>
-    <string name="inicar_sesion">Iniciar\nsesión</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="seguro_desea_cerrar_sesion">¿Seguro que desea cerrar su sesión?</string>
     <string name="ayuda">Ayuda</string>
     <string name="compartir">Compartir</string>
+    <string name="informacion">Información</string>
+    <string name="mira_esta_increible_apk_de_cocina">¡Mira esta increíble aplicación de cocina!</string>
+    <string name="te_recomiendo_esta_apk">¡Te recomiendo esta aplicación</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="cancelar">Cancelar</string>
 
+    <!--FAVORITOS-->
+    <string name="favoritos">Favoritos</string>
 
     <!--RECETASDETALLE-->
     <string name="sin_descripcion">Sin descripción</string>

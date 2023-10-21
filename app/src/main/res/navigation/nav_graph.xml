@@ -20,6 +20,9 @@
             android:id="@+id/action_inicio_fragment_to_crearRecetaFragment"
             app:destination="@id/crearRecetaFragment"
             app:popUpTo="@id/inicio_fragment" />
+        <action
+            android:id="@+id/action_inicio_fragment_to_informacionFragment"
+            app:destination="@id/informacionFragment" />
     </fragment>
 
     <fragment
@@ -36,7 +39,11 @@
         android:id="@+id/settings_fragment"
         android:name="com.example.apkcocina.features.settings.fragment.SettingsFragment"
         android:label="SettingsFragment"
-        tools:layout="@layout/frg_ajustes"/>
+        tools:layout="@layout/frg_ajustes">
+        <action
+            android:id="@+id/action_settings_fragment_to_idiomaFragment"
+            app:destination="@id/idiomaFragment" />
+    </fragment>
     <fragment
         android:id="@+id/recetasBaseFragment"
         android:name="com.example.apkcocina.features.recetasBase.fragment.RecetasBaseFragment"
@@ -81,5 +88,30 @@
         android:name="com.example.apkcocina.features.profile.fragment.ReestablecerContrasenaFragment"
         android:label="ReestablecerContrasenaFragment"
         tools:layout="@layout/frg_reestablecer_contrasena"/>
+    <fragment
+        android:id="@+id/informacionFragment"
+        android:name="com.example.apkcocina.features.settings.fragment.InformacionFragment"
+        android:label="InformacionFragment"
+        tools:layout="@layout/frg_informacion">
+        <argument
+            android:name="info"
+            app:argType="integer" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_informacionFragment"
+        app:destination="@id/informacionFragment" />
+    <action
+        android:id="@+id/action_global_loginFragment"
+        app:destination="@id/loginFragment" />
+    <fragment
+        android:id="@+id/recetasFav_fragment"
+        android:name="com.example.apkcocina.features.recetasFav.RecetasFav"
+        android:label="RecetasFav"
+        tools:layout="@layout/frg_recetas_fav"/>
+    <fragment
+        android:id="@+id/idiomaFragment"
+        android:name="com.example.apkcocina.features.settings.fragment.IdiomaFragment"
+        android:label="IdiomaFragment"
+        tools:layout="@layout/frg_idioma"/>
 
 </navigation>

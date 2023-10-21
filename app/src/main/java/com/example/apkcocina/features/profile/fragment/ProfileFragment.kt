@@ -8,11 +8,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.viewModels
 import com.example.apkcocina.R
 import com.example.apkcocina.databinding.FrgProfileBinding
-import com.example.apkcocina.features.home.activity.MainActivity
+import com.example.apkcocina.MainActivity
 import com.example.apkcocina.features.profile.viewModel.ProfileViewModel
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
@@ -38,7 +37,7 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
     private val profileViewModel: ProfileViewModel by viewModels()
 
     override fun onAttach(context: Context) {
-        super.onAttach(context)
+
         /*if(firebaseAuth.currentUser != null){
             if(!firebaseAuth.currentUser!!.isEmailVerified){
                 profileViewModel.sendEmailVerification()
@@ -50,7 +49,7 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
         }*/
         mainActivity = requireActivity() as MainActivity
         actionBar = TitleActionBar(getString(R.string.perfil)).apply { haveBack = false }
-        (activity as MainActivity).configureActionBar(this)
+        super.onAttach(context)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

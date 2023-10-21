@@ -13,10 +13,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.apkcocina.R
 import com.example.apkcocina.databinding.FrgLoginBinding
-import com.example.apkcocina.features.home.activity.MainActivity
+import com.example.apkcocina.MainActivity
 import com.example.apkcocina.features.profile.viewModel.ProfileViewModel
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
+import com.example.apkcocina.utils.base.TitleActionBar
 import com.example.apkcocina.utils.extensions.loseFocusAfterAction
 import com.example.apkcocina.utils.extensions.onTextChanged
 import com.google.android.gms.tasks.Task
@@ -35,8 +36,9 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
 
     private val profileViewModel: ProfileViewModel by viewModels()
     override fun onAttach(context: Context) {
-        super.onAttach(context)
+        actionBar = TitleActionBar(getString(R.string.iniciar_sesion))
         mainActivity = requireActivity() as MainActivity
+        super.onAttach(context)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

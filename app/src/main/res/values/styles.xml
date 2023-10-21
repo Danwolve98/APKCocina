@@ -73,8 +73,8 @@
     </style>
 
     <style name="MaterialButtonAjustes" parent="Widget.Material3.Button.ElevatedButton">
-        <item name="android:width">120dp</item>
-        <item name="android:height">120dp</item>
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">120dp</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
         <item name="cornerRadius">10dp</item>
