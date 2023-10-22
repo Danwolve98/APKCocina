@@ -41,33 +41,42 @@ class SettingsFragment : BaseFragment<FrgAjustesBinding>() {
 
     private fun initializeView() {
         with(binding){
-            btAyuda.setOnClickListener { NavGraphDirections.actionGlobalInformacionFragment(AYUDA_INFO) }
+            btAyuda.setOnClickListener { navigate(NavGraphDirections.actionGlobalInformacionFragment(AYUDA_INFO)) }
             btCompartir.setOnClickListener { compartirAPK() }
-            btInformacion.setOnClickListener { NavGraphDirections.actionGlobalInformacionFragment(INFORMACION_INFO) }
+            btInformacion.setOnClickListener { navigate(NavGraphDirections.actionGlobalInformacionFragment(INFORMACION_INFO)) }
             btIdioma.setOnClickListener { navigate(R.id.action_settings_fragment_to_idiomaFragment) }
-
-            if(authFirebaseAuth.currentUser != null){
-                btIniciarSesion.setOnClickListener { navigate(R.id.action_global_loginFragment) }
-            }else{
-                AlertDialog.Builder(requireContext())
-                    .setTitle(getString(R.string.cerrar_sesion))
-                    .setMessage(getString(R.string.seguro_desea_cerrar_sesion))
-                    .setPositiveButton(getString(R.string.aceptar)
-                    ) { dia, _ ->
-                        btIniciarSesion.icon = AppCompatResources.getDrawable(requireContext(),R.drawable.ic_cerrar_sesion)
-                        btIniciarSesion.setOnClickListener {
-                            authFirebaseAuth.signOut()
-                            btIniciarSesion.icon = AppCompatResources.getDrawable(requireContext(),R.drawable.ic_iniciar_sesion)
-                            it.setOnClickListener { navigate(R.id.action_global_loginFragment) }
-                        }
-                        dia.dismiss()
-                    }
-                    .setNegativeButton(getString(R.string.cancelar)){ dia, _ ->
-                        dia.dismiss()
-                    }
-            }
+            btIniciarSesion()
         }
     }
+
+    private fun FrgAjustesBinding.btIniciarSesion(): Any? =
+        if (authFirebaseAuth.currentUser != null) {
+            btIniciarSesion.setOnClickListener { navigate(R.id.action_global_loginFragment) }
+        } else {
+            AlertDialog.Builder(requireContext())
+                .setTitle(getString(R.string.cerrar_sesion))
+                .setMessage(getString(R.string.seguro_desea_cerrar_sesion))
+                .setPositiveButton(
+                    getString(R.string.aceptar)
+                ) { dia, _ ->
+                    btIniciarSesion.icon = AppCompatResources.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_cerrar_sesion
+                    )
+                    btIniciarSesion.setOnClickListener {
+                        authFirebaseAuth.signOut()
+                        btIniciarSesion.icon = AppCompatResources.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_iniciar_sesion
+                        )
+                        it.setOnClickListener { navigate(R.id.action_global_loginFragment) }
+                    }
+                    dia.dismiss()
+                }
+                .setNegativeButton(getString(R.string.cancelar)) { dia, _ ->
+                    dia.dismiss()
+                }
+        }
 
     private fun compartirAPK() {
         val shareIntent = Intent(Intent.ACTION_SEND)
