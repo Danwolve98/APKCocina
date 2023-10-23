@@ -5,13 +5,14 @@ import android.os.Bundle
 import android.util.Log
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI.setupWithNavController
+import androidx.navigation.ui.setupWithNavController
 import androidx.viewbinding.ViewBinding
 import com.example.apkcocina.databinding.ActivityMainBinding
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.FilterActionBar
 import com.example.apkcocina.utils.base.PrincipalActionBar
 import com.example.apkcocina.utils.extensions.invisible
+import com.example.apkcocina.utils.extensions.navigateToMenuItem
 import com.example.apkcocina.utils.extensions.visible
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
@@ -39,7 +40,13 @@ class MainActivity : AppCompatActivity() {
     private fun initializeView() {
         firebaseAuth.signOut()
 
-        setupWithNavController(binding.bottomNavigationView,navController)
+        binding.bottomNavigationView.apply {
+            setupWithNavController(navController)
+            setOnItemSelectedListener {
+                navController.navigateToMenuItem(it)
+            }
+        }
+
 
         binding.btBackPressedActionBar.setOnClickListener{
             onSupportNavigateUp()

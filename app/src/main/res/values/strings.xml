@@ -83,7 +83,6 @@
     <string name="crear_receta">Crear Receta</string>
 
 
-
     <!--TEXTOS GENERALES-->
     <string name="ayuda_general">Ayuda general prueba</string>
 
@@ -107,21 +106,21 @@
               <p><center><strong><u><img src="https://lh7-us.googleusercontent.com/LYH6T87f3F658F68LItuEp2dEXrQPmGjaozADzYB_Uu1BXaN4KCNHzqGQu2vryVEcUYYuo6YwVDSuEbrv3EazFb_K4a58HC19YcN5NEBo0RDIu6sT-9mZh-AUZ2o_YH_q6s-Yb8UJVJLXVDIrm15eDI" width="150" height="150"></u></strong></center></p>
               <p><br></p>
               <p><strong>APKCocina es una aplicación de cocina en la cual puedes crear, guardar y ver recetas.</strong></p>
-              <p><center><img src="https://lh7-us.googleusercontent.com/186tYIW1wQTM00WV-8U3PW4OAKcAqUTq3Ja9IgOGaYdz61rNm5bHpGvhjgmsuW0BTLwvfFaBoDmFlbuSmkujdaQZOzlVMLqu_EYfFvOF2q3zKbPySbfEVJ9ZUOLbsXHxRpsivhLn3EmXtGE95z9G3Ts" width="76" height="60"></center></p>
+              <p><center><img src="https://lh7-us.googleusercontent.com/186tYIW1wQTM00WV-8U3PW4OAKcAqUTq3Ja9IgOGaYdz61rNm5bHpGvhjgmsuW0BTLwvfFaBoDmFlbuSmkujdaQZOzlVMLqu_EYfFvOF2q3zKbPySbfEVJ9ZUOLbsXHxRpsivhLn3EmXtGE95z9G3Ts" width="75" height="60"></center></p>
               <p><center><strong>Importante</strong></center></p>
               <p>En relación a la información proporcionada en las recetas creadas por usuarios, <strong>la aplicación NO se hace responsable</strong> de posibles informaciones <strong>falsas</strong> o conflictos, por ejemplo, a la hora de introducir los alérgenos y derivados, <strong>cada usuario deberá ser responsable de sus actos</strong>.</p>
               <p>En <strong>futuras versiones</strong> y próximas a la aplicación se introducirá un sistema de <strong>comentarios y reportes</strong> para controlar estos temas.</p>
               <p><strong>Recetas Base</strong></p>
               <p>Tenemos funciones básicas en las que <strong>no se requerirá registro previo</strong>, como son las <strong>recetas base</strong>, estas vienen ya de forma predeterminada en la aplicación.</p>
-              <p><img src="https://lh7-us.googleusercontent.com/kKnpXUT2Uk3gQc28SmItm9x7bGJaubrPjj-RilanUkRe6dELm0cq0AejtETBYikXOBD2JY6yDn9Ml-mLDsIcBd_1eI86HC4OW09jgNc2TnUuturKtdxyksRq_r9xpikaT6XXZC0Ka62cecP1PGyBtcs" width="336" height="146"></p>
+              <p><img src="https://lh7-us.googleusercontent.com/kKnpXUT2Uk3gQc28SmItm9x7bGJaubrPjj-RilanUkRe6dELm0cq0AejtETBYikXOBD2JY6yDn9Ml-mLDsIcBd_1eI86HC4OW09jgNc2TnUuturKtdxyksRq_r9xpikaT6XXZC0Ka62cecP1PGyBtcs" width="310" height="145"></p>
               <p><strong>Usuarios</strong></p>
               <p>En cambio, para poder <strong>administrar tu perfil</strong> y acceder a funciones <i>online</i>, <strong>sí que requerirá de un registro previo</strong> en la aplicación.</p>
               <p>Puedes cambiar tu información personal, añadir una foto y consultar recetas tuyas propias subidas.</p>
               <p>La información del usuario es totalmente confidencial, por el momento en esta versión actual de la aplicación, lo único público a los usuarios son las recetas que tú crees.</p>
-              <p><img src="https://lh7-us.googleusercontent.com/1psYW_TLM1U_EJ3kvc-i8AxJNhqYvd6p1K-ByRKn5M8uYUILZSIG7uynNd6xlmwk7F5xqedOQBu3xgioq0HeA-73XWDzMV-NTL0UBeAJDDvm2JI5t5LO3vy3O6yv6vYDPdJrxxFG9hk7PlMBOLOsXfM" width="187" height="326"></p>
+              <p><img src="https://lh7-us.googleusercontent.com/1psYW_TLM1U_EJ3kvc-i8AxJNhqYvd6p1K-ByRKn5M8uYUILZSIG7uynNd6xlmwk7F5xqedOQBu3xgioq0HeA-73XWDzMV-NTL0UBeAJDDvm2JI5t5LO3vy3O6yv6vYDPdJrxxFG9hk7PlMBOLOsXfM" width="190" height="325"></p>
               <p><strong>Favoritos</strong></p>
               <p>Tiene también una sección de favoritos que se encarga de que el usuario pueda tener un sistema de guardado de recetas online que le hayan gustado y así no facilitar su acceso posterior.</p>
-              <p><img src="https://lh7-us.googleusercontent.com/ILuctmlITapX_ZvV26ByIPfX8nnAl8665yGIv-MdMtbfLqAlH5Psm1_TMda3QEf1LTC9y4ZEbKBuT9dE5GFqXG_vYDxDlveLdpEOsh9oJbfegZj_RDoib3PKn7w1Tvu79_xeRpho0xWXlduBG_FY_js" width="87" height="93"></p>
+              <p><img src="https://lh7-us.googleusercontent.com/ILuctmlITapX_ZvV26ByIPfX8nnAl8665yGIv-MdMtbfLqAlH5Psm1_TMda3QEf1LTC9y4ZEbKBuT9dE5GFqXG_vYDxDlveLdpEOsh9oJbfegZj_RDoib3PKn7w1Tvu79_xeRpho0xWXlduBG_FY_js" width="90" height="95"></p>
               <p><strong>Idioma</strong></p>
               <p>En la sección de ajustes puedes cambiar el idioma de la aplicación a los siguientes idiomas:</p>
               <ul>
@@ -129,10 +128,15 @@
                 <li> <p>Francés</p> </li>
                 <li> <p>Inglés</p> </li>
               </ul>
-              <p><img src="https://lh7-us.googleusercontent.com/zPZ8gWZZYufdylvQV1RDRWQTi5aK5ag8Fi8p-zu9VGu_3X6plVVutR9eCNmlJcfwC6_6IFkipoNlqYaltG82rzsfpD_9AlUl89voGIx6LzjXMOF6aaRB7FRt_xr8tTA34DKySh2R6oFjoStXJrCGeWw" width="250" height="253"></p>
+              <p><img src="https://lh7-us.googleusercontent.com/zPZ8gWZZYufdylvQV1RDRWQTi5aK5ag8Fi8p-zu9VGu_3X6plVVutR9eCNmlJcfwC6_6IFkipoNlqYaltG82rzsfpD_9AlUl89voGIx6LzjXMOF6aaRB7FRt_xr8tTA34DKySh2R6oFjoStXJrCGeWw" width="250" height="250"></p>
               <p><strong>Ayuda</strong></p>
               <p>En el apartado de ayuda podrás encontrar soporte o información relevante a atención al cliente para la aplicación, si has tenido algún tipo de problema, o tal vez quieres enviar alguna sugerencia aquí debes hacerlo.</p>
               <p><br></p>
+              <p><strong>&iquest;Qu&eacute; cocino hoy?</strong></p>
+              <p><br></p>
+              <p>Esta secci&oacute;n simplemente te recoger&aacute; una receta aleatoria de entre las existentes, as&iacute; tendr&aacute;s algunas referencias para la cocina o incluso simplemente por el af&aacute;n de descubrir nuevas recetas de una forma m&aacute;s divertida.</p>
+              <p><br></p>
+              <p><img src="https://lh7-us.googleusercontent.com/jaXehkw4ghGEkNUzCZiLAg6UcZDgCpqdhSmkIGZaZtvS8DipMG9A4P7hv4Z4UyzqlxWbkIEkA7xW9hjYwuOWbnAhoJWzFt01q8qaIVEqWepUP5fXMR-EMJqJs7_GbKSlrS6J04xrjNo4rSjIcQKandw" width="310" height="145"></p>
             </body>
             </html>]]>
     </string>
