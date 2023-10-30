@@ -78,6 +78,10 @@ class IdiomaFragment : BaseFragment<FrgIdiomaBinding>() {
         }
     }
 
+    /**
+     * Función que se encarga de cambiar el idioma de la aplicación en base a la versión del dispositivo
+     * @param idioma el idioma a cambiar
+     */
     private fun changeIdioma(idioma : String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             requireContext().getSystemService(LocaleManager::class.java).applicationLocales = LocaleList(
