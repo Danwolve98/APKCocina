@@ -84,7 +84,50 @@
 
 
     <!--TEXTOS GENERALES-->
-    <string name="ayuda_general">Ayuda general prueba</string>
+    <string name="ayuda_general"><![CDATA[
+    <!DOCTYPE html>
+            <html>
+                <head>
+                  <meta charset="UTF-8">
+                  <style>
+                    a {
+                      text-decoration:none;
+                      margin-right: 25px;
+                    }
+                    strong {
+                      font-size: 14pt;
+                    }
+                  </style>
+                </head>
+                <body>
+                    <p style="text-align: center;">
+                        <center><img src="https://lh7-us.googleusercontent.com/KTJipiBI4ddgpFQsDdq71tBZY6-GWweR8mNvReXonkPJc-Xl6SsUF52CgelPWnJOsCh7o8MytJgtlJRjJEuq4o47sUGmutWBBpyV4Krcw-4FiBD-NH2yOQKQReZA-qhfYLYGRHlYqq0BRTZrpKinz6M" width="239" height="239"></center>
+                    </p>
+
+                    <p style="margin:20px 0px 0px 20px;">Esta aplicación actualmente no soporta servicio técnico, si tiene algún problema siempre puedes <strong>contactar</strong> con nosotros mediante nuestras <strong>redes sociales</strong> o incluso por el <strong>correo</strong> que se adjunta. Sentimos cualquier molestia ocasionada.</p>
+
+                    <p><br></p>
+
+                    <center>
+                       <p>
+                        <a href="https://www.instagram.com">
+                            <img class="imgMargin" src="https://lh7-us.googleusercontent.com/byePYu1-pSjNJlImV5XmPq-3luyPH17nbpU5xPSu-0EGefc7biUuMimeLL4Ta1oBHy4410L4vDg_YyeumjIahk3U5u4Fjli1vfAb1RWH2fDBTcdY7d1hM7QmG6QqHznP9sffZOZR6AZXXpKe5wYqMnU" width="55" height="55">
+                        </a>
+                        <a href="https://www.twitter.com">
+                            <img class="imgMargin" src="https://lh7-us.googleusercontent.com/FUeR89zUHHAJSGcebF8GDSsjCgjlX7t5xzGmBvtYRWp18UqeULxdyB_Fp_su4XCrbEeNUbYhjj9mE2Bul4ZltrTxt7a_f6qsvIr9M50uhQFiXFSaNR6iXYiZh6g5Ee-MorhxG_C9YFRFZupbOsg2BhE" width="50" height="50">
+                        </a>
+                        <a href="https://www.github.com">
+                            <img class="imgMargin" src="https://lh7-us.googleusercontent.com/dsFX6QCY_VXRQW2e2VTB37U8HVjIAyhhflEhD0cqhdVLleiypoKDZQ0pWU64cJgJgYWowvw-34yAAo3LgceUDDwv-9a6liD90MG3G4OyUTpXX0pVBCQW9JFcNbcdgg6K1tvvJxg1G01hbe8P-TicxpY" width="55" height="55">
+                        </a>
+                        <a style="margin-right:0;" href="mailto:apkcocina@gmail.com?subject=Asunto&body=Cuerpo del mensaje">
+                            <img class="imgMargin" src="https://lh7-us.googleusercontent.com/bFYj08FNQne1YJ0Np0DvBfw7v1NDwanvE0pwra6xSCMiv4sk4l0T8W6pKlM5dEVUoM9sgdACkDUluf2ERmKRTnCNfc9Bgb3EdA1mEg8e6CZ5Fc66Tn0JUbxf9J3-7h8FeLUPqFHSa-d4rq0lsdxa2cM" width="53" height="55">
+                        </a>
+                    </p>
+                   </center>
+                </body>
+            </html>
+    ]]>
+    </string>
 
     <string name="info_general">
         <![CDATA[
