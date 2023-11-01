@@ -13,7 +13,7 @@
         android:label="@string/app_name"
         android:localeConfig="@xml/locale_config"
         android:supportsRtl="true"
-        android:theme="@style/Theme.APKCocina"
+        android:theme="@style/Theme.SplashCreen.MySplash"
         tools:targetApi="34">
         <activity
             android:name=".MainActivity"
@@ -21,8 +21,8 @@
             android:windowSoftInputMode="adjustNothing"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <service

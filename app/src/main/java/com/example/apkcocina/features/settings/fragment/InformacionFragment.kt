@@ -47,5 +47,4 @@ class InformacionFragment : BaseFragment<FrgInformacionBinding>() {
             "UTF-8"
         )
     }
-
 }

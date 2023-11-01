@@ -18,4 +18,12 @@
         <!-- Font -->
         <item name="android:fontFamily">@font/karla_camilla</item>
     </style>
+
+    <style name="Theme.SplashCreen.MySplash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/base_1</item>
+        <item name="postSplashScreenTheme">@style/Theme.APKCocina</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/avd_apkcocina</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+    </style>
+
 </resources>
