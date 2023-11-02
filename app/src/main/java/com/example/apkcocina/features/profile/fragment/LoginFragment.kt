@@ -11,6 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavGraph
+import androidx.navigation.Navigation
+import androidx.navigation.ui.NavigationUI
 import com.example.apkcocina.R
 import com.example.apkcocina.databinding.FrgLoginBinding
 import com.example.apkcocina.MainActivity
@@ -36,8 +39,9 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
 
     private val profileViewModel: ProfileViewModel by viewModels()
     override fun onAttach(context: Context) {
-        actionBar = TitleActionBar(getString(R.string.iniciar_sesion))
+        actionBar = TitleActionBar(getString(R.string.iniciar_sesion)).apply { haveBack = false }
         mainActivity = requireActivity() as MainActivity
+
         super.onAttach(context)
     }
 
@@ -49,8 +53,8 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
     private fun initializeView() {
 
         with(binding){
-            btRegistrarse.setOnClickListener { navigate(R.id.action_loginFragment_to_registerFragment) }
             btIniciarSesion.setOnClickListener { login() }
+            btRegistrarse.setOnClickListener { navigate(R.id.action_loginFragment_to_registerFragment) }
             tvOlvidasteTuContrasena.setOnClickListener { navigate(R.id.action_loginFragment_to_reestablecerContrasenaFragment) }
 
             ilContrasenaLogin.errorIconDrawable = null
@@ -65,6 +69,7 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
             etContrasenaLogin.setOnFocusChangeListener { _, hasFocus -> onFieldChanged(hasFocus) }
             etContrasenaLogin.onTextChanged { onFieldChanged() }
         }
+
         initialiceListeners()
     }
 
@@ -93,7 +98,7 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
 
         profileViewModel.loginResult.observe(viewLifecycleOwner){ event ->
             event.getContentIfNotHandled()?.let{loginResult->
-
+                navigate(R.id.action_loginFragment_to_perfil_fragment)
             }
         }
 

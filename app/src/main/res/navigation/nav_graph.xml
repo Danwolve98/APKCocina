@@ -15,24 +15,20 @@
         <action
             android:id="@+id/action_inicio_fragment_to_recetasBaseFragment"
             app:destination="@id/recetasBaseFragment"
-            app:popUpTo="@id/inicio_fragment" />
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_inicio_fragment_to_crearRecetaFragment"
-            app:destination="@id/crearRecetaFragment"
-            app:popUpTo="@id/inicio_fragment" />
+            app:destination="@id/crearRecetaFragment" />
         <action
             android:id="@+id/action_inicio_fragment_to_informacionFragment"
-            app:destination="@id/informacionFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/perfil_fragment"
-        android:name="com.example.apkcocina.features.profile.fragment.ProfileFragment"
-        android:label="ProfileFragment"
-        tools:layout="@layout/frg_profile">
-        <action
-            android:id="@+id/action_perfil_fragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/informacionFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -42,7 +38,18 @@
         tools:layout="@layout/frg_ajustes">
         <action
             android:id="@+id/action_settings_fragment_to_idiomaFragment"
-            app:destination="@id/idiomaFragment" />
+            app:destination="@id/idiomaFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_settings_fragment_to_informacionFragment"
+            app:destination="@id/informacionFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/recetasBaseFragment"
@@ -52,6 +59,10 @@
         <action
             android:id="@+id/action_recetasBaseFragment_to_recetaDetalle"
             app:destination="@id/recetaDetalle"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/recetasBaseFragment" />
     </fragment>
 
@@ -67,28 +78,6 @@
         android:label="CrearRecetaFragment"
         tools:layout="@layout/frg_crear_receta"/>
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.apkcocina.features.profile.fragment.LoginFragment"
-        android:label="LoginFragment"
-        tools:layout="@layout/frg_login">
-        <action
-            android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_reestablecerContrasenaFragment"
-            app:destination="@id/reestablecerContrasenaFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/registerFragment"
-        android:name="com.example.apkcocina.features.profile.fragment.RegisterFragment"
-        android:label="RegisterFragment"
-        tools:layout="@layout/frg_register"/>
-    <fragment
-        android:id="@+id/reestablecerContrasenaFragment"
-        android:name="com.example.apkcocina.features.profile.fragment.ReestablecerContrasenaFragment"
-        android:label="ReestablecerContrasenaFragment"
-        tools:layout="@layout/frg_reestablecer_contrasena"/>
-    <fragment
         android:id="@+id/informacionFragment"
         android:name="com.example.apkcocina.features.settings.fragment.InformacionFragment"
         android:label="InformacionFragment"
@@ -97,12 +86,6 @@
             android:name="info"
             app:argType="integer" />
     </fragment>
-    <action
-        android:id="@+id/action_global_informacionFragment"
-        app:destination="@id/informacionFragment" />
-    <action
-        android:id="@+id/action_global_loginFragment"
-        app:destination="@id/loginFragment" />
     <fragment
         android:id="@+id/recetasFav_fragment"
         android:name="com.example.apkcocina.features.recetasFav.RecetasFav"
@@ -113,5 +96,54 @@
         android:name="com.example.apkcocina.features.settings.fragment.IdiomaFragment"
         android:label="IdiomaFragment"
         tools:layout="@layout/frg_idioma"/>
+
+    <fragment
+        android:id="@+id/reestablecerContrasenaFragment"
+        android:name="com.example.apkcocina.features.profile.fragment.ReestablecerContrasenaFragment"
+        android:label="ReestablecerContrasenaFragment"
+        tools:layout="@layout/frg_reestablecer_contrasena" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.apkcocina.features.profile.fragment.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/frg_login">
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_loginFragment_to_reestablecerContrasenaFragment"
+            app:destination="@id/reestablecerContrasenaFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_loginFragment_to_perfil_fragment"
+            app:destination="@id/perfil_fragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/perfil_fragment"
+        android:name="com.example.apkcocina.features.profile.fragment.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/frg_profile" >
+        <action
+            android:id="@+id/action_perfil_fragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/inicio_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.apkcocina.features.profile.fragment.RegisterFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/frg_register" />
 
 </navigation>

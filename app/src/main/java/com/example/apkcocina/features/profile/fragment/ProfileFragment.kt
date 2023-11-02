@@ -5,7 +5,9 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
@@ -32,29 +34,30 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
     @Inject
     lateinit var firebaseAuth: FirebaseAuth
     override lateinit var actionBar: APKCocinaActionBar
-    private lateinit var mainActivity: MainActivity
 
     private val profileViewModel: ProfileViewModel by viewModels()
 
     override fun onAttach(context: Context) {
-
-        /*if(firebaseAuth.currentUser != null){
-            if(!firebaseAuth.currentUser!!.isEmailVerified){
-                profileViewModel.sendEmailVerification()
-                Toast.makeText(requireContext(), "Se requiere validar la cuenta", Toast.LENGTH_SHORT).show()
-                navigate(R.id.action_perfil_fragment_to_loginFragment)
-            }
-        }else{
-            navigate(R.id.action_perfil_fragment_to_loginFragment)
-        }*/
-        mainActivity = requireActivity() as MainActivity
-        actionBar = TitleActionBar(getString(R.string.perfil)).apply { haveBack = false }
         super.onAttach(context)
+        isUserLogged()
+
+        actionBar = TitleActionBar(getString(R.string.perfil)).apply { haveBack = false }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeView()
+    }
+
+    private fun isUserLogged() {
+        if (firebaseAuth.currentUser == null) {
+            navigate(R.id.action_perfil_fragment_to_loginFragment)
+        } else {
+            if (!firebaseAuth.currentUser!!.isEmailVerified) {
+                Toast.makeText(requireContext(), "Se requiere validar la cuenta", Toast.LENGTH_SHORT).show()
+                navigate(R.id.action_perfil_fragment_to_loginFragment)
+            }
+        }
     }
 
     private fun initializeView() {

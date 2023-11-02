@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
@@ -18,7 +17,7 @@ abstract class BaseFragment<vb : ViewBinding> : Fragment() {
 
     abstract var actionBar : APKCocinaActionBar
     lateinit var binding : vb
-    private val navigator : NavController by lazy { findNavController() }
+    val navController : NavController by lazy { findNavController() }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -41,6 +40,6 @@ abstract class BaseFragment<vb : ViewBinding> : Fragment() {
         return binding
     }
 
-    protected fun navigate(action : Int,bundle : Bundle? = null) = navigator.navigate(action,bundle)
-    protected fun navigate(navDirections: NavDirections) = navigator.navigate(navDirections)
+    protected fun navigate(action : Int,bundle : Bundle? = null) = navController.navigate(action,bundle)
+    protected fun navigate(navDirections: NavDirections) = navController.navigate(navDirections)
 }

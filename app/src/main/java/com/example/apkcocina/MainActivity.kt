@@ -6,14 +6,14 @@ import android.util.Log
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.NavigationUiSaveStateControl
 import androidx.viewbinding.ViewBinding
 import com.example.apkcocina.databinding.ActivityMainBinding
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.FilterActionBar
 import com.example.apkcocina.utils.base.PrincipalActionBar
 import com.example.apkcocina.utils.extensions.invisible
-import com.example.apkcocina.utils.extensions.navigateToMenuItem
 import com.example.apkcocina.utils.extensions.visible
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen().setKeepOnScreenCondition{false}
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -39,16 +40,9 @@ class MainActivity : AppCompatActivity() {
         initializeView()
     }
 
+    @OptIn(NavigationUiSaveStateControl::class)
     private fun initializeView() {
-        firebaseAuth.signOut()
-
-        binding.bottomNavigationView.apply {
-            setupWithNavController(navController)
-            setOnItemSelectedListener {
-                navController.navigateToMenuItem(it)
-            }
-        }
-
+        NavigationUI.setupWithNavController(binding.bottomNavigationView,navController,false)
 
         binding.btBackPressedActionBar.setOnClickListener{
             onSupportNavigateUp()
@@ -89,7 +83,6 @@ class MainActivity : AppCompatActivity() {
         }else{
             binding.clLoading.invisible()
         }
-        Log.e("ACTIVO",binding.clLoading.isVisible.toString())
     }
 
 

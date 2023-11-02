@@ -7,10 +7,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import com.example.apkcocina.BuildConfig
-import com.example.apkcocina.NavGraphDirections
 import com.example.apkcocina.R
 import com.example.apkcocina.databinding.FrgAjustesBinding
-import com.example.apkcocina.MainActivity
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.TitleActionBar
@@ -41,9 +39,9 @@ class SettingsFragment : BaseFragment<FrgAjustesBinding>() {
 
     private fun initializeView() {
         with(binding){
-            btAyuda.setOnClickListener { navigate(NavGraphDirections.actionGlobalInformacionFragment(AYUDA_INFO)) }
+            btAyuda.setOnClickListener { navigate(SettingsFragmentDirections.actionSettingsFragmentToInformacionFragment(AYUDA_INFO)) }
             btCompartir.setOnClickListener { compartirAPK() }
-            btInformacion.setOnClickListener { navigate(NavGraphDirections.actionGlobalInformacionFragment(INFORMACION_INFO)) }
+            btInformacion.setOnClickListener { navigate(SettingsFragmentDirections.actionSettingsFragmentToInformacionFragment(INFORMACION_INFO)) }
             btIdioma.setOnClickListener { navigate(R.id.action_settings_fragment_to_idiomaFragment) }
             btIniciarSesion()
         }
@@ -51,7 +49,7 @@ class SettingsFragment : BaseFragment<FrgAjustesBinding>() {
 
     private fun FrgAjustesBinding.btIniciarSesion(): Any? =
         if (authFirebaseAuth.currentUser != null) {
-            btIniciarSesion.setOnClickListener { navigate(R.id.action_global_loginFragment) }
+            //INICIAR SESION
         } else {
             AlertDialog.Builder(requireContext())
                 .setTitle(getString(R.string.cerrar_sesion))
@@ -69,7 +67,7 @@ class SettingsFragment : BaseFragment<FrgAjustesBinding>() {
                             requireContext(),
                             R.drawable.ic_iniciar_sesion
                         )
-                        it.setOnClickListener { navigate(R.id.action_global_loginFragment) }
+                       //INICAR SESION
                     }
                     dia.dismiss()
                 }
