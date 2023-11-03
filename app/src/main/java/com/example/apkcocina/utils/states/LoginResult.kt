@@ -6,21 +6,26 @@ import com.google.firebase.auth.FirebaseUser
 sealed class LoginResult(){
     data class Error (val error : String = "Generic error") : LoginResult()
     data class Logged(val user: FirebaseUser) : LoginResult()
-    object UnverifiedEmail : LoginResult()
-    object NoExistAccount : LoginResult()
-    object NoValidPassword : LoginResult()
-    object NotLogged : LoginResult()
+    data object UnverifiedEmail : LoginResult()
+    data object NoExistAccount : LoginResult()
+    data object NoValidPassword : LoginResult()
+    data object NotLogged : LoginResult()
 }
 
 sealed class RegisterResult(){
     data class Error (val error : String = "Generic error") : RegisterResult()
     data class Registered(val user: FirebaseUser) : RegisterResult()
-    object DuplicatedAccount : RegisterResult()
+    data object DuplicatedAccount : RegisterResult()
 }
 
-sealed class UpdateResult(){
-    data class Error (val error : String = "Generic error") : UpdateResult()
+sealed class UpdateResult() {
+    data class Error(val error: String = "Generic error") : UpdateResult()
     data class Updated(val user: User) : UpdateResult()
+}
+
+sealed class ResetPassWordResult(){
+    data object Sent : ResetPassWordResult()
+    data class Error(var error: String = "Generic error") : ResetPassWordResult()
 }
 
 class ProfileState(var isLoading: Boolean = false,

@@ -11,8 +11,7 @@ class RecetasFav : BaseFragment<FrgRecetasFavBinding>() {
 
     override lateinit var actionBar: APKCocinaActionBar
 
-    override fun onAttach(context: Context) {
+    override fun assingActionBar() {
         actionBar = TitleActionBar(getString(R.string.favoritos)).apply { haveBack = false }
-        super.onAttach(context)
     }
 }

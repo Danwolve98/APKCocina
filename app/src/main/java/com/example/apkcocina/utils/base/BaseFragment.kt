@@ -2,25 +2,56 @@ package com.example.apkcocina.utils.base
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.example.apkcocina.MainActivity
+import com.example.apkcocina.R
+import com.example.apkcocina.utils.extensions.hideKeyboard
+import com.example.apkcocina.utils.extensions.notNullorDefault
+import kotlinx.coroutines.launch
 import java.lang.reflect.ParameterizedType
 
+/**
+ * Fragment genérico para todos los demás fragments, implementa toda la lógica necesaria para su correcto funcionamiento entre sí y con el
+ * [MainActivity] principal
+ */
 abstract class BaseFragment<vb : ViewBinding> : Fragment() {
 
-    abstract var actionBar : APKCocinaActionBar
-    lateinit var binding : vb
-    val navController : NavController by lazy { findNavController() }
+    //ACTION BAR SUPERIOR
+    abstract var actionBar: APKCocinaActionBar
+    lateinit var binding: vb
+    val mainActivity: MainActivity get() = requireActivity() as MainActivity
 
+    //NAVCONTROLLER
+    val navController: NavController by lazy { findNavController() }
+
+    //SI CONTROLA ONBACKPRESSED POR DEFECTO EL FRAGMENT
+    open var addOnBackPressed = false
     override fun onAttach(context: Context) {
         super.onAttach(context)
+    }
+
+    /**
+     * Función que te obliga a inicializar un actionBar
+     */
+    abstract fun assingActionBar()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (addOnBackPressed) {
+            mainActivity.onBackPressedDispatcher.addCallback(this) {
+                onBackPressed()
+            }
+        }
+
     }
 
     override fun onCreateView(
@@ -28,18 +59,64 @@ abstract class BaseFragment<vb : ViewBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        (requireActivity() as MainActivity).configureActionBar(this)
-        return createBindingInstance(inflater,container).root
+        binding = createBindingInstance(inflater, container)
+        initializeObservers()
+        assingActionBar()
+        actionBar.notNullorDefault(
+            notNullAction = { mainActivity.configureActionBar(actionBar) },
+            nullAction = {mainActivity.configureActionBar(TitleActionBar(getString(R.string.app_name)))}
+        )
+        return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initializeView()
+    }
+
+    /**
+     * Función que se encargar de inicializar las vistas en [onViewCreated]
+     */
+    open fun initializeView() {}
+
+    /**
+     * Función que se encargar se iniciar escuchadores, observadores o collects provenientes de un viewModel en [onCreate]
+     */
+    open fun initializeObservers() {}
+
+    /**
+     * Función que se encarga de recoger el metodo inflate de un Binding y crear su vista
+     */
     protected open fun createBindingInstance(inflater: LayoutInflater, container: ViewGroup?): vb {
         val vbType = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0]
         val vbClass = vbType as Class<vb>
-        val method = vbClass.getMethod("inflate", LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java)
-        binding = method.invoke(null, inflater, container, false) as vb
-        return binding
+        val method = vbClass.getMethod(
+            "inflate",
+            LayoutInflater::class.java,
+            ViewGroup::class.java,
+            Boolean::class.java
+        )
+
+        return method.invoke(null, inflater, container, false) as vb
     }
 
-    protected fun navigate(action : Int,bundle : Bundle? = null) = navController.navigate(action,bundle)
+    /**
+     * Función agregada para reemplazar el onBackPressed de la actividad, cerrarra pestañas que no queramos tener abiertas antes de navegar hacia atrás
+     */
+    open fun onBackPressed() {
+        binding.root.hideKeyboard()
+        navController.navigateUp()
+    }
+
+    /**
+     * Navega hace un destino por ID[Int] y puede adjuntar un bundle (nulo por defecto)
+     */
+    protected fun navigate(action: Int, bundle: Bundle? = null) =
+        navController.navigate(action, bundle)
+
+    /**
+     * Navega hace un destino por [NavDirections]
+     */
     protected fun navigate(navDirections: NavDirections) = navController.navigate(navDirections)
+
 }

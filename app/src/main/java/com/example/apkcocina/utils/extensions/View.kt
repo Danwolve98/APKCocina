@@ -1,5 +1,6 @@
 package com.example.apkcocina.utils.extensions
 
+import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -15,11 +16,10 @@ fun View.invisible() {
 
 fun View.visibilityCheck(boolean: Boolean) = if(boolean) this.visible() else this.invisible()
 
-fun View.hideKeyboard(completed: () -> Unit = {}) {
-    val inputMethodManager =
-        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    val wasOpened = inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
-    if (!wasOpened) completed()
+fun View.hideKeyboard(){
+    this.clearFocus()
+    val inputMethodManager = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
 }
 
 fun View.dismissKeyboard(completed: () -> Unit = {}) {

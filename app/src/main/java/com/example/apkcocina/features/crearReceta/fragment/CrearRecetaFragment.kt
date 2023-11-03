@@ -37,19 +37,12 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
     private var isButtonPressed : Boolean = false
 
     private var productosAdapter = CrearProductosAdapter(listOf())
-    override fun onAttach(context: Context) {
+
+    override fun assingActionBar() {
         actionBar = TitleActionBar(getString(R.string.crear_receta))
-        super.onAttach(context)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initializeView()
-    }
-
-    private fun initializeView() {
-        (activity as MainActivity).configureActionBar(this)
-
+    override fun initializeView() {
         binding.btCrearReceta.setOnClickListener {
             val receta = Receta().apply {
                 descripcion = "COMIDA RICA EN POTASIO"

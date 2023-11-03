@@ -16,16 +16,11 @@ class HomeFragment() : BaseFragment<FrgHomeBinding>() {
 
     override lateinit var actionBar: APKCocinaActionBar
 
-    override fun onAttach(context: Context) {
+    override fun assingActionBar() {
         actionBar = PrincipalActionBar(getString(R.string.inicio))
-        super.onAttach(context)
-    }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initializeView()
     }
 
-    private fun initializeView() {
+    override fun initializeView() {
         val listItems : List<String> = resources.getStringArray(R.array.menu_items).toList()
         binding.rvMenu.adapter = MenuItemsAdapter(listItems,navController)
     }

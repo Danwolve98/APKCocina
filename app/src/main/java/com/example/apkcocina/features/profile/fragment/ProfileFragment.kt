@@ -4,16 +4,11 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.DialogInterface
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import com.example.apkcocina.R
 import com.example.apkcocina.databinding.FrgProfileBinding
-import com.example.apkcocina.MainActivity
 import com.example.apkcocina.features.profile.viewModel.ProfileViewModel
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
@@ -40,13 +35,10 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         isUserLogged()
-
-        actionBar = TitleActionBar(getString(R.string.perfil)).apply { haveBack = false }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initializeView()
+    override fun assingActionBar() {
+        actionBar = TitleActionBar(getString(R.string.perfil)).apply { haveBack = false }
     }
 
     private fun isUserLogged() {
@@ -60,18 +52,8 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
         }
     }
 
-    private fun initializeView() {
-        profileViewModel.loginResult.observe(viewLifecycleOwner) { event ->
-            event.getContentIfNotHandled()?.let { loginResult ->
+    override fun initializeView() {
 
-            }
-        }
-
-        profileViewModel.updateResult.observe(viewLifecycleOwner) { event ->
-            event.getContentIfNotHandled()?.let { updateResult ->
-                Toast.makeText(requireContext(), "Datos actualizados correctamente", Toast.LENGTH_SHORT).show()
-            }
-        }
 
         binding.btDate.setOnClickListener {
             it.playAnimation(R.anim.click_animation)
@@ -87,6 +69,22 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
             }else{
                 activarEditables(false)
                 mostrarAlertDialog()
+            }
+        }
+    }
+
+    override fun initializeObservers() {
+        with(profileViewModel){
+            loginResult.observe(viewLifecycleOwner) { event ->
+                event.getContentIfNotHandled()?.let { loginResult ->
+
+                }
+            }
+
+            updateResult.observe(viewLifecycleOwner) { event ->
+                event.getContentIfNotHandled()?.let { updateResult ->
+                    Toast.makeText(requireContext(), "Datos actualizados correctamente", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

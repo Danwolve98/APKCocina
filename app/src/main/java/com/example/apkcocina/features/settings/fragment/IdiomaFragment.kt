@@ -23,40 +23,34 @@ class IdiomaFragment : BaseFragment<FrgIdiomaBinding>() {
     private lateinit var lanPair : Pair<List<String>,List<MaterialButton>>
     private lateinit var bt : MaterialButton
 
-    override fun onAttach(context: Context) {
+    override fun assingActionBar() {
         actionBar = TitleActionBar(getString(R.string.idioma))
-        super.onAttach(context)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initalizeView()
-    }
-
-    private fun initalizeView() {
-            val language : String =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    requireContext().getSystemService(LocaleManager::class.java).applicationLocales[0]?.language ?: Constants.LANGUAGE_ES
-                }else{
-                    AppCompatDelegate.getApplicationLocales()[0]?.language ?: Constants.LANGUAGE_ES
-                }
-            with(binding){
-                bt = when(language){
-                    Constants.LANGUAGE_ES-> btEspanol
-                    Constants.LANGUAGE_EN-> btIngles
-                    Constants.LANGUAGE_FR-> btFrancais
-                    else -> {btEspanol}
-                }
-                lanPair = Pair(listOf(Constants.LANGUAGE_ES,Constants.LANGUAGE_FR,Constants.LANGUAGE_EN),
-                    listOf(btEspanol,btFrancais,btIngles))
+    override fun initializeView() {
+        val language : String =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                requireContext().getSystemService(LocaleManager::class.java).applicationLocales[0]?.language ?: Constants.LANGUAGE_ES
+            }else{
+                AppCompatDelegate.getApplicationLocales()[0]?.language ?: Constants.LANGUAGE_ES
             }
-
-            assignLanguageButtons()
-
-            bt.apply{
-                isChecked = true
-                isClickable = false
+        with(binding){
+            bt = when(language){
+                Constants.LANGUAGE_ES-> btEspanol
+                Constants.LANGUAGE_EN-> btIngles
+                Constants.LANGUAGE_FR-> btFrancais
+                else -> {btEspanol}
             }
+            lanPair = Pair(listOf(Constants.LANGUAGE_ES,Constants.LANGUAGE_FR,Constants.LANGUAGE_EN),
+                listOf(btEspanol,btFrancais,btIngles))
+        }
+
+        assignLanguageButtons()
+
+        bt.apply{
+            isChecked = true
+            isClickable = false
+        }
     }
 
     private fun assignLanguageButtons() {

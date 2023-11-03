@@ -1,11 +1,9 @@
 package com.example.apkcocina.features.profile.fragment
 
 import android.app.AlertDialog
-import android.content.Context
-import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar.NavigationMode
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -13,10 +11,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavGraph
 import androidx.navigation.Navigation
-import androidx.navigation.ui.NavigationUI
+import com.example.apkcocina.NavGraphDirections
 import com.example.apkcocina.R
 import com.example.apkcocina.databinding.FrgLoginBinding
-import com.example.apkcocina.MainActivity
 import com.example.apkcocina.features.profile.viewModel.ProfileViewModel
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
@@ -34,23 +31,15 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
 
     @Inject
     lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var mainActivity : MainActivity
     override lateinit var actionBar: APKCocinaActionBar
 
     private val profileViewModel: ProfileViewModel by viewModels()
-    override fun onAttach(context: Context) {
+
+    override fun assingActionBar() {
         actionBar = TitleActionBar(getString(R.string.iniciar_sesion)).apply { haveBack = false }
-        mainActivity = requireActivity() as MainActivity
-
-        super.onAttach(context)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initializeView()
-    }
-
-    private fun initializeView() {
+    override fun initializeView() {
 
         with(binding){
             btIniciarSesion.setOnClickListener { login() }
@@ -58,9 +47,6 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
             tvOlvidasteTuContrasena.setOnClickListener { navigate(R.id.action_loginFragment_to_reestablecerContrasenaFragment) }
 
             ilContrasenaLogin.errorIconDrawable = null
-            ilCorreoLogin.setErrorIconOnClickListener{
-                etCorreoLogin.text!!.clear()
-            }
 
             etCorreoLogin.loseFocusAfterAction(EditorInfo.IME_ACTION_NEXT)
             etCorreoLogin.onTextChanged { onFieldChanged() }
@@ -69,8 +55,6 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
             etContrasenaLogin.setOnFocusChangeListener { _, hasFocus -> onFieldChanged(hasFocus) }
             etContrasenaLogin.onTextChanged { onFieldChanged() }
         }
-
-        initialiceListeners()
     }
 
     private fun onFieldChanged(hasFocus: Boolean = false) {
@@ -82,8 +66,7 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
         }
     }
 
-
-    private fun initialiceListeners() {
+    override fun initializeObservers() {
         lifecycleScope.launch{
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 profileViewModel.profileViewState.collect { profileViewState ->
@@ -96,38 +79,28 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
             }
         }
 
-        profileViewModel.loginResult.observe(viewLifecycleOwner){ event ->
-            event.getContentIfNotHandled()?.let{loginResult->
-                navigate(R.id.action_loginFragment_to_perfil_fragment)
-            }
-        }
-
-        profileViewModel.loginError.observe(viewLifecycleOwner){ event ->
-            event.getContentIfNotHandled()?.let{loginError->
-                Toast.makeText(requireContext(),loginError,Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        profileViewModel.registerResult.observe(viewLifecycleOwner){ event ->
-            event.getContentIfNotHandled()?.let{registerResult->
-
-            }
-        }
-
-        profileViewModel.verifiedEmail.observe(viewLifecycleOwner){ event ->
-            event.getContentIfNotHandled()?.let{verified->
-                if(verified){
-                    Toast.makeText(requireContext(),getString(R.string.verificacion_con_exito),Toast.LENGTH_SHORT).show()
-                }else{
-                    Toast.makeText(requireContext(),getString(R.string.hubo_un_problema_al_verificar_la_cuenta),Toast.LENGTH_SHORT).show()
-                    mainActivity.supportFragmentManager.beginTransaction().remove(this).commit()
+        with(profileViewModel){
+            loginResult.observe(viewLifecycleOwner){ event ->
+                event.getContentIfNotHandled()?.let{loginResult->
+                    navigate(NavGraphDirections.actionGlobalPerfilFragment())
                 }
             }
-        }
 
-        profileViewModel.registerError.observe(viewLifecycleOwner){ event ->
-            event.getContentIfNotHandled()?.let{registerError->
-                Toast.makeText(requireContext(),registerError,Toast.LENGTH_SHORT).show()
+            loginError.observe(viewLifecycleOwner){ event ->
+                event.getContentIfNotHandled()?.let{loginError->
+                    Toast.makeText(requireContext(),loginError,Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            verifiedEmail.observe(viewLifecycleOwner){ event ->
+                event.getContentIfNotHandled()?.let{verified->
+                    if(verified){
+                        Toast.makeText(requireContext(),getString(R.string.verificacion_con_exito),Toast.LENGTH_SHORT).show()
+                        navigate(NavGraphDirections.actionGlobalPerfilFragment())
+                    }else{
+                        Toast.makeText(requireContext(),getString(R.string.hubo_un_problema_al_verificar_la_cuenta),Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
     }
@@ -143,12 +116,6 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
         val correo = binding.etCorreoLogin.text.toString()
         val contrasena = binding.etContrasenaLogin.text.toString()
         profileViewModel.login(correo,contrasena)
-    }
-
-    private fun registrar() {
-        val correo = binding.etCorreoLogin.text.toString()
-        val contrasena = binding.etContrasenaLogin.text.toString()
-        profileViewModel.register(correo,contrasena)
     }
 
     private fun validEntryTexts(correo : String, contrasena : String) = correo.isNotEmpty() && contrasena.isNotEmpty()

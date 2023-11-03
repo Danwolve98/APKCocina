@@ -12,7 +12,10 @@ import com.example.apkcocina.utils.extensions.notNullorDefault
 import com.example.apkcocina.utils.model.User
 import com.example.apkcocina.utils.states.LoginResult
 import com.example.apkcocina.utils.states.RegisterResult
+import com.example.apkcocina.utils.states.ResetPassWordResult
 import com.example.apkcocina.utils.states.UpdateResult
+import com.google.firebase.FirebaseNetworkException
+import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -27,7 +30,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import java.io.File
 import java.util.Calendar
-import java.util.Date
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -79,32 +81,32 @@ class FireBaseService @Inject constructor(
     ): UpdateResult {
         var updateResult: UpdateResult = UpdateResult.Error()
         if (auth.currentUser != null) {
-            if(updateUserAuth(photoUri)){
-            val document = store.collection(User.USUARIOS).document(auth.currentUser!!.uid)
-            document.get()                                                                              //GET
-                .addOnSuccessListener { documentSnapshot ->
-                val usuario = documentSnapshot.toObject(User::class.java)
-                if (usuario != null) {
-                    nombre.notNull { usuario.nombre = nombre }
-                    apellidos.notNull { usuario.apellidos = apellidos }
-                    nacionalidad.notNull { usuario.nacionalidad = nacionalidad }
-                    cumpleanos.notNull { usuario.cumpleanos = cumpleanos }
-                    document.set(usuario)                                                              //SET
-                        .addOnSuccessListener {
-                        updateResult = UpdateResult.Updated(usuario)
-                    }
-                        .addOnFailureListener {
-                            Toast.makeText(
-                                context,
-                                "ERROR AL ACTUALIZAR USUARIO",
-                                Toast.LENGTH_SHORT
-                            ).show()
+            if (updateUserAuth(photoUri)) {
+                val document = store.collection(User.USUARIOS).document(auth.currentUser!!.uid)
+                document.get()                                                                              //GET
+                    .addOnSuccessListener { documentSnapshot ->
+                        val usuario = documentSnapshot.toObject(User::class.java)
+                        if (usuario != null) {
+                            nombre.notNull { usuario.nombre = nombre }
+                            apellidos.notNull { usuario.apellidos = apellidos }
+                            nacionalidad.notNull { usuario.nacionalidad = nacionalidad }
+                            cumpleanos.notNull { usuario.cumpleanos = cumpleanos }
+                            document.set(usuario)                                                              //SET
+                                .addOnSuccessListener {
+                                    updateResult = UpdateResult.Updated(usuario)
+                                }
+                                .addOnFailureListener {
+                                    Toast.makeText(
+                                        context,
+                                        "ERROR AL ACTUALIZAR USUARIO",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
                         }
-                }
-                }
-                .addOnFailureListener {
-                    UpdateResult.Error(context.getString(R.string.no_se_ha_podido_recoger_informacion_del_usuario))
-                }
+                    }
+                    .addOnFailureListener {
+                        UpdateResult.Error(context.getString(R.string.no_se_ha_podido_recoger_informacion_del_usuario))
+                    }
             }
         } else {
             updateResult = UpdateResult.Error(context.getString(R.string.usuario_no_existe))
@@ -113,63 +115,80 @@ class FireBaseService @Inject constructor(
         return updateResult
     }
 
-        fun updateUserAuth(photoUri: Uri? = null): Boolean {
-            var successful = false
-            val requestUpdateUser = UserProfileChangeRequest.Builder()
-                .setPhotoUri(
-                    photoUri.notNullorDefault(
-                        notNullAction = { return@notNullorDefault photoUri },
-                        nullAction = {
-                            return@notNullorDefault auth.currentUser?.photoUrl.notNullorDefault(
-                                context.getDrawable(R.drawable.ic_chef)?.getUri(context)
-                            )
-                        })
-                )
-                .build()
-            auth.currentUser!!.updateProfile(requestUpdateUser).addOnSuccessListener {
-                File(context.cacheDir, Constants.PROFILE_IMAGES_CACHE).deleteRecursively()
-                successful = true
+    fun updateUserAuth(photoUri: Uri? = null): Boolean {
+        var successful = false
+        val requestUpdateUser = UserProfileChangeRequest.Builder()
+            .setPhotoUri(
+                photoUri.notNullorDefault(
+                    notNullAction = { return@notNullorDefault photoUri },
+                    nullAction = {
+                        return@notNullorDefault auth.currentUser?.photoUrl.notNullorDefault(
+                            context.getDrawable(R.drawable.ic_chef)?.getUri(context)
+                        )
+                    })
+            )
+            .build()
+        auth.currentUser!!.updateProfile(requestUpdateUser).addOnSuccessListener {
+            File(context.cacheDir, Constants.PROFILE_IMAGES_CACHE).deleteRecursively()
+            successful = true
+        }
+            .addOnFailureListener {
+                Log.e("EXCEPTION", "EXCEPCION MALA ${it.message}")
             }
-                .addOnFailureListener {
-                    Log.e("EXCEPTION", "EXCEPCION MALA ${it.message}")
+        return successful
+    }
+
+    suspend fun sendVerificationEmail() = runCatching {
+        auth.currentUser?.sendEmailVerification()?.await()
+    }.isSuccess
+
+    private suspend fun verifyEmailIsVerified(): Boolean {
+        auth.currentUser?.reload()?.await()
+        return auth.currentUser?.isEmailVerified ?: false
+    }
+
+    suspend fun sendResetPasswordEmail(email : String) : ResetPassWordResult{
+        var resetPassState : ResetPassWordResult = ResetPassWordResult.Error()
+        auth.sendPasswordResetEmail(email)
+            .addOnSuccessListener {
+                resetPassState = ResetPassWordResult.Sent
+            }
+            .addOnFailureListener {
+                resetPassState = when(it){
+                    is FirebaseAuthInvalidUserException-> ResetPassWordResult.Error(context.getString(R.string.usuario_no_existe))
+                    is FirebaseTooManyRequestsException-> ResetPassWordResult.Error(context.getString(R.string.has_agotado_los_intentos_prueba_mas_tarde))
+                    is FirebaseNetworkException-> ResetPassWordResult.Error(context.getString(R.string.ha_ocurrido_un_error_en_la_red_vuelve_a_intentarlo_mas_tarde))
+                    else -> {ResetPassWordResult.Error(context.getString(R.string.error_default))}
                 }
-            return successful
+            }.await()
+
+        return resetPassState
+    }
+
+    private fun Result<AuthResult>.toLoginResult() = when (val result = getOrNull()) {
+        null -> LoginResult.Error(context.getString(R.string.error_login))
+        else -> {
+            checkNotNull(result.user)
+            if (result.user!!.isEmailVerified)
+                LoginResult.Logged(result.user!!)
+            else
+                LoginResult.UnverifiedEmail
         }
+    }
 
-        suspend fun sendVerificationEmail() = runCatching {
-            auth.currentUser?.sendEmailVerification()?.await()
-        }.isSuccess
-
-        private suspend fun verifyEmailIsVerified(): Boolean {
-            auth.currentUser?.reload()?.await()
-            return auth.currentUser?.isEmailVerified ?: false
-        }
-
-        private fun Result<AuthResult>.toLoginResult() = when (val result = getOrNull()) {
-            null -> LoginResult.Error(context.getString(R.string.error_login))
-            else -> {
-                checkNotNull(result.user)
-                if (result.user!!.isEmailVerified)
-                    LoginResult.Logged(result.user!!)
-                else
-                    LoginResult.UnverifiedEmail
-            }
-        }
-
-        private fun Result<AuthResult>.toRegisterResult() = when (val result = getOrNull()) {
-            null -> RegisterResult.Error(context.getString(R.string.error_login))
-            else -> {
-                val user = result.user
-                checkNotNull(user)
-                store.collection(User.USUARIOS).document(user.uid).set(
-                    User(
-                        user.uid,
-                        context.getString(R.string.chef),
-                        context.getString(R.string.curioso)
-                    )
+    private fun Result<AuthResult>.toRegisterResult() = when (val result = getOrNull()) {
+        null -> RegisterResult.Error(context.getString(R.string.error_login))
+        else -> {
+            val user = result.user
+            checkNotNull(user)
+            store.collection(User.USUARIOS).document(user.uid).set(
+                User(
+                    user.uid,
+                    context.getString(R.string.chef),
+                    context.getString(R.string.curioso)
                 )
-                RegisterResult.Registered(user)
-            }
+            )
+            RegisterResult.Registered(user)
         }
+    }
 }
-

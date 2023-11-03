@@ -2,13 +2,10 @@ package com.example.apkcocina.features.recetasBase.fragment
 
 import android.content.Context
 import android.os.Build
-import android.os.Bundle
-import android.view.View
 import com.bumptech.glide.Glide
 import com.example.apkcocina.R
 import com.example.apkcocina.databinding.FrgRecetaDetalleBinding
 import com.example.apkcocina.utils.model.Receta
-import com.example.apkcocina.MainActivity
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.TitleActionBar
@@ -20,30 +17,25 @@ import javax.inject.Inject
 class RecetaDetalle : BaseFragment<FrgRecetaDetalleBinding>() {
 
     override lateinit var actionBar: APKCocinaActionBar
-
-    private lateinit var mainActivity: MainActivity
     private lateinit var receta : Receta
     @Inject
     lateinit var firebaseStorage : FirebaseStorage
 
     override fun onAttach(context: Context) {
-
         receta = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arguments?.getSerializable("receta",Receta::class.java) ?: Receta()
         }else{
             arguments?.getSerializable("receta") as Receta
         }
 
-        actionBar = TitleActionBar(receta.nombre.toString())
         super.onAttach(context)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initializeView()
+    override fun assingActionBar() {
+        actionBar = TitleActionBar(receta.nombre.toString())
     }
 
-    private fun initializeView() {
+    override fun initializeView() {
         cargarDatos()
     }
 

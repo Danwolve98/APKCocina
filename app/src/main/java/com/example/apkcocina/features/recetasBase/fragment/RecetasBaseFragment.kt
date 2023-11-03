@@ -26,13 +26,10 @@ class RecetasBaseFragment() : BaseFragment<FrgRecetasBaseBinding>() {
     val recetasBaseViewModel : RecetasBaseViewModel by viewModels()
     override lateinit var actionBar: APKCocinaActionBar
 
-    private lateinit var mainActivity: MainActivity
     private var listaRecetasBase : List<Receta>? = null
 
-    override fun onAttach(context: Context) {
-        mainActivity = requireActivity() as MainActivity
+    override fun assingActionBar() {
         actionBar = TitleActionBar(getString(R.string.recetas_base))
-        super.onAttach(context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,15 +42,6 @@ class RecetasBaseFragment() : BaseFragment<FrgRecetasBaseBinding>() {
            listaRecetasBase = it
             binding.rvRecetasBase.adapter = RecetasAdapter(listaRecetasBase!!,{onRecetaClickListener(it)},firebaseStorage)
         })
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initializeView()
-    }
-
-    private fun initializeView() {
-        (activity as MainActivity).configureActionBar(this)
     }
 
     private fun onRecetaClickListener(receta: Receta){ mainActivity.navigate(R.id.action_recetasBaseFragment_to_recetaDetalle,Bundle().apply { putSerializable("receta",receta) }) }

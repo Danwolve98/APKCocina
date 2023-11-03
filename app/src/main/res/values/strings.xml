@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">APKocina</string>
+    <string name="app_name" translatable="false">APKCocina</string>
 
     <!--INICIO-->
     <string name="inicio">Inicio</string>
@@ -22,6 +22,7 @@
     <string name="registrarse">Registrarse</string>
     <string name="no_tienes_cuenta">¿No tienes cuenta?\nRegístrate aquí</string>
     <string name="se_enviara_un_correo_para_reestablecer_la_contrasena">Se enviará un correo para restablecer\nla contraseña</string>
+    <string name="se_ha_enviado_un_correo_a_tu_email_para_reestablecer_la_contrasena">Se ha enviado un correo a tu email, para reestablecer la contraseña</string>
     <string name="reestablecer_contrasena">Reestablecer contraseña</string>
     <string name="enviado">Enviado</string>
     <string name="enviar">Enviar</string>
@@ -47,7 +48,10 @@
     <string name="error_update_profile">No se ha podido actualizar el usuario, inténtelo más tarde</string>
     <string name="no_se_ha_podido_recoger_informacion_del_usuario">No se ha podido recoger información del usuario</string>
     <string name="cuenta_ya_existente_inicie_sesion">Cuenta ya existente, inicie sesión</string>
+    <string name="cuenta_no_existente">La cuenta con este correo no existe</string>
+    <string name="ha_ocurrido_un_error_en_la_red_vuelve_a_intentarlo_mas_tarde">Ha ocurrido un error en la red, vuelve a intentarlo más tarde</string>
     <string name="hubo_un_problema_al_verificar_la_cuenta">Hubo un problema al verificar la cuenta</string>
+    <string name="has_agotado_los_intentos_prueba_mas_tarde">Has agotado los intentos, prueba más tarde</string>
     <string name="verificando">Verificando...</string>
     <!--PROFILE-->
     <string name="nombre">Nombre</string>
@@ -57,6 +61,7 @@
     <string name="mis_recetas">Mis recetas</string>
     <!--REGISTER-->
     <string name="register">Registro</string>
+    <string name="las_contrasena_deben_coincidir">Las contraseñas deben coincidir</string>
     <!--SETTINGS-->
 
     <!--RECETASBASE-->

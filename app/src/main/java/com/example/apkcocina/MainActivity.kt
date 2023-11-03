@@ -10,6 +10,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUiSaveStateControl
 import androidx.viewbinding.ViewBinding
 import com.example.apkcocina.databinding.ActivityMainBinding
+import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.FilterActionBar
 import com.example.apkcocina.utils.base.PrincipalActionBar
@@ -53,8 +54,7 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    fun<vb : ViewBinding> configureActionBar(fragment : BaseFragment<vb>){
-        val actionBar = fragment.actionBar
+    fun configureActionBar(actionBar : APKCocinaActionBar){
         binding.apply {
             ivLogo.invisible()
             btFilterActionBar.invisible()

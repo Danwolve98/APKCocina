@@ -12,6 +12,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.apkcocina.R
 import com.example.apkcocina.network.usecases.CreateAccountUseCase
 import com.example.apkcocina.network.usecases.LoginUseCase
+import com.example.apkcocina.network.usecases.ResetPassWordUserCase
 import com.example.apkcocina.network.usecases.SendEmailVerificationUseCase
 import com.example.apkcocina.network.usecases.UpdateUserUseCase
 import com.example.apkcocina.network.usecases.VerifyEmailUseCase
@@ -19,6 +20,7 @@ import com.example.apkcocina.utils.core.Event
 import com.example.apkcocina.utils.states.LoginResult
 import com.example.apkcocina.utils.states.ProfileState
 import com.example.apkcocina.utils.states.RegisterResult
+import com.example.apkcocina.utils.states.ResetPassWordResult
 import com.example.apkcocina.utils.states.UpdateResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -27,7 +29,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import java.util.Calendar
-import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,7 +38,8 @@ class ProfileViewModel @Inject constructor(
     private val sendEmailVerificationUseCase: SendEmailVerificationUseCase,
     private val registerUseCase: CreateAccountUseCase,
     private val verifyEmailUseCase: VerifyEmailUseCase,
-    private val updateUserUseCase: UpdateUserUseCase
+    private val updateUserUseCase: UpdateUserUseCase,
+    private val resetPassWordUserCase: ResetPassWordUserCase
 ) : ViewModel() {
 
     private val _profileViewState = MutableStateFlow(ProfileState())
@@ -61,6 +63,9 @@ class ProfileViewModel @Inject constructor(
     private val _verifiedEmail = MutableLiveData<Event<Boolean>>()
     val verifiedEmail: LiveData<Event<Boolean>> = _verifiedEmail
 
+    private var _resetEmailSent = MutableLiveData<Event<ResetPassWordResult>>()
+    val resetEmailSent: LiveData<Event<ResetPassWordResult>> = _resetEmailSent
+
     companion object{
         const val MIN_LONG_ENTRY = 6
     }
@@ -76,7 +81,7 @@ class ProfileViewModel @Inject constructor(
                     is LoginResult.NoValidPassword->Event(context.getString(R.string.email_o_contrasena_no_validos))
                     LoginResult.UnverifiedEmail -> sendEmailVerification()
                     else ->  _loginError.value = Event(context.getString(R.string.error_default))
-                    }
+                }
                 _profileViewState.value=ProfileState(isLoading = false)
             }
         }else{
@@ -129,10 +134,18 @@ class ProfileViewModel @Inject constructor(
             }.collect{verificado->
                 if(verificado){
                     _verifiedEmail.value = Event(verificado)
-                    _profileViewState.value=ProfileState(isLoading = false)
+                    _profileViewState.value = ProfileState(isLoading = false)
                     this.cancel()
                 }
             }
+        }
+
+    fun sendResetPasswordEmail(email : String) =
+        viewModelScope.launch {
+            _profileViewState.value = ProfileState(isLoading = true)
+            if(isValidEmail(email))
+                _resetEmailSent.value = Event(resetPassWordUserCase(email))
+            _profileViewState.value = ProfileState(isLoading = false)
         }
 
     fun onFieldsChanged(email: String, password: String) {
@@ -141,9 +154,7 @@ class ProfileViewModel @Inject constructor(
             isValidPassword = isValidPassword(password)
         )
     }
-
-    private fun isValidEmail(correo: String) =
-        Patterns.EMAIL_ADDRESS.matcher(correo).matches() || correo.isEmpty()
+    private fun isValidEmail(correo: String) = Patterns.EMAIL_ADDRESS.matcher(correo).matches() || correo.isEmpty()
 
     private fun isValidPassword(contrasena: String): Pair<Boolean,String?>{
         var errorText = context.getString(R.string.contrasena_no_es_valida)

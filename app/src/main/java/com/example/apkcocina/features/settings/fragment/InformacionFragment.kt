@@ -29,22 +29,22 @@ class InformacionFragment : BaseFragment<FrgInformacionBinding>() {
      override lateinit var actionBar: APKCocinaActionBar
      private val navArgs : InformacionFragmentArgs by navArgs()
 
-     override fun onAttach(context: Context) {
-         actionBar = TitleActionBar(getString(R.string.informacion))
-         super.onAttach(context)
-     }
+    override fun assingActionBar() {
+        actionBar = TitleActionBar(getString(R.string.informacion))
+    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.webView.setBackgroundColor(Color.TRANSPARENT)
-        binding.webView.loadData(
-            when(navArgs.info){
-                1-> getString(R.string.ayuda_general)
-                2-> getString(R.string.info_general)
-                else -> {""}
-            },
-            "text/html",
-            "UTF-8"
-        )
+    override fun initializeView() {
+        with(binding.webView){
+            setBackgroundColor(Color.TRANSPARENT)
+            loadData(
+                when(navArgs.info){
+                    1-> getString(R.string.ayuda_general)
+                    2-> getString(R.string.info_general)
+                    else -> {""}
+                },
+                "text/html",
+                "UTF-8"
+            )
+        }
     }
 }
