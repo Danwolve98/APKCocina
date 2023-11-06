@@ -2,7 +2,6 @@ package com.example.apkcocina.features.profile.fragment
 
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.example.apkcocina.R
 import com.example.apkcocina.databinding.FrgReestablecerContrasenaBinding
 import com.example.apkcocina.features.profile.viewModel.ProfileViewModel
@@ -13,7 +12,6 @@ import com.example.apkcocina.utils.extensions.collectFlow
 import com.example.apkcocina.utils.extensions.onTextChanged
 import com.example.apkcocina.utils.states.ResetPassWordResult
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ReestablecerContrasenaFragment : BaseFragment<FrgReestablecerContrasenaBinding>() {
@@ -45,8 +43,8 @@ class ReestablecerContrasenaFragment : BaseFragment<FrgReestablecerContrasenaBin
         profileViewModel.resetEmailSent.observe(viewLifecycleOwner){event->
             event.getContentIfNotHandled()?.let{
                 when(it){
-                    is ResetPassWordResult.Error -> Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
-                    ResetPassWordResult.Sent -> Toast.makeText(requireContext(), getString(R.string.se_ha_enviado_un_correo_a_tu_email_para_reestablecer_la_contrasena), Toast.LENGTH_SHORT).show()
+                    is ResetPassWordResult.EmailCredentialsFail -> Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
+                    ResetPassWordResult.Updated -> Toast.makeText(requireContext(), getString(R.string.se_ha_enviado_un_correo_a_tu_email_para_reestablecer_la_contrasena), Toast.LENGTH_SHORT).show()
                 }
             }
         }

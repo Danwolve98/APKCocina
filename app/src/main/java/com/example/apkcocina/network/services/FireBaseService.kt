@@ -14,9 +14,9 @@ import com.example.apkcocina.utils.states.LoginResult
 import com.example.apkcocina.utils.states.RegisterResult
 import com.example.apkcocina.utils.states.ResetPassWordResult
 import com.example.apkcocina.utils.states.UpdateResult
-import com.google.firebase.FirebaseNetworkException
-import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.EmailAuthCredential
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
@@ -147,20 +147,18 @@ class FireBaseService @Inject constructor(
         return auth.currentUser?.isEmailVerified ?: false
     }
 
-    suspend fun sendResetPasswordEmail(email : String) : ResetPassWordResult{
-        var resetPassState : ResetPassWordResult = ResetPassWordResult.Error()
-        auth.sendPasswordResetEmail(email)
-            .addOnSuccessListener {
-                resetPassState = ResetPassWordResult.Sent
+    suspend fun sendResetPasswordEmail(email : String, oldPassword : String, newPassword : String) : ResetPassWordResult{
+        var resetPassState : ResetPassWordResult = ResetPassWordResult.EmailCredentialsFail
+        val credential = EmailAuthProvider.getCredential(email,oldPassword)
+
+
+        auth.currentUser?.reauthenticate(credential)
+            ?.addOnSuccessListener {
+                auth.currentUser?.updatePassword(newPassword)
             }
-            .addOnFailureListener {
-                resetPassState = when(it){
-                    is FirebaseAuthInvalidUserException-> ResetPassWordResult.Error(context.getString(R.string.usuario_no_existe))
-                    is FirebaseTooManyRequestsException-> ResetPassWordResult.Error(context.getString(R.string.has_agotado_los_intentos_prueba_mas_tarde))
-                    is FirebaseNetworkException-> ResetPassWordResult.Error(context.getString(R.string.ha_ocurrido_un_error_en_la_red_vuelve_a_intentarlo_mas_tarde))
-                    else -> {ResetPassWordResult.Error(context.getString(R.string.error_default))}
-                }
-            }.await()
+            ?.addOnFailureListener {
+
+            }
 
         return resetPassState
     }

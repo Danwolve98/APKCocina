@@ -16,7 +16,9 @@
 
     <!--LOGIN-->
     <string name="correo">Correo</string>
+    <string name="contrasena_antigua">Contraseña anterior</string>
     <string name="contrasena">Contraseña</string>
+    <string name="ha_olvidado_su_contrasena">¿Ha olvidado su contraseña?</string>
     <string name="confirmar_contrasena">Confirmar contrasena</string>
     <string name="iniciar_sesion">Iniciar Sesión</string>
     <string name="registrarse">Registrarse</string>

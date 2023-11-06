@@ -50,6 +50,31 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/il_old_password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="@string/contrasena_antigua"
+                android:textColor="@color/black_soft"
+                style="@style/FormTextInputLayout"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toStartOf="@id/guideline4"
+                app:layout_constraintStart_toEndOf="@id/guideline3"
+                app:layout_constraintTop_toBottomOf="@id/il_correo_reset">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_old_password"
+                    style="@style/FormEditText"
+                    android:imeOptions="actionNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:textSize="16sp"
+                    android:inputType="textPassword"
+                    android:text="Rambombai99"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bt_reset"
                 android:layout_width="0dp"
@@ -57,7 +82,7 @@
                 android:autoSizeMaxTextSize="18sp"
                 android:autoSizeMinTextSize="14sp"
                 android:autoSizeTextType="uniform"
-                app:layout_constraintTop_toBottomOf="@id/il_correo_reset"
+                app:layout_constraintTop_toBottomOf="@id/il_old_password"
                 android:background="@color/base_3"
                 android:text="@string/enviar"
                 android:textColor="@color/white"
@@ -67,7 +92,7 @@
                 tools:layout_editor_absoluteY="476dp" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_todavia_no_estas_registrado"
+                android:id="@+id/tv_se_enviara_un_correo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -77,6 +102,19 @@
                 app:layout_constraintEnd_toStartOf="@id/guideline4"
                 app:layout_constraintStart_toEndOf="@id/guideline3"
                 app:layout_constraintTop_toBottomOf="@id/bt_reset" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_si_ha_olvidado_su_contrasena"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="@string/ha_olvidado_su_contrasena"
+                android:textColor="@color/purple_700"
+                android:layout_marginBottom="50dp"
+                app:layout_constraintEnd_toStartOf="@id/guideline4"
+                app:layout_constraintStart_toEndOf="@id/guideline3"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline3"

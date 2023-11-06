@@ -24,8 +24,9 @@ sealed class UpdateResult() {
 }
 
 sealed class ResetPassWordResult(){
-    data object Sent : ResetPassWordResult()
-    data class Error(var error: String = "Generic error") : ResetPassWordResult()
+    data object Updated : ResetPassWordResult()
+    data object EmailCredentialsFail : ResetPassWordResult()
+    data object PasswordCredentialsFail : ResetPassWordResult()
 }
 
 class ProfileState(var isLoading: Boolean = false,
