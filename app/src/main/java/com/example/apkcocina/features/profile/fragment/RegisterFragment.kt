@@ -37,7 +37,13 @@ class RegisterFragment : BaseFragment<FrgRegisterBinding>() {
 
             etContrasenaRegister.loseFocusAfterAction(EditorInfo.IME_ACTION_NEXT)
             etContrasenaRegister.setOnFocusChangeListener { _, hasFocus -> onFieldChanged(hasFocus) }
-            etContrasenaRegister.onTextChanged { onFieldChanged() }
+            etContrasenaRegister.onTextChanged {
+                onFieldChanged()
+                if(it != etConfContrasenaRegister.text.toString())
+                    ilConfContrasenaRegister.error = getString(R.string.las_contrasena_deben_coincidir)
+                else
+                    ilConfContrasenaRegister.error = null
+            }
 
             etConfContrasenaRegister.loseFocusAfterAction(EditorInfo.IME_ACTION_DONE)
             etConfContrasenaRegister.setOnFocusChangeListener { _, hasFocus -> onFieldChanged(hasFocus) }

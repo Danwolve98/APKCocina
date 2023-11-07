@@ -72,8 +72,8 @@
                     android:textSize="16sp"
                     android:inputType="textPassword"
                     android:text="Rambombai99"/>
-
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bt_reset"

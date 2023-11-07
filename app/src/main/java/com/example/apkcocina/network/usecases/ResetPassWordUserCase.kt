@@ -5,5 +5,6 @@ import com.example.apkcocina.utils.states.ResetPassWordResult
 import javax.inject.Inject
 
 class ResetPassWordUserCase @Inject constructor(private val fireBaseService : FireBaseService) {
-    suspend operator fun invoke(email : String): ResetPassWordResult = fireBaseService.sendResetPasswordEmail(email)
+    suspend operator fun invoke(email : String,oldPassword : String,newPassword : String): ResetPassWordResult =
+        fireBaseService.sendResetPasswordEmail(email,oldPassword,newPassword)
 }

@@ -70,6 +70,12 @@ class ProfileViewModel @Inject constructor(
         const val MIN_LONG_ENTRY = 6
     }
 
+    /**
+     * Administra el login de un usuario
+     *
+     * @param email el email
+     * @param contrasena la contraseña
+     */
     fun login(email : String,contrasena : String) {
         if (isValidEmail(email) && isValidPassword(contrasena).first) {
             viewModelScope.launch() {
@@ -77,8 +83,8 @@ class ProfileViewModel @Inject constructor(
                 when(val loginResult = loginUseCase(email,contrasena)){
                     is LoginResult.Logged -> _loginResult.value = Event(loginResult)
                     is LoginResult.Error -> _loginError.value = Event(loginResult.error)
-                    is LoginResult.NoExistAccount->Event(context.getString(R.string.usuario_no_existe))
-                    is LoginResult.NoValidPassword->Event(context.getString(R.string.email_o_contrasena_no_validos))
+                    is LoginResult.NoExistAccount->_loginError.value = Event(context.getString(R.string.usuario_no_existe))
+                    is LoginResult.NoValidPassword-> _loginError.value = Event(context.getString(R.string.email_o_contrasena_no_validos))
                     LoginResult.UnverifiedEmail -> sendEmailVerification()
                     else ->  _loginError.value = Event(context.getString(R.string.error_default))
                 }
@@ -89,6 +95,12 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Registra un usuario nuevo
+     *
+     * @param email correo del usuario
+     * @param contrasena la contraseña del mismo
+     */
     fun register(email : String,contrasena : String){
         if (isValidEmail(email) && isValidPassword(contrasena).first) {
             viewModelScope.launch() {
@@ -114,6 +126,9 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Función que se va a encargar de actualizar los datos de un usuario
+     */
     fun updateUser(
         nombre: String? = null,
         apellidos : String? = null,
@@ -123,6 +138,9 @@ class ProfileViewModel @Inject constructor(
         _updateResult.value = Event(updateUserUseCase.invoke(nombre,apellidos,nacionalidad,cumpleanos,photoUri))
     }
 
+    /**
+     * Función que se va a encargar de mandar un email de verificación de cuenta al usuario existente
+     */
     fun sendEmailVerification() =
         viewModelScope.launch() {
             sendEmailVerificationUseCase()
@@ -140,25 +158,53 @@ class ProfileViewModel @Inject constructor(
             }
         }
 
-    fun sendResetPasswordEmail(email : String) =
+    /**
+     * Función que se va a encargar del reset de contraseña por parte del usuario
+     *
+     * @param email email de la cuenta para verificar
+     * @param oldPassword contraseña antigua a validar usuario
+     * @param newPassword contraseña nueva introducida
+     */
+    fun sendResetPasswordEmail(email : String,oldPassword : String,newPassword : String) =
         viewModelScope.launch {
             _profileViewState.value = ProfileState(isLoading = true)
             if(isValidEmail(email))
-                _resetEmailSent.value = Event(resetPassWordUserCase(email))
+                _resetEmailSent.value = Event(resetPassWordUserCase(email,oldPassword,newPassword))
             _profileViewState.value = ProfileState(isLoading = false)
         }
 
+    /**
+     * Función que se va a ejecutar para hacer una validacion de correo y contraseña cada vez que cambien los campos en los textos
+     *
+     * @param email el email a comprobar
+     * @param password la contraseña a comprobar
+     */
     fun onFieldsChanged(email: String, password: String) {
         _profileViewState.value = ProfileState(
             isValidEmail = isValidEmail(email),
             isValidPassword = isValidPassword(password)
         )
     }
+
+    /**
+     * Comprueba si el correo es válido
+     * @param correo el correo a comprobar
+     */
     private fun isValidEmail(correo: String) = Patterns.EMAIL_ADDRESS.matcher(correo).matches() || correo.isEmpty()
 
+    /**
+     * Comprueba si la contraseña cumple con los requisitos mínimos:
+     *   1. Una mayúscula mínimo
+     *   2. Un dígito mínimo
+     *   3. Una longitud mínima de 6 caracteres
+     * @param contrasena la contraseña a comprobar
+     * @return [Pair] donde el primer par es un [Boolean] si cumple o no y el segundo, en caso de no haber cumplido, con que cosas no ha cumplido en [String]
+     */
     private fun isValidPassword(contrasena: String): Pair<Boolean,String?>{
         var errorText = context.getString(R.string.contrasena_no_es_valida)
         var valid = true
+        if(contrasena.isEmpty())
+            return Pair(valid,null)
 
         if(contrasena.length < MIN_LONG_ENTRY || contrasena.isEmpty()){
             errorText = errorText.plus("\n\t"+context.getString(R.string.debe_tener_minimo_seis_caracteres))

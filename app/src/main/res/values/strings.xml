@@ -54,6 +54,8 @@
     <string name="ha_ocurrido_un_error_en_la_red_vuelve_a_intentarlo_mas_tarde">Ha ocurrido un error en la red, vuelve a intentarlo más tarde</string>
     <string name="hubo_un_problema_al_verificar_la_cuenta">Hubo un problema al verificar la cuenta</string>
     <string name="has_agotado_los_intentos_prueba_mas_tarde">Has agotado los intentos, prueba más tarde</string>
+    <string name="has_agotado_los_intentos_para_autentificarte">Has agotado los intentos para autentificarte</string>
+    <string name="has_agotado_los_intentos_para_cambiar_la_contrasena">Has agotado los intentos para cambiar de contraseña</string>
     <string name="verificando">Verificando...</string>
     <!--PROFILE-->
     <string name="nombre">Nombre</string>

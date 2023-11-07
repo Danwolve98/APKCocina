@@ -25,8 +25,14 @@ sealed class UpdateResult() {
 
 sealed class ResetPassWordResult(){
     data object Updated : ResetPassWordResult()
-    data object EmailCredentialsFail : ResetPassWordResult()
-    data object PasswordCredentialsFail : ResetPassWordResult()
+    data object TooManyTrys : ResetPassWordResult()
+    data object NetWorkProblem : ResetPassWordResult()
+    data class GenericError(val error: String? = null) : ResetPassWordResult()
+}
+
+sealed class ReauthenticateResult(){
+    data object Authenticated : ReauthenticateResult()
+    data class GenericError(val error: String? = null) : ReauthenticateResult()
 }
 
 class ProfileState(var isLoading: Boolean = false,

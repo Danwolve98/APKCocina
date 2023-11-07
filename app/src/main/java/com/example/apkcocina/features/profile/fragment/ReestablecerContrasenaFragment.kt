@@ -30,7 +30,7 @@ class ReestablecerContrasenaFragment : BaseFragment<FrgReestablecerContrasenaBin
         }
 
         binding.btReset.setOnClickListener{
-            profileViewModel.sendResetPasswordEmail(binding.etCorreoReset.text.toString())
+            profileViewModel.sendResetPasswordEmail(binding.etCorreoReset.text.toString(),"","")
         }
     }
 
@@ -43,8 +43,18 @@ class ReestablecerContrasenaFragment : BaseFragment<FrgReestablecerContrasenaBin
         profileViewModel.resetEmailSent.observe(viewLifecycleOwner){event->
             event.getContentIfNotHandled()?.let{
                 when(it){
-                    is ResetPassWordResult.EmailCredentialsFail -> Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
-                    ResetPassWordResult.Updated -> Toast.makeText(requireContext(), getString(R.string.se_ha_enviado_un_correo_a_tu_email_para_reestablecer_la_contrasena), Toast.LENGTH_SHORT).show()
+                    is ResetPassWordResult.GenericError ->{
+                        Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
+                    }
+                    ResetPassWordResult.NetWorkProblem ->{
+                        Toast.makeText(requireContext(), "problema de red al cambiar la contraseña", Toast.LENGTH_SHORT).show()
+                    }
+                    ResetPassWordResult.TooManyTrys ->{
+                        Toast.makeText(requireContext(), "demasiados intentos al cambiar la contraseña", Toast.LENGTH_SHORT).show()
+                    }
+                    ResetPassWordResult.Updated ->{
+                        Toast.makeText(requireContext(), "Contraseña cambiada con éxito", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }

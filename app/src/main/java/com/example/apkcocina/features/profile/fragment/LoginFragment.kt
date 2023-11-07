@@ -18,6 +18,7 @@ import com.example.apkcocina.features.profile.viewModel.ProfileViewModel
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.TitleActionBar
+import com.example.apkcocina.utils.extensions.collectFlow
 import com.example.apkcocina.utils.extensions.loseFocusAfterAction
 import com.example.apkcocina.utils.extensions.onTextChanged
 import com.google.android.gms.tasks.Task
@@ -67,16 +68,18 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
     }
 
     override fun initializeObservers() {
-        lifecycleScope.launch{
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                profileViewModel.profileViewState.collect { profileViewState ->
-                    mainActivity.setLoading(profileViewState.isLoading)
-                    binding.ilCorreoLogin.error =
-                        if(profileViewState.isValidEmail)null else getString(R.string.email_no_es_valido)
-                    binding.ilContrasenaLogin.error =
-                        if(profileViewState.isValidPassword.first)null else profileViewState.isValidPassword.second
-                }
-            }
+        collectFlow(profileViewModel.profileViewState){profileViewState->
+            mainActivity.setLoading(profileViewState.isLoading)
+            binding.ilCorreoLogin.error =
+                if(profileViewState.isValidEmail)null else getString(R.string.email_no_es_valido)
+            binding.ilContrasenaLogin.error =
+                if(profileViewState.isValidPassword.first)null else profileViewState.isValidPassword.second
+
+            binding.btIniciarSesion.isEnabled =
+                profileViewState.isValidEmail &&
+                        profileViewState.isValidPassword.first &&
+                        !binding.etCorreoLogin.text.isNullOrEmpty() &&
+                        !binding.etContrasenaLogin.text.isNullOrEmpty()
         }
 
         with(profileViewModel){

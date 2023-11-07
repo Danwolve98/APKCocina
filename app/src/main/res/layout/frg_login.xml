@@ -84,6 +84,7 @@
                 android:text="@string/iniciar_sesion"
                 android:textColor="@color/white"
                 android:textStyle="bold"
+                android:enabled="false"
                 android:autoSizeMaxTextSize="18sp"
                 android:autoSizeMinTextSize="14sp"
                 android:autoSizeTextType="uniform"
