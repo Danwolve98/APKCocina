@@ -16,7 +16,9 @@ class User(
     @PropertyName("nacionalidad")
     var nacionalidad : String? = "Española",
     @PropertyName("cumpleanos")
-    var cumpleanos : Calendar? = null){
+    var cumpleanos : Calendar? = null,
+    @PropertyName("fecha_de_registro")
+    var fechaDeRegistro : Calendar? = null){
 
     companion object{
         const val USUARIOS = "users"

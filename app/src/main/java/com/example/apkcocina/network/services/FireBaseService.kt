@@ -19,7 +19,6 @@ import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.EmailAuthCredential
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -28,7 +27,6 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -37,7 +35,6 @@ import java.io.File
 import java.util.Calendar
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.coroutines.suspendCoroutine
 
 @Singleton
 class FireBaseService @Inject constructor(
@@ -153,8 +150,9 @@ class FireBaseService @Inject constructor(
         return auth.currentUser?.isEmailVerified ?: false
     }
 
+    //TODO cambiar esto
     suspend fun sendResetPasswordEmail(email : String, oldPassword : String, newPassword : String) : ResetPassWordResult{
-        var resetPassState : ResetPassWordResult = ResetPassWordResult.GenericError()
+        var resetPassState : ResetPassWordResult = ResetPassWordResult.GenericError(context.getString(R.string.error_default))
         val credential = EmailAuthProvider.getCredential(email,oldPassword)
 
         when(val resultReauthenticate = reauthenticateUser(credential)){
@@ -176,26 +174,24 @@ class FireBaseService @Inject constructor(
                 resetPassState = ResetPassWordResult.GenericError(resultReauthenticate.error)
             }
         }
-
         return resetPassState
     }
 
-    suspend fun reauthenticateUser(credential : AuthCredential) : ReauthenticateResult{
-        var reauthenticateResult : ReauthenticateResult = ReauthenticateResult.GenericError()
-        val reauthenticate = auth.currentUser?.reauthenticate(credential)
-            ?.addOnSuccessListener {
-                reauthenticateResult = ReauthenticateResult.Authenticated
-            }
-            ?.addOnFailureListener {exception->
-                reauthenticateResult = when(exception) {
-                    is FirebaseTooManyRequestsException -> ReauthenticateResult.GenericError(context.getString(R.string.has_agotado_los_intentos_para_autentificarte))
-                    is FirebaseNetworkException -> ReauthenticateResult.GenericError(context.getString(R.string.ha_ocurrido_un_error_en_la_red_vuelve_a_intentarlo_mas_tarde))
+    private suspend fun reauthenticateUser(credential : AuthCredential) : ReauthenticateResult =
+        runCatching {
+            auth.currentUser?.reauthenticate(credential)?.await()
+        }.fold(
+            onSuccess = {
+                ReauthenticateResult.Authenticated
+            },
+            onFailure = {
+                when(it){
+                    is FirebaseAuthInvalidUserException-> ReauthenticateResult.GenericError(context.getString(R.string.cuenta_no_existente))
+                    is FirebaseAuthInvalidCredentialsException-> ReauthenticateResult.GenericError(context.getString(R.string.error_al_autentificar_el_usuario))
                     else -> ReauthenticateResult.GenericError(context.getString(R.string.error_default))
                 }
             }
-        reauthenticate?.await()
-        return reauthenticateResult
-    }
+        )
 
     private fun Result<AuthResult>.toLoginResult() = when (val result = getOrNull()) {
         null -> LoginResult.Error(context.getString(R.string.error_login))
@@ -217,7 +213,8 @@ class FireBaseService @Inject constructor(
                 User(
                     user.uid,
                     context.getString(R.string.chef),
-                    context.getString(R.string.curioso)
+                    context.getString(R.string.curioso),
+                    fechaDeRegistro = Calendar.getInstance()
                 )
             )
             RegisterResult.Registered(user)

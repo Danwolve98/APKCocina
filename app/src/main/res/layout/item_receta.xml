@@ -1,40 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="125dp"
+    android:layout_marginBottom="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_item_receta"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_receta"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_receta"
+        android:layout_width="130dp"
+        android:layout_marginStart="7dp"
+        android:layout_height="match_parent"
+        android:elevation="10dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/black"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
-        >
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:src="@drawable/im_que_cocino_hoy"/>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_item_receta"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:background="@null"
-            />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_nombre_receta"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        tools:text="LASAÑA CASERA"
+        android:textColor="@color/black"
+        android:fontFamily="@font/inika_regular"
+        android:maxLines="2"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMaxTextSize="16sp"
+        app:autoSizeMinTextSize="12sp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_receta"
+        app:layout_constraintEnd_toStartOf="@id/line_3"/>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_item_receta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="POLLO ASADO"
-            android:textSize="30sp"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_tiempo_receta"
+        android:layout_width="0dp"
+        android:textSize="16sp"
+        android:layout_marginEnd="10dp"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMaxTextSize="16sp"
+        app:autoSizeMinTextSize="12sp"
+        android:fontFamily="@font/inika_regular"
+        app:layout_constraintBottom_toTopOf="@id/rating_bar_receta"
+        app:layout_constraintEnd_toStartOf="@id/line_3"
+        app:layout_constraintTop_toBottomOf="@id/tv_nombre_receta"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        tools:text="1h 20min"/>
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toStartOf="@id/tv_tiempo_receta"
+        app:layout_constraintTop_toTopOf="@id/tv_tiempo_receta"
+        app:layout_constraintBottom_toBottomOf="@id/tv_tiempo_receta"
+        android:src="@drawable/ic_tiempo"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.AppCompatRatingBar
+        android:id="@+id/rating_bar_receta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="6dp"
+        android:numStars="5"
+        android:rating="2.5"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        app:layout_constraintStart_toEndOf="@id/iv_receta"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <View
+        android:id="@+id/line_1"
+        android:layout_width="3dp"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <View
+        android:id="@+id/line_2"
+        android:layout_width="3dp"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:layout_marginEnd="3dp"
+        app:layout_constraintEnd_toStartOf="@id/line_1"/>
+
+    <View
+        android:id="@+id/line_3"
+        android:layout_width="3dp"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:layout_marginEnd="3dp"
+        app:layout_constraintEnd_toStartOf="@id/line_2"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -128,13 +128,13 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="65dp"
+        style="@style/MyBottomNavStyle"
+        app:itemIconSize="@dimen/_32dp"
+        app:menu="@menu/menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        style="@style/MyBottomNavStyle"
-        app:itemIconSize="@dimen/_26sp"
-        app:menu="@menu/menu"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_loading"

@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="MyBottomNavStyle" parent="Widget.Design.BottomNavigationView">
-        <!-- Define los atributos para el estilo -->
         <item name="itemIconTint">@color/base_3</item>
         <item name="itemTextColor">@color/base_1</item>
         <item name="android:background">@color/black_soft</item>
         <item name="android:layout_width">150dp</item>
         <item name="android:layout_height">510dp</item>
+        <item name="itemPaddingTop">10dp</item>
+        <item name="itemPaddingBottom">8dp</item>
+        <item name="itemIconPadding">10dp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="itemTextAppearanceActive">@style/MyBottomNavFont</item>
+        <item name="itemTextAppearanceInactive">@style/MyBottomNavFont</item>
+    </style>
+
+    <style name="MyBottomNavFont">
+        <item name="fontFamily">@font/montserrat_bold</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="TextViewProfile" parent="Widget.AppCompat.TextView">
@@ -70,6 +80,7 @@
         <item name="backgroundTint">@color/base_6</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:stateListAnimator">@animator/animator_button</item>
     </style>
 
     <style name="MaterialButtonAjustes" parent="Widget.Material3.Button.ElevatedButton">
@@ -92,5 +103,20 @@
         <item name="android:lines">1</item>
         <item name="android:stateListAnimator">@animator/animator_button</item>
     </style>
-    
+
+    <style name="ProfileButtons" parent="ThemeOverlay.Material3.Button.TextButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:enabled">true</item>
+        <item name="cornerRadius">0dp</item>
+        <item name="autoSizeMaxTextSize">18sp</item>
+        <item name="autoSizeMinTextSize">14sp</item>
+        <item name="autoSizeTextType">uniform</item>
+    </style>
+
 </resources>

@@ -12,7 +12,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/base_2">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -102,21 +102,14 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/bt_registrarse"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:autoSizeMaxTextSize="18sp"
-                android:autoSizeMinTextSize="14sp"
-                android:autoSizeTextType="uniform"
-                android:background="@color/base_5"
+                android:backgroundTint="@color/base_5"
                 android:text="@string/registrarse"
-                android:textColor="@color/white"
-                android:textStyle="bold"
+                style="@style/ProfileButtons"
                 app:layout_constraintTop_toBottomOf="@id/il_conf_contrasena_register"
                 app:layout_constraintEnd_toStartOf="@id/guideline4"
-                app:layout_constraintStart_toEndOf="@id/guideline3"
-                tools:layout_editor_absoluteY="492dp" />
+                app:layout_constraintStart_toEndOf="@id/guideline3"/>
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline3"

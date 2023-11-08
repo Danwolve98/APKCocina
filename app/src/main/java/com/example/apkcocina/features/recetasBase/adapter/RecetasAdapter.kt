@@ -35,8 +35,8 @@ class RecetasAdapter(var listRecetas : List<Receta>, val onClickRecetaListener :
     inner class ViewHolder(val view : View) : RecyclerView.ViewHolder(view) {
 
         fun renderReceta(receta: Receta) {
-            val iv_receta = view.findViewById<ImageView>(R.id.iv_item_receta)
-            val tv_receta = view.findViewById<TextView>(R.id.tv_item_receta)
+            val iv_receta = view.findViewById<ImageView>(R.id.iv_receta)
+            val tv_receta = view.findViewById<TextView>(R.id.tv_nombre_receta)
 
             view.setOnClickListener { onClickRecetaListener(receta) }
             val referencia = receta.getReferencia()

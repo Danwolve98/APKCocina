@@ -17,6 +17,7 @@
     <!--LOGIN-->
     <string name="correo">Correo</string>
     <string name="contrasena_antigua">Contraseña anterior</string>
+    <string name="contrasena_nueva">Contraseña nueva</string>
     <string name="contrasena">Contraseña</string>
     <string name="ha_olvidado_su_contrasena">¿Ha olvidado su contraseña?</string>
     <string name="confirmar_contrasena">Confirmar contrasena</string>
@@ -47,6 +48,7 @@
     <string name="cuenta_no_verificada_se_ha_enviado_un_email_de_verificacion_a_tu_correo">Cuenta no verificada,se ha enviado un email de verificación a tu correo</string>
     <string name="verificacion_con_exito">Verificación con éxito</string>
     <string name="error_default">Ha ocurrido un error</string>
+    <string name="error_al_autentificar_el_usuario">Error al autentificar el usuario</string>
     <string name="error_update_profile">No se ha podido actualizar el usuario, inténtelo más tarde</string>
     <string name="no_se_ha_podido_recoger_informacion_del_usuario">No se ha podido recoger información del usuario</string>
     <string name="cuenta_ya_existente_inicie_sesion">Cuenta ya existente, inicie sesión</string>

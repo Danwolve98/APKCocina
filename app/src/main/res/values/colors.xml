@@ -12,7 +12,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="black_soft">#2B2B2B</color>
     <color name="gray">#808080</color>
-    <color name="disabled">#4A5A5A5A</color>
+    <color name="disabled">#34C2C2C2</color>
     <color name="red">#C30000</color>
     <color name="red_soft">#F47878</color>
     <color name="black_filter">#80000000</color>
@@ -30,5 +30,6 @@
     <color name="green_base">#52811b</color>
     <color name="green_base_soft">#658045</color>
     <color name="yellow_base">#fecc00</color>
+
 </resources>
 

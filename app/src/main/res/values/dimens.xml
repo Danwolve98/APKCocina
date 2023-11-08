@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="_26sp">25dp</dimen>
+    <dimen name="_32dp">32dp</dimen>
 </resources>
