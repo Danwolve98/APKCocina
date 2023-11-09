@@ -1,147 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<ScrollView android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/base_4"
     xmlns:tools="http://schemas.android.com/tools"
-    android:clickable="true">
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="wrap_content"
+        android:background="@color/black_soft">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_receta"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:elevation="15dp"
+            android:src="@drawable/im_que_cocino_hoy"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/black"
+            app:strokeWidth="2dp"
+            tools:scaleType="centerCrop" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/base_3"
-            android:layout_marginHorizontal="10dp"
-            android:paddingBottom="30dp"
-            >
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_intro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_nombre_receta"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:text="Arroz negro rico de la abuela"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:gravity="center_horizontal"
-                    app:autoSizeTextType="uniform"
-                    app:autoSizeMaxTextSize="26sp"
-                    app:autoSizeMinTextSize="20sp"
-                    app:autoSizeStepGranularity="1sp"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginTop="20dp"
-                    android:textColor="@color/white"
-                    />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/iv_detalle"
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_nombre_receta"
-                    tools:src="@drawable/apkcocina_logo"
-                    />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/bt_galeria_imagenes"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_detalle"
-                    app:layout_constraintEnd_toEndOf="@id/iv_detalle"
-                    android:tint="@color/white"
-                    android:scaleType="centerCrop"
-                    android:alpha="0.7"
-                    android:background="@color/black_soft"
-                    />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/iv_schedule"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:tint="@color/white"
-                    android:src="@drawable/baseline_schedule_24"
-                    app:layout_constraintTop_toTopOf="@id/iv_detalle"
-                    android:layout_marginStart="10dp"
-                    app:layout_constraintStart_toEndOf="@id/iv_detalle"/>
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_tiempo_estimado"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="@id/iv_schedule"
-                    app:layout_constraintStart_toEndOf="@id/iv_schedule"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_schedule"
-                    android:layout_marginHorizontal="10dp"
-                    tools:text="1h 20mins"
-                    android:textSize="18sp"
-                    />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_ingrendientes"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@id/iv_schedule"
-                    app:layout_constraintTop_toBottomOf="@id/iv_schedule"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginTop="5dp"
-                    />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_alergenos"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/cl_intro"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                />
+            android:id="@+id/cl_usuario"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:background="@color/black_soft_trans"
+            android:elevation="15dp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_receta"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline6">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:alpha="0.3"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="20dp"
-                android:src="@drawable/apkcocina_logo"/>
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="3dp"
+                app:layout_constraintEnd_toStartOf="@id/guideline5"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:src="@drawable/ic_profile" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_descripcion"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/rv_alergenos"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginVertical="3dp"
+                android:fontFamily="@font/amiko_regular"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:textColor="@color/white"
+                app:autoSizeMaxTextSize="14sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeTextType="uniform"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                android:hint="@string/lorem_ipsum"
-                />
+                app:layout_constraintStart_toEndOf="@id/guideline5"
+                tools:text="Juan Ramón\nGarcía" />
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.25" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/iv_receta">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_nombre_receta"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/peralta_regular"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@id/rating_bar_receta"
+                app:layout_constraintEnd_toStartOf="@id/tg_fav_receta"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Lasaña casera" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/tg_fav_receta"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/fav_toogle_selector"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatRatingBar
+                android:id="@+id/rating_bar_receta"
+                style="@style/Widget.AppCompat.RatingBar.Indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:numStars="5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_nombre_receta"
+                tools:rating="3.5" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_tiempo"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_tiempo"
+                android:tint="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/rating_bar_receta"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tg_fav_receta" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_tiempo_receta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:fontFamily="@font/inika_regular"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/rating_bar_receta"
+                app:layout_constraintEnd_toStartOf="@id/iv_tiempo"
+                tools:text="1h 20mins" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_alergenos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/rating_bar_receta"
+                app:spanCount="7"
+                tools:listitem="@layout/item_alergeno" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_ingredientes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/item_receta_cuarderno_tile"
+                tools:listitem="@layout/item_ingrediente"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/rv_alergenos"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_instrucciones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                tools:listitem="@layout/item_ingrediente"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/rv_ingredientes"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.4" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

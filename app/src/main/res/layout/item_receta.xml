@@ -35,7 +35,7 @@
         android:layout_height="40dp"
         tools:text="LASAÑA CASERA"
         android:textColor="@color/black"
-        android:fontFamily="@font/inika_regular"
+        android:fontFamily="@font/peralta_regular"
         android:maxLines="2"
         app:autoSizeTextType="uniform"
         app:autoSizeMaxTextSize="16sp"
@@ -63,6 +63,7 @@
         tools:text="1h 20min"/>
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_tiempo"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginEnd="10dp"

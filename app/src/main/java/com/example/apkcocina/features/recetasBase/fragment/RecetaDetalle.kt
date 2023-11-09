@@ -40,14 +40,14 @@ class RecetaDetalle : BaseFragment<FrgRecetaDetalleBinding>() {
     }
 
     private fun cargarDatos(){
-        val storageReference = firebaseStorage.getReference(receta.getReferencia())
+        /*val storageReference = firebaseStorage.getReference(receta.getReferencia())
         storageReference.downloadUrl.addOnSuccessListener {
             Glide.with(requireContext()).load(it.toString()).into(binding.ivDetalle)
-        }
+        }*/
         binding.apply {
             tvNombreReceta.text = receta.nombre
-            tvTiempoEstimado.text = formatearTiempo(receta.tiempoPreparacion)
-            tvDescripcion.text = receta.descripcion ?: getString(R.string.sin_descripcion)
+            tvTiempoReceta.text = formatearTiempo(receta.tiempoPreparacion)
+            /*tvDescripcion.text = receta.descripcion ?: getString(R.string.sin_descripcion)*/
         }
     }
 
