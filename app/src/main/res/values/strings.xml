@@ -93,6 +93,10 @@
     <!--CREARRECETA-->
     <string name="crear_receta">Crear Receta</string>
 
+    <!--QUE COCINO HOY-->
+    <string name="que_cocino_hoy">¿Qué cocino hoy?</string>
+    <string name="adivina_que_receta_nueva_podrias_cocinar_hoy">Adivina que receta nueva\npodrías cocinar hoy</string>
+
 
     <!--TEXTOS GENERALES-->
     <string name="ayuda_general"><![CDATA[

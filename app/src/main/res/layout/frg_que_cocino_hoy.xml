@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_soft">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:gravity="center"
+        android:fontFamily="@font/amiko_regular"
+        android:text="@string/adivina_que_receta_nueva_podrias_cocinar_hoy"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/guideline8"
+        app:layout_constraintTop_toTopOf="@id/guideline8"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_huella"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/img_finger"
+        app:layout_constraintBottom_toBottomOf="@id/guideline7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_holding_animation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/iv_huella"
+        app:layout_constraintBottom_toBottomOf="@id/iv_huella"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:lottie_autoPlay="false"
+        app:lottie_speed="1.8"
+        app:lottie_loop="true"
+        android:alpha="0"
+        app:lottie_repeatMode="restart"
+        app:lottie_rawRes="@raw/bubble"/>
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.85"
+        tools:viewBindingIgnore="true" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1"
+        tools:viewBindingIgnore="true"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

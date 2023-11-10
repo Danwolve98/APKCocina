@@ -29,6 +29,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_inicio_fragment_to_queCocinoHoyFragment"
+            app:destination="@id/queCocinoHoyFragment" />
     </fragment>
 
     <fragment
@@ -145,5 +148,10 @@
         android:id="@+id/action_global_perfil_fragment"
         app:destination="@id/perfil_fragment"
         app:popUpTo="@id/inicio_fragment" />
+    <fragment
+        android:id="@+id/queCocinoHoyFragment"
+        android:name="com.example.apkcocina.features.quecocinohoy.QueCocinoHoyFragment"
+        android:label="QueCocinoHoyFragment"
+        tools:layout="@layout/frg_que_cocino_hoy"/>
 
 </navigation>

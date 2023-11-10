@@ -31,6 +31,11 @@ class RecetaDetalle : BaseFragment<FrgRecetaDetalleBinding>() {
         super.onAttach(context)
     }
 
+   /* int spanCount = 3; // 3 columns
+    int spacing = 50; // 50px
+    boolean includeEdge = true;
+    recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));*/
+
     override fun assingActionBar() {
         actionBar = TitleActionBar(receta.nombre.toString())
     }

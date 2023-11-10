@@ -4,20 +4,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginEnd="40dp"
     android:layout_width="match_parent"
-    android:layout_height="220dp">
+    android:layout_height="20dp">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/cuaderno_mid"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:layout_marginVertical="2dp"
+        android:id="@+id/tv_ingrediente"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textColor="@color/black"
         app:autoSizeTextType="uniform"
-        app:autoSizeMaxTextSize="16sp"
-        app:autoSizeMinTextSize="12sp"
+        app:autoSizeMinTextSize="14sp"
+        app:autoSizeMaxTextSize="18sp"
+        android:lineSpacingExtra="0dp"
         android:gravity="center_vertical"
-        android:layout_marginStart="60dp"
-        tools:text="*  350 gramos de carne\n de vaca casera\ndisoajdioasfh"
-        android:maxLines="3"
+        android:layout_marginStart="50dp"
+        android:paddingStart="20dp"
+        tools:text="a*  350 gramos de carne\n de vaca casera\ndisoajdioasfh"
+        android:maxLines="1"
         tools:ignore="RtlSymmetry"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
