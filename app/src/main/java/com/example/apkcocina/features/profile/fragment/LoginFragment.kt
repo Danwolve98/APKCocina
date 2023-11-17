@@ -3,14 +3,8 @@ package com.example.apkcocina.features.profile.fragment
 import android.app.AlertDialog
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar.NavigationMode
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavGraph
-import androidx.navigation.Navigation
 import com.example.apkcocina.NavGraphDirections
 import com.example.apkcocina.R
 import com.example.apkcocina.databinding.FrgLoginBinding
@@ -24,7 +18,6 @@ import com.example.apkcocina.utils.extensions.onTextChanged
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -69,7 +62,7 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
 
     override fun initializeObservers() {
         collectFlow(profileViewModel.profileViewState){profileViewState->
-            mainActivity.setLoading(profileViewState.isLoading)
+            APKCocinaActivity.setLoading(profileViewState.isLoading)
             binding.ilCorreoLogin.error =
                 if(profileViewState.isValidEmail)null else getString(R.string.email_no_es_valido)
             binding.ilContrasenaLogin.error =

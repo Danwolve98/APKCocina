@@ -47,7 +47,7 @@ class MenuItemsAdapter(var listItems : List<String>, val navController: NavContr
                 }
                 2->{
                     imageID = R.drawable.im_crear_receta
-                    view.setOnClickListener { navController.navigate(R.id.action_inicio_fragment_to_recetasBaseFragment) }
+                    view.setOnClickListener { navController.navigate(R.id.action_inicio_fragment_to_crearRecetaFragment) }
                 }
                 3->{
                     imageID = R.drawable.im_que_cocino_hoy

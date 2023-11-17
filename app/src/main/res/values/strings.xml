@@ -208,4 +208,18 @@
         Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In consequat, magna ut consequat viverra, est dui elementum nibh, ac pulvinar risus dui ac lorem. Cras quis sagittis libero. Nullam egestas cursus ex, nec pharetra lorem posuere eu. Suspendisse venenatis magna ligula, ac gravida libero fermentum et. Pellentesque lobortis venenatis pulvinar. Praesent nisl enim, interdum ut nibh id, maximus viverra dui.
 
         Suspendisse elit justo, sagittis porta dui nec, sodales tincidunt magna. Integer vestibulum tristique sem at suscipit. Vivamus hendrerit eros id ex imperdiet bibendum. Fusce varius ex sapien, a congue tellus ornare in. Duis vitae sagittis mauris. Donec eu nibh non purus cursus consectetur sodales nec ipsum. Morbi eget diam nec ex tempor luctus ut sit amet tellus.</string>
+    <string name="alergenos">Alérgenos</string>
+    <string name="tiempo">Tiempo</string>
+    <string name="productos">Productos</string>
+    <string name="descripcion">Descripción</string>
+    <string name="huevos">Huevos</string>
+    <string name="manual">Manual</string>
+    <string name="alergeno_seleccionado">Alérgeno seleccionado</string>
+    <string name="alergeno_no_seleccionado">Alérgeno no seleccionado</string>
+    <string name="anadir_producto">Añadir producto</string>
+    <string name="anadir_texto">Añadir texto</string>
+    <string name="anadir_imagen">Añadir imagen</string>
+    <string name="habilitar_borrar">Habilitar borrar</string>
+    <string name="deshabilitar_borrar">Deshabilitar borrar</string>
+    <string name="borrar_elemento">Borrar elemento</string>
 </resources>

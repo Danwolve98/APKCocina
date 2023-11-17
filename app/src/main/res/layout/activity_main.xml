@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".APKCocinaActivity"
     android:background="@color/base_2">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -96,6 +96,21 @@
                 android:tint="@color/base_3"
                 android:background="@null"
                 android:scaleType="centerInside"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility="gone"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/bt_info_action_bar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:layout_constraintRight_toLeftOf="@id/bt_seach_action_bar"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_informacion"
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:stateListAnimator="@animator/animator_button"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:visibility="gone"
                 />

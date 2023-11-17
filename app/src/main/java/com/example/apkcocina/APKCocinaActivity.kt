@@ -2,19 +2,17 @@ package com.example.apkcocina
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUiSaveStateControl
-import androidx.viewbinding.ViewBinding
 import com.example.apkcocina.databinding.ActivityMainBinding
 import com.example.apkcocina.utils.base.APKCocinaActionBar
-import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.FilterActionBar
+import com.example.apkcocina.utils.base.InfoActionBar
 import com.example.apkcocina.utils.base.PrincipalActionBar
 import com.example.apkcocina.utils.extensions.invisible
+import com.example.apkcocina.utils.extensions.notNull
 import com.example.apkcocina.utils.extensions.visible
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
@@ -22,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class APKCocinaActivity : AppCompatActivity() {
 
     @Inject
     lateinit var firebaseAuth: FirebaseAuth
@@ -59,6 +57,7 @@ class MainActivity : AppCompatActivity() {
             ivLogo.invisible()
             btFilterActionBar.invisible()
             btSeachActionBar.invisible()
+            btInfoActionBar.invisible()
             ivLogo.invisible()
             tvTittleActionBar.text = actionBar.title
 
@@ -69,9 +68,17 @@ class MainActivity : AppCompatActivity() {
                 is PrincipalActionBar->{
                     ivLogo.visible()
                 }
+
                 is FilterActionBar ->{
                     btFilterActionBar.visible()
                     btSeachActionBar.visible()
+                    btFilterActionBar.setOnClickListener { actionBar.searchFunction.notNull() }
+                    btSeachActionBar.setOnClickListener { actionBar.filterFunction.notNull() }
+                }
+
+                is InfoActionBar ->{
+                    btInfoActionBar.visible()
+                    btInfoActionBar.setOnClickListener { actionBar.infoLayoutFunction.notNull() }
                 }
             }
         }

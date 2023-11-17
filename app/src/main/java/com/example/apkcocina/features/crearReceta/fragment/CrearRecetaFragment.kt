@@ -1,22 +1,19 @@
 package com.example.apkcocina.features.crearReceta.fragment
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.MotionEvent
-import android.view.View
 import com.example.apkcocina.R
 import com.example.apkcocina.utils.model.Receta
 import com.example.apkcocina.databinding.FrgCrearRecetaBinding
 import com.example.apkcocina.features.crearReceta.adapter.CrearProductosAdapter
-import com.example.apkcocina.MainActivity
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
-import com.example.apkcocina.utils.base.TitleActionBar
 import com.example.apkcocina.utils.base.Constants
+import com.example.apkcocina.utils.base.InfoActionBar
+import com.example.apkcocina.utils.dialog.InfoRecetasDialog
 import com.example.apkcocina.utils.model.Alergenos
 import com.example.apkcocina.utils.model.Producto
 import com.google.firebase.firestore.FirebaseFirestore
@@ -39,8 +36,9 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
     private var productosAdapter = CrearProductosAdapter(listOf())
 
     override fun assingActionBar() {
-        actionBar = TitleActionBar(getString(R.string.crear_receta))
+        actionBar = InfoActionBar(getString(R.string.crear_receta),::mostrarDialogRecetas)
     }
+    private fun mostrarDialogRecetas() = InfoRecetasDialog(requireContext()).show()
 
     override fun initializeView() {
         binding.btCrearReceta.setOnClickListener {
@@ -115,7 +113,7 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
 
             rvProductos.adapter = productosAdapter
 
-            btAnadirProducto.setOnClickListener {
+            btAddProducto.setOnClickListener {
                 var newList = productosAdapter.listProductos
                 newList = newList.toMutableList().also {
                  it.add(Producto())

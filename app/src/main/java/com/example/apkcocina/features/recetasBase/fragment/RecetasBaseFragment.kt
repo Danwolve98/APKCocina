@@ -1,14 +1,11 @@
 package com.example.apkcocina.features.recetasBase.fragment
 
-import android.content.Context
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.apkcocina.R
 import com.example.apkcocina.databinding.FrgRecetasBaseBinding
 import com.example.apkcocina.utils.model.Receta
-import com.example.apkcocina.MainActivity
 import com.example.apkcocina.features.recetasBase.adapter.RecetasAdapter
 import com.example.apkcocina.features.recetasBase.viewModel.RecetasBaseViewModel
 import com.example.apkcocina.utils.base.APKCocinaActionBar
@@ -36,7 +33,7 @@ class RecetasBaseFragment() : BaseFragment<FrgRecetasBaseBinding>() {
         super.onCreate(savedInstanceState)
         recetasBaseViewModel.loadRecetas()
         recetasBaseViewModel.loading.observe(this, Observer {
-            mainActivity.setLoading(it)
+            APKCocinaActivity.setLoading(it)
         })
         recetasBaseViewModel.mutableRecetas.observe(this, Observer {
            listaRecetasBase = it
@@ -44,6 +41,6 @@ class RecetasBaseFragment() : BaseFragment<FrgRecetasBaseBinding>() {
         })
     }
 
-    private fun onRecetaClickListener(receta: Receta){ mainActivity.navigate(R.id.action_recetasBaseFragment_to_recetaDetalle,Bundle().apply { putSerializable("receta",receta) }) }
+    private fun onRecetaClickListener(receta: Receta){ APKCocinaActivity.navigate(R.id.action_recetasBaseFragment_to_recetaDetalle,Bundle().apply { putSerializable("receta",receta) }) }
 
 }

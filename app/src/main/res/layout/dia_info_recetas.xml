@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cl_dialog_info_receta"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_base1_stroke"
+        app:layout_constraintStart_toStartOf="@id/guidelineInfoRecetas1"
+        app:layout_constraintEnd_toEndOf="@id/guidelineInfoRecetas2"
+        app:layout_constraintTop_toTopOf="@id/guidelineInfoRecetas3"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineInfoRecetas4">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="30dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/bt_cancel"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:icon="@drawable/ic_cancel"
+                android:padding="0dp"
+                app:iconSize="30dp"
+                app:iconGravity="textTop"
+                app:iconPadding="0dp"
+                android:background="@null"
+                android:insetRight="0dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_info"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_informacion"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+               />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_alergenos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="@string/alergenos"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:fontFamily="@font/arial"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@id/iv_info"/>
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/fl_alergenos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:justifyContent="center"
+                app:flexDirection="row"
+                app:flexWrap="wrap"
+                android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="20dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_alergenos"
+                >
+                <com.google.android.material.button.MaterialButton
+                    android:text="Altramuces"
+                    app:icon="@drawable/al_altramuces"
+                    style="@style/MaterialButtonAlergenos"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="Apio"
+                    app:icon="@drawable/al_apio"
+                    style="@style/MaterialButtonAlergenos"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="@string/huevos"
+                    app:icon="@drawable/al_huevo"
+                    style="@style/MaterialButtonAlergenos"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="Soja"
+                    app:icon="@drawable/al_soja"
+                    style="@style/MaterialButtonAlergenos"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="Lácteos"
+                    app:icon="@drawable/al_lacteos"
+                    style="@style/MaterialButtonAlergenos"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="Moluscos"
+                    app:icon="@drawable/al_moluscos"
+                    style="@style/MaterialButtonAlergenos"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="Gluten"
+                    app:icon="@drawable/al_gluten"
+                    style="@style/MaterialButtonAlergenos"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="Crustáceos"
+                    app:icon="@drawable/al_crustaceos"
+                    style="@style/MaterialButtonAlergenos"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="Cacahuetes"
+                    app:icon="@drawable/al_cacahuetes"
+                    style="@style/MaterialButtonAlergenos"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="Pescado"
+                    app:icon="@drawable/al_pescado"
+                    style="@style/MaterialButtonAlergenos"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="Granos de sésamo"
+                    app:icon="@drawable/al_granos_de_sesamo"
+                    style="@style/MaterialButtonAlergenos"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="Frutos secos"
+                    app:icon="@drawable/al_frutos_de_cascara"
+                    style="@style/MaterialButtonAlergenos"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="Mostaza"
+                    app:icon="@drawable/al_mostaza"
+                    style="@style/MaterialButtonAlergenos"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="Dioxido de azufre y sulfitos"
+                    app:icon="@drawable/al_dioxido_de_azufre_y_sulfitos"
+                    style="@style/MaterialButtonAlergenos"/>
+
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_manual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="@string/manual"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:fontFamily="@font/arial"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/fl_alergenos"/>
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/fl_manual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:flexWrap="nowrap"
+                app:flexDirection="column"
+                app:justifyContent="flex_start"
+                android:layout_marginHorizontal="20dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_manual">
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="@string/alergeno_seleccionado"
+                    app:icon="@drawable/al_huevo"
+                    android:layout_width="wrap_content"
+                    style="@style/MaterialButtonAlergenos" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="@string/alergeno_no_seleccionado"
+                    app:icon="@drawable/al_huevo_unselected"
+                    android:layout_width="wrap_content"
+                    style="@style/MaterialButtonAlergenos" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="@string/anadir_producto"
+                    app:icon="@drawable/ic_add_layer"
+                    app:iconSize="30dp"
+                    app:iconTint="@color/black"
+                    android:layout_width="wrap_content"
+                    style="@style/MaterialButtonAlergenos" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="@string/anadir_texto"
+                    app:icon="@drawable/ic_add_text"
+                    app:iconSize="30dp"
+                    app:iconTint="@color/black"
+                    android:layout_width="wrap_content"
+                    style="@style/MaterialButtonAlergenos" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="@string/anadir_imagen"
+                    app:icon="@drawable/ic_add_image"
+                    app:iconSize="30dp"
+                    app:iconTint="@color/black"
+                    android:layout_width="wrap_content"
+                    style="@style/MaterialButtonAlergenos" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="@string/habilitar_borrar"
+                    app:icon="@drawable/ic_delete"
+                    app:iconTint="@color/black"
+                    app:iconSize="25dp"
+                    android:layout_width="wrap_content"
+                    style="@style/MaterialButtonAlergenos" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="@string/deshabilitar_borrar"
+                    app:icon="@drawable/ic_delete"
+                    app:iconTint="@color/green"
+                    app:iconSize="25dp"
+                    android:layout_width="wrap_content"
+                    style="@style/MaterialButtonAlergenos" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="@string/borrar_elemento"
+                    app:icon="@drawable/ic_remove_item"
+                    app:iconSize="25dp"
+                    app:iconTint="@color/black"
+                    android:layout_width="wrap_content"
+                    style="@style/MaterialButtonAlergenos" />
+
+            </com.google.android.flexbox.FlexboxLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineInfoRecetas1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineInfoRecetas2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineInfoRecetas3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineInfoRecetas4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

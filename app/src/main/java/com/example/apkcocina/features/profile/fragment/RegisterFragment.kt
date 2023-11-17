@@ -64,7 +64,7 @@ class RegisterFragment : BaseFragment<FrgRegisterBinding>() {
         lifecycleScope.launch{
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 profileViewModel.profileViewState.collect { profileViewState ->
-                    mainActivity.setLoading(profileViewState.isLoading)
+                    APKCocinaActivity.setLoading(profileViewState.isLoading)
                     binding.ilCorreoRegister.error =
                         if(profileViewState.isValidEmail)null else getString(R.string.email_no_es_valido)
                     binding.ilContrasenaRegister.error =

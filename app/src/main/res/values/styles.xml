@@ -19,6 +19,22 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="BaseTextAppearance">
+        <item name="fontFamily">@font/arial</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ApparenceTextAlergenosItalic">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:fontFamily">@font/arial</item>
+    </style>
+
+    <style name="ApparenceTextTitle" parent="BaseTextAppearance">
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <style name="TextViewProfile" parent="Widget.AppCompat.TextView">
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:textColor">@color/white</item>
@@ -117,6 +133,23 @@
         <item name="autoSizeMaxTextSize">18sp</item>
         <item name="autoSizeMinTextSize">14sp</item>
         <item name="autoSizeTextType">uniform</item>
+    </style>
+
+    <style name="MaterialButtonAlergenos" parent="Widget.Material3.Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">5dp</item>
+        <item name="iconPadding">10dp</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:textAppearance">@style/ApparenceTextAlergenosItalic</item>
+        <item name="iconSize">35dp</item>
+        <item name="iconGravity">start</item>
+        <item name="iconTint">@null</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="layout_flexBasisPercent">50%</item>
     </style>
 
 </resources>

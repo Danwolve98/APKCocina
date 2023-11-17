@@ -6,21 +6,25 @@ import com.example.apkcocina.APKCocinaApplication
 /**
  * Ejecuta una función si no es nulo
  */
-fun Any?.notNull(action : () -> Unit) {
-    if(this != null)
-        action()
+fun <T : Any> T?.notNull(f: (it: T) -> Unit) {
+    if (this != null) f(this)
 }
+
+/**
+ * Ejecuta la propia función solo si no es nula
+ */
+fun (() -> Unit)?.notNull() = this.notNull() { this!!.invoke() }
 
 /**
  * Ejecuta una función si no es uno u otra si, sí lo és
  * @param notNullAction la acción si NO es nulo
  * @param nullAction la acción si ES nulo
  */
-fun Any?.notNull(notNullAction : () -> Unit,nullAction : () -> Unit){
+fun<T : Any> T?.notNull(notNullAction : (it : T) -> Unit,nullAction : (it:T?) -> Unit){
     if(this != null)
-        notNullAction()
+        notNullAction(this)
     else
-        nullAction()
+        nullAction(this)
 }
 
 /**

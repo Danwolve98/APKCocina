@@ -1,309 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/base_3">
-
     <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@color/black_soft"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        >
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginHorizontal="30dp"
             android:layout_marginTop="20dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             >
-
+            
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_nombre_crear"
+                android:id="@+id/tv_nombre_receta"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:text="Titulo"
-                android:shadowColor="@color/black"
-                android:shadowDx="3"
-                android:shadowDy="3"
-                android:shadowRadius="2"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/et_nombre_crear"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:lines="1"
-                android:maxLines="1"
-                android:maxLength="30"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_nombre_crear" />
-
-            <HorizontalScrollView
-                android:id="@+id/sv_alergenos"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="10dp"
-                android:elevation="20dp"
-                android:orientation="horizontal"
+                android:text="@string/nombre"
+                android:textAppearance="@style/ApparenceTextTitle"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/il_nombre_receta"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                style="@style/FormTextInputLayout"
+                app:boxStrokeColor="@color/stroke_color_selector_profile"
+                app:endIconMode="clear_text"
+                app:errorEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/et_nombre_crear">
+                app:layout_constraintTop_toBottomOf="@id/tv_nombre_receta">
 
-                <LinearLayout
-                    android:id="@+id/ly_alergenos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="10dp"
-                    android:divider="@drawable/divider_horizontal_10dp"
-                    android:gravity="start"
-                    android:orientation="horizontal"
-                    android:showDividers="middle">
-
-                    <ToggleButton
-                        android:id="@+id/tb_gluten"
-                        style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/al_gluten"
-                        tools:checked="true" />
-
-                    <ToggleButton
-                        android:id="@+id/tb_crustaceos"
-                        style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/al_crustaceos"
-                        tools:checked="true" />
-
-                    <ToggleButton
-                        android:id="@+id/tb_huevos"
-                        style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/al_huevo"
-                        tools:checked="true" />
-
-                    <ToggleButton
-                        android:id="@+id/tb_pescado"
-                        style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/al_pescado"
-                        tools:checked="true" />
-
-                    <ToggleButton
-                        android:id="@+id/tb_cacahuetes"
-                        style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/al_cacahuetes"
-                        tools:checked="true" />
-
-                    <ToggleButton
-                        android:id="@+id/tb_soja"
-                        style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/al_soja"
-                        tools:checked="true" />
-
-                    <ToggleButton
-                        android:id="@+id/tb_lacteos"
-                        style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/al_lacteos"
-                        tools:checked="true" />
-
-                    <ToggleButton
-                        android:id="@+id/tb_frutos_cascara"
-                        style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/al_frutos_de_cascara"
-                        tools:checked="true" />
-
-                    <ToggleButton
-                        android:id="@+id/tb_apio"
-                        style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/al_apio"
-                        tools:checked="true" />
-
-                    <ToggleButton
-                        android:id="@+id/tb_mostaza"
-                        style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/al_dioxido_de_azufre_y_sulfitos"
-                        tools:checked="true" />
-
-                    <ToggleButton
-                        android:id="@+id/tb_granos_sesamo"
-                        style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/al_granos_de_sesamo"
-                        tools:checked="true" />
-
-                    <ToggleButton
-                        android:id="@+id/tb_dioxido_de_azufre_y_sulfitos"
-                        style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/al_moluscos"
-                        tools:checked="true" />
-
-                    <ToggleButton
-                        android:id="@+id/tb_moluscos"
-                        style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/al_apio"
-                        tools:checked="true" />
-
-                    <ToggleButton
-                        android:id="@+id/tb_altramuces"
-                        style="@style/toogleButtonAlergenos"
-                        android:background="@drawable/al_altramuces"
-                        tools:checked="true" />
-                </LinearLayout>
-
-            </HorizontalScrollView>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_nombre_receta"
+                    style="@style/FormEditText"
+                    android:enabled="false"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    tools:text="Lasaña Casera"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_descripcion_crear"
+                android:id="@+id/tv_alergenos"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:text="Descripción"
-                android:textSize="24sp"
-                android:shadowColor="@color/black"
-                android:shadowDx="3"
-                android:shadowDy="3"
-                android:shadowRadius="2"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cl_tiempo" />
+                android:layout_height="wrap_content"
+                android:text="@string/alergenos"
+                android:layout_marginTop="20dp"
+                android:textAppearance="@style/ApparenceTextTitle"
+                app:layout_constraintTop_toBottomOf="@id/il_nombre_receta"/>
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/et_descripcion_crear"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_alergenos"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="10dp"
-                android:lines="5"
-                android:maxLines="50"
-                app:layout_constraintTop_toBottomOf="@id/tv_descripcion_crear" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_alergenos"/>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_tiempo"
-                app:layout_constraintTop_toBottomOf="@id/sv_alergenos"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_tiempo"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_reloj"
+                app:tint="@color/white"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintTop_toBottomOf="@id/rv_alergenos"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_tiempo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                >
+                android:text="@string/tiempo"
+                android:textSize="16sp"
+                android:textAppearance="@style/BaseTextAppearance"
+                app:layout_constraintTop_toBottomOf="@id/iv_tiempo"
+                app:layout_constraintStart_toStartOf="@id/iv_tiempo"
+                app:layout_constraintEnd_toEndOf="@id/iv_tiempo"/>
 
+                
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/iv_schedule"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:tint="@color/white"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/baseline_schedule_24"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/tv_tiempo"
-                    app:layout_constraintBottom_toBottomOf="@id/et_mins"
-                    app:layout_constraintStart_toStartOf="parent"/>
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_tiempo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toBottomOf="@id/iv_schedule"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:text="Tiempo"/>
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/bt_mins_sum"
-                    android:layout_width="40dp"
-                    android:layout_height="0dp"
-                    android:background="@null"
-                    android:layout_marginStart="10dp"
-                    android:tint="@color/white"
+                    android:id="@+id/btMinsSum"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/ic_add"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintStart_toEndOf="@id/tv_tiempo"
-                    app:layout_constraintEnd_toStartOf="@id/et_mins"
-                    app:layout_constraintTop_toTopOf="@id/et_mins"
-                    app:layout_constraintBottom_toBottomOf="@id/et_mins"/>
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/et_mins"
-                    android:layout_width="wrap_content"
-                    android:paddingHorizontal="10dp"
-                    android:layout_height="40dp"
-                    android:text="0"
-                    android:inputType="number"
-                    android:textSize="20sp"
-                    android:background="@null"
-                    android:layout_marginStart="5dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:gravity="center"
-                    app:layout_constraintStart_toEndOf="@id/bt_mins_sum"
-                    />
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/bt_mins_res"
-                    android:layout_width="40dp"
+                    android:scaleType="fitXY"
+                    android:layout_marginStart="30dp"
+                    app:layout_constraintStart_toEndOf="@id/iv_tiempo"
+                    app:layout_constraintTop_toTopOf="@id/iv_tiempo"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_tiempo"/>
+                
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/etMins"
+                    android:layout_width="120dp"
                     android:layout_height="0dp"
+                    tools:text="1h 20mins"
+                    android:textSize="16sp"
                     android:background="@null"
-                    android:src="@drawable/ic_remove"
-                    android:scaleType="centerCrop"
-                    android:tint="@color/white"
-                    app:layout_constraintStart_toEndOf="@id/et_mins"
-                    app:layout_constraintTop_toTopOf="@id/et_mins"
-                    app:layout_constraintBottom_toBottomOf="@id/et_mins"/>
+                    android:gravity="center"
+                    android:textAppearance="@style/BaseTextAppearance"
+                    android:layout_marginStart="0dp"
+                    app:layout_constraintStart_toEndOf="@id/btMinsSum"
+                    app:layout_constraintTop_toTopOf="@id/btMinsSum"
+                    app:layout_constraintBottom_toBottomOf="@id/btMinsSum"/>
 
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/btMinsRes"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_less"
+                android:scaleType="fitXY"
+                app:layout_constraintStart_toEndOf="@id/etMins"
+                app:layout_constraintTop_toTopOf="@id/iv_tiempo"
+                app:layout_constraintBottom_toBottomOf="@id/tv_tiempo"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_productos"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:text="Productos"
-                android:shadowColor="@color/black"
-                android:shadowDx="3"
-                android:shadowDy="3"
-                android:shadowRadius="2"
-                android:textSize="24sp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:text="@string/productos"
                 android:layout_marginTop="20dp"
+                android:textAppearance="@style/ApparenceTextTitle"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/et_descripcion_crear"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_tiempo"/>
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/bt_anadir_producto"
-                android:layout_width="40dp"
-                android:layout_height="0dp"
-                android:tint="@color/white"
-                android:src="@drawable/ic_add"
-                android:scaleType="centerCrop"
-                android:background="@null"
-                app:layout_constraintTop_toTopOf="@id/tv_productos"
-                app:layout_constraintBottom_toBottomOf="@id/tv_productos"
-                app:layout_constraintStart_toEndOf="@id/tv_productos"
-                android:layout_marginStart="10dp"
-                />
-
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/bt_add_producto"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_add_layer"
+                android:scaleType="fitXY"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/rv_productos"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_productos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/item_producto_crear"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/tv_productos"
-                />
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_productos"/>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_descripcion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/descripcion"
+                android:layout_marginTop="20dp"
+                android:textAppearance="@style/ApparenceTextTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_productos"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/bt_delete"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_delete"
+                android:scaleType="fitXY"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/rv_descripcion"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/bt_add_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_add_image"
+                android:scaleType="fitXY"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="15dp"
+                app:layout_constraintEnd_toStartOf="@id/bt_delete"
+                app:layout_constraintBottom_toTopOf="@id/rv_descripcion"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/bt_add_text"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_add_text"
+                android:scaleType="fitXY"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="15dp"
+                app:layout_constraintEnd_toStartOf="@id/bt_add_image"
+                app:layout_constraintBottom_toTopOf="@id/rv_descripcion"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_descripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_descripcion"/>
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/bt_crear_receta"
                 android:layout_width="match_parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_productos"
-                android:layout_marginTop="20dp"
-                android:text="crear receta"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                style="@style/MaterialButton"
+                app:rippleColor="@color/base_3"
+                android:backgroundTint="@color/base_4"
+                android:text="@string/crear_receta"
+                android:layout_marginHorizontal="80dp"
+                app:layout_constraintTop_toBottomOf="@id/rv_descripcion"/>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
