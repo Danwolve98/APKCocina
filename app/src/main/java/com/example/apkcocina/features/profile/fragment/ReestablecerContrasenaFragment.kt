@@ -47,7 +47,7 @@ class ReestablecerContrasenaFragment : BaseFragment<FrgReestablecerContrasenaBin
 
     override fun initializeObservers() {
         collectFlow(profileViewModel.profileViewState){
-            APKCocinaActivity.setLoading(it.isLoading)
+            mainActivity.setLoading(it.isLoading)
             binding.btReset.isEnabled = it.isValidEmail
         }
 

@@ -3,6 +3,7 @@ package com.example.apkcocina.features.settings.fragment
 import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.navigation.ui.NavigationUI
 import com.example.apkcocina.BuildConfig
 import com.example.apkcocina.R
 import com.example.apkcocina.databinding.FrgAjustesBinding
@@ -62,7 +63,9 @@ class SettingsFragment : BaseFragment<FrgAjustesBinding>() {
                     requireContext(),
                     R.drawable.ic_iniciar_sesion
                 )
-                setOnClickListener {  }
+                setOnClickListener {
+                  mainActivity.changeMenuItem(R.id.perfil_fragment)
+                }
             }
         } else {
             btIniciarSesion.apply {

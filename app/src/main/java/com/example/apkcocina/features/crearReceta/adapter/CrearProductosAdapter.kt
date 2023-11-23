@@ -3,12 +3,15 @@ package com.example.apkcocina.features.crearReceta.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import android.widget.ArrayAdapter
+import androidx.appcompat.widget.AppCompatEditText
+import androidx.appcompat.widget.AppCompatSpinner
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apkcocina.R
 import com.example.apkcocina.utils.model.Producto
+
 
 class CrearProductosAdapter(var listProductos : List<Producto>) : RecyclerView.Adapter<CrearProductosAdapter.ViewHolder>() {
 
@@ -29,8 +32,9 @@ class CrearProductosAdapter(var listProductos : List<Producto>) : RecyclerView.A
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view){
         fun bind(position: Int){
-            val nombre = view.findViewById<EditText>(R.id.et_producto_nombre)
-            val cantidad = view.findViewById<EditText>(R.id.et_producto_cantidad)
+            val nombre = view.findViewById<AppCompatEditText>(R.id.et_producto_nombre)
+            val cantidad = view.findViewById<AppCompatEditText>(R.id.et_producto_cantidad)
+            val spinner = view.findViewById<AppCompatSpinner>(R.id.sp_producto_medida)
 
             nombre.addTextChangedListener { editable->
                 listProductos[position].nombre = editable.toString()
@@ -38,6 +42,9 @@ class CrearProductosAdapter(var listProductos : List<Producto>) : RecyclerView.A
             cantidad.addTextChangedListener { editable->
                 listProductos[position].cantidad = editable.toString().toFloat()
             }
+
+            spinner.adapter = ArrayAdapter.createFromResource(view.context,R.array.tipos,R.layout.sp_item).apply { setDropDownViewResource(R.layout.sp_item) }
+
         }
     }
 

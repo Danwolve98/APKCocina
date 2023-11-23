@@ -33,7 +33,7 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
     private lateinit var receta : Receta
     private var isButtonPressed : Boolean = false
 
-    private var productosAdapter = CrearProductosAdapter(listOf())
+    private var productosAdapter = CrearProductosAdapter(listOf(Producto()))
 
     override fun assingActionBar() {
         actionBar = InfoActionBar(getString(R.string.crear_receta),::mostrarDialogRecetas)
@@ -65,51 +65,7 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
         }
 
         binding.apply {
-            val handler = Handler(Looper.myLooper()!!)
-
-            btMinsSum.setOnTouchListener { view, motionEvent ->
-                when (motionEvent.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        etMins.setText((etMins.text.toString().toInt() + 1).toString())
-                        isButtonPressed = true
-                        startIncrementingCounter(
-                            handler,
-                            binding.etMins.text.toString().toInt(),
-                            true
-                        )
-                        true
-                    }
-                    MotionEvent.ACTION_UP -> {
-                        view.performClick()
-                        isButtonPressed = true
-                        handler.removeCallbacksAndMessages(null)
-                        true
-                    }
-                    else -> false
-                }
-            }
-
-            btMinsRes.setOnTouchListener { view, motionEvent ->
-                when (motionEvent.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        etMins.setText((etMins.text.toString().toInt() - 1).toString())
-                        isButtonPressed = true
-                        startIncrementingCounter(
-                            handler,
-                            binding.etMins.text.toString().toInt(),
-                            false
-                        )
-                        true
-                    }
-                    MotionEvent.ACTION_UP -> {
-                        view.performClick()
-                        isButtonPressed = false
-                        handler.removeCallbacksAndMessages(null)
-                        true
-                    }
-                    else -> false
-                }
-            }
+            addLooperSegundos()
 
             rvProductos.adapter = productosAdapter
 
@@ -120,7 +76,61 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
                 }.toList()
                 productosAdapter.updateRecetas(newList.toList())
             }
+        }
+    }
 
+    /**
+     * Función que controla el aumento y decremento gradual del tiempo de la receta
+     */
+    private fun FrgCrearRecetaBinding.addLooperSegundos() {
+        val handler = Handler(Looper.myLooper()!!)
+
+        btMinsSum.setOnTouchListener { view, motionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    etMins.setText((etMins.text.toString().toInt() + 1).toString())
+                    isButtonPressed = true
+                    startIncrementingCounter(
+                        handler,
+                        binding.etMins.text.toString().toInt(),
+                        true
+                    )
+                    true
+                }
+
+                MotionEvent.ACTION_UP -> {
+                    view.performClick()
+                    isButtonPressed = true
+                    handler.removeCallbacksAndMessages(null)
+                    true
+                }
+
+                else -> false
+            }
+        }
+
+        btMinsRes.setOnTouchListener { view, motionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    etMins.setText((etMins.text.toString().toInt() - 1).toString())
+                    isButtonPressed = true
+                    startIncrementingCounter(
+                        handler,
+                        binding.etMins.text.toString().toInt(),
+                        false
+                    )
+                    true
+                }
+
+                MotionEvent.ACTION_UP -> {
+                    view.performClick()
+                    isButtonPressed = false
+                    handler.removeCallbacksAndMessages(null)
+                    true
+                }
+
+                else -> false
+            }
         }
     }
 

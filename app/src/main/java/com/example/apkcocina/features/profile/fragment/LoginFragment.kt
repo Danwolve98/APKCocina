@@ -34,7 +34,6 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
     }
 
     override fun initializeView() {
-
         with(binding){
             btIniciarSesion.setOnClickListener { login() }
             btRegistrarse.setOnClickListener { navigate(R.id.action_loginFragment_to_registerFragment) }
@@ -62,7 +61,7 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
 
     override fun initializeObservers() {
         collectFlow(profileViewModel.profileViewState){profileViewState->
-            APKCocinaActivity.setLoading(profileViewState.isLoading)
+            mainActivity.setLoading(profileViewState.isLoading)
             binding.ilCorreoLogin.error =
                 if(profileViewState.isValidEmail)null else getString(R.string.email_no_es_valido)
             binding.ilContrasenaLogin.error =

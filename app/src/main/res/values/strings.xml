@@ -14,6 +14,19 @@
         <item>"Información"</item>
     </string-array>
 
+    <string-array name="tipos">
+        <item>"unknown"</item>
+        <item>"g"</item>
+        <item>"kg"</item>
+        <item>mg</item>
+        <item>"L"</item>
+        <item>"mL"</item>
+        <item>"tzas"</item>
+        <item>cda</item>
+        <item>"cdta"</item>
+        <item>"unid"</item>
+    </string-array>
+
     <!--LOGIN-->
     <string name="correo">Correo</string>
     <string name="contrasena_antigua">Contraseña anterior</string>
@@ -189,11 +202,8 @@
               <p><img src="https://lh7-us.googleusercontent.com/zPZ8gWZZYufdylvQV1RDRWQTi5aK5ag8Fi8p-zu9VGu_3X6plVVutR9eCNmlJcfwC6_6IFkipoNlqYaltG82rzsfpD_9AlUl89voGIx6LzjXMOF6aaRB7FRt_xr8tTA34DKySh2R6oFjoStXJrCGeWw" width="250" height="250"></p>
               <p><strong>Ayuda</strong></p>
               <p>En el apartado de ayuda podrás encontrar soporte o información relevante a atención al cliente para la aplicación, si has tenido algún tipo de problema, o tal vez quieres enviar alguna sugerencia aquí debes hacerlo.</p>
-              <p><br></p>
               <p><strong>&iquest;Qu&eacute; cocino hoy?</strong></p>
-              <p><br></p>
               <p>Esta secci&oacute;n simplemente te recoger&aacute; una receta aleatoria de entre las existentes, as&iacute; tendr&aacute;s algunas referencias para la cocina o incluso simplemente por el af&aacute;n de descubrir nuevas recetas de una forma m&aacute;s divertida.</p>
-              <p><br></p>
               <p><img src="https://lh7-us.googleusercontent.com/jaXehkw4ghGEkNUzCZiLAg6UcZDgCpqdhSmkIGZaZtvS8DipMG9A4P7hv4Z4UyzqlxWbkIEkA7xW9hjYwuOWbnAhoJWzFt01q8qaIVEqWepUP5fXMR-EMJqJs7_GbKSlrS6J04xrjNo4rSjIcQKandw" width="310" height="145"></p>
             </body>
             </html>]]>
@@ -222,4 +232,5 @@
     <string name="habilitar_borrar">Habilitar borrar</string>
     <string name="deshabilitar_borrar">Deshabilitar borrar</string>
     <string name="borrar_elemento">Borrar elemento</string>
+    <string name="producto">Producto</string>
 </resources>

@@ -33,7 +33,7 @@ class RecetasBaseFragment() : BaseFragment<FrgRecetasBaseBinding>() {
         super.onCreate(savedInstanceState)
         recetasBaseViewModel.loadRecetas()
         recetasBaseViewModel.loading.observe(this, Observer {
-            APKCocinaActivity.setLoading(it)
+            mainActivity.setLoading(it)
         })
         recetasBaseViewModel.mutableRecetas.observe(this, Observer {
            listaRecetasBase = it
@@ -41,6 +41,6 @@ class RecetasBaseFragment() : BaseFragment<FrgRecetasBaseBinding>() {
         })
     }
 
-    private fun onRecetaClickListener(receta: Receta){ APKCocinaActivity.navigate(R.id.action_recetasBaseFragment_to_recetaDetalle,Bundle().apply { putSerializable("receta",receta) }) }
+    private fun onRecetaClickListener(receta: Receta){ mainActivity.navigate(R.id.action_recetasBaseFragment_to_recetaDetalle,Bundle().apply { putSerializable("receta",receta) }) }
 
 }

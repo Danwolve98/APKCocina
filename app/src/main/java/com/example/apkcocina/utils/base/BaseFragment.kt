@@ -27,7 +27,7 @@ abstract class BaseFragment<vb : ViewBinding> : Fragment() {
     //ACTION BAR SUPERIOR
     abstract var actionBar: APKCocinaActionBar
     lateinit var binding: vb
-    val APKCocinaActivity: APKCocinaActivity get() = requireActivity() as APKCocinaActivity
+    val mainActivity: APKCocinaActivity get() = requireActivity() as APKCocinaActivity
 
     //NAVCONTROLLER
     val navController: NavController by lazy { findNavController() }
@@ -45,7 +45,7 @@ abstract class BaseFragment<vb : ViewBinding> : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (addOnBackPressed) {
-            APKCocinaActivity.onBackPressedDispatcher.addCallback(this) {
+            mainActivity.onBackPressedDispatcher.addCallback(this) {
                 onBackPressed()
             }
         }
@@ -61,8 +61,8 @@ abstract class BaseFragment<vb : ViewBinding> : Fragment() {
         initializeObservers()
         assingActionBar()
         actionBar.notNullorDefault(
-            notNullAction = { APKCocinaActivity.configureActionBar(actionBar) },
-            nullAction = {APKCocinaActivity.configureActionBar(TitleActionBar(getString(R.string.app_name)))}
+            notNullAction = { mainActivity.configureActionBar(actionBar) },
+            nullAction = {mainActivity.configureActionBar(TitleActionBar(getString(R.string.app_name)))}
         )
         return binding.root
     }

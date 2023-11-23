@@ -97,4 +97,11 @@ class APKCocinaActivity : AppCompatActivity() {
         navController.navigate(accion,bundle)
     }
 
+    /**
+     * Función para cambiar entre los menús de abajo manualmente desde código
+     * @param menuItemId el id del botón a "pulsar"
+     */
+    fun changeMenuItem(menuItemId : Int) { binding.bottomNavigationView.selectedItemId = menuItemId }
+
+
 }
