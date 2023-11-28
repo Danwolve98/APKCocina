@@ -2,17 +2,14 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+Currently the application is under development, but as soon as it is finished, 
+its first functional version, which will be 0.0.1, will be stable
 
 | Version | Supported          |
 | ------- | ------------------ |
 | 0.0.x   | :white_check_mark: |
 
-## Reporting a Vulnerability
+## Vulnerability
 
-Use this section to tell people how to report a vulnerability.
-
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+The only problem if it occurs would be that for certain actions such as collecting photos, various versions of Android Studio 
+have not been taken into account, I am sorry if any inconvenience occurs in this regard.
