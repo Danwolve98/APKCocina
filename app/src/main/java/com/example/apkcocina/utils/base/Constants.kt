@@ -10,6 +10,8 @@ class Constants {
         const val LANGUAGE_ES: String = "es" //español
         const val LANGUAGE_FR: String = "fr" //francés
         const val LANGUAGE_EN: String = "en" //inglés
+
+        val IMAGE_FILES = arrayOf("jpg","png","jpeg","tiff")
     }
 
 }

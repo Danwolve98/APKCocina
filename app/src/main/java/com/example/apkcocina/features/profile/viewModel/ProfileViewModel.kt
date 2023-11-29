@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apkcocina.R
+import com.example.apkcocina.network.usecases.CargarUsuarioUseCase
 import com.example.apkcocina.network.usecases.CreateAccountUseCase
 import com.example.apkcocina.network.usecases.LoginUseCase
 import com.example.apkcocina.network.usecases.ResetPassWordUserCase
@@ -17,6 +18,8 @@ import com.example.apkcocina.network.usecases.SendEmailVerificationUseCase
 import com.example.apkcocina.network.usecases.UpdateUserUseCase
 import com.example.apkcocina.network.usecases.VerifyEmailUseCase
 import com.example.apkcocina.utils.core.Event
+import com.example.apkcocina.utils.model.User
+import com.example.apkcocina.utils.states.CargarUserResult
 import com.example.apkcocina.utils.states.LoginResult
 import com.example.apkcocina.utils.states.ProfileState
 import com.example.apkcocina.utils.states.RegisterResult
@@ -39,7 +42,8 @@ class ProfileViewModel @Inject constructor(
     private val registerUseCase: CreateAccountUseCase,
     private val verifyEmailUseCase: VerifyEmailUseCase,
     private val updateUserUseCase: UpdateUserUseCase,
-    private val resetPassWordUserCase: ResetPassWordUserCase
+    private val resetPassWordUserCase: ResetPassWordUserCase,
+    private val cargarUsuarioUseCase: CargarUsuarioUseCase
 ) : ViewModel() {
 
     private val _profileViewState = MutableStateFlow(ProfileState())
@@ -62,6 +66,9 @@ class ProfileViewModel @Inject constructor(
 
     private val _verifiedEmail = MutableLiveData<Event<Boolean>>()
     val verifiedEmail: LiveData<Event<Boolean>> = _verifiedEmail
+
+    private val _cargaUsuario = MutableLiveData<Event<User?>>()
+    val cargaUsuario: LiveData<Event<User?>> = _cargaUsuario
 
     private var _resetEmailSent = MutableLiveData<Event<ResetPassWordResult>>()
     val resetEmailSent: LiveData<Event<ResetPassWordResult>> = _resetEmailSent
@@ -135,13 +142,15 @@ class ProfileViewModel @Inject constructor(
         nacionalidad:String? = null,
         cumpleanos : Calendar?=null,
         photoUri : Uri? = null) {
-        _updateResult.value = Event(updateUserUseCase.invoke(nombre,apellidos,nacionalidad,cumpleanos,photoUri))
+        viewModelScope.launch {
+            _updateResult.postValue(Event(updateUserUseCase.invoke(nombre,apellidos,nacionalidad,cumpleanos,photoUri)))
+        }
     }
 
     /**
      * Función que se va a encargar de mandar un email de verificación de cuenta al usuario existente
      */
-    fun sendEmailVerification() =
+    private fun sendEmailVerification() =
         viewModelScope.launch() {
             sendEmailVerificationUseCase()
             withContext(Dispatchers.Main){
@@ -151,7 +160,7 @@ class ProfileViewModel @Inject constructor(
                 _verifiedEmail.value = Event(false)
             }.collect{verificado->
                 if(verificado){
-                    _verifiedEmail.value = Event(verificado)
+                    _verifiedEmail.value = Event(true)
                     _profileViewState.value = ProfileState(isLoading = false)
                     this.cancel()
                 }
@@ -222,6 +231,21 @@ class ProfileViewModel @Inject constructor(
         }
 
         return Pair(valid,errorText)
+    }
+
+    /**
+     * Carga los datos del actual usuario
+     */
+    fun cargarUser(){
+        viewModelScope.launch {
+            _profileViewState.value = ProfileState(isLoading = true)
+            when(val result = cargarUsuarioUseCase()){
+                is CargarUserResult.Successfull -> _cargaUsuario.value = Event(result.user)
+                    CargarUserResult.Error -> _cargaUsuario.value = Event(null)
+            }
+            _profileViewState.value = ProfileState(isLoading = false)
+        }
+
     }
 
 

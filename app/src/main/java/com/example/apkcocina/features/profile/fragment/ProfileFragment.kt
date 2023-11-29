@@ -4,7 +4,11 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.net.Uri
+import android.text.SpannableStringBuilder
 import android.widget.Toast
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import com.example.apkcocina.R
@@ -13,8 +17,15 @@ import com.example.apkcocina.features.profile.viewModel.ProfileViewModel
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.TitleActionBar
+import com.example.apkcocina.utils.extensions.base64toByteArray
+import com.example.apkcocina.utils.extensions.collectFlow
+import com.example.apkcocina.utils.extensions.format
+import com.example.apkcocina.utils.extensions.loadImage
+import com.example.apkcocina.utils.extensions.notNull
 import com.example.apkcocina.utils.extensions.playAnimation
+import com.example.apkcocina.utils.extensions.timeToCalendar
 import com.example.apkcocina.utils.extensions.visibilityCheck
+import com.example.apkcocina.utils.model.User
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,6 +43,7 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
 
     private val profileViewModel: ProfileViewModel by viewModels()
 
+    var photoUri : Uri? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
         isUserLogged()
@@ -48,36 +60,64 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
             if (!firebaseAuth.currentUser!!.isEmailVerified) {
                 Toast.makeText(requireContext(), "Se requiere validar la cuenta", Toast.LENGTH_SHORT).show()
                 navigate(R.id.action_perfil_fragment_to_loginFragment)
-            }
+            }else
+                profileViewModel.cargarUser()
         }
     }
 
     override fun initializeView() {
-
-
-        binding.btDate.setOnClickListener {
-            it.playAnimation(R.anim.click_animation)
-            showDatePickerDialog()
-        }
-
-        binding.btEditProfile.setOnClickListener {
-            it.playAnimation(R.anim.click_animation)
-            val bt = it as MaterialButton
-            if(bt.isChecked){
-                activarEditables(true)
-                bt.icon = ResourcesCompat.getDrawable(resources,R.drawable.ic_save_profile,null)
-            }else{
-                activarEditables(false)
-                mostrarAlertDialog()
+        with(binding){
+            btDate.setOnClickListener {
+                it.playAnimation(R.anim.click_animation)
+                showDatePickerDialog()
             }
+
+            btEditProfile.setOnClickListener {
+                it.playAnimation(R.anim.click_animation)
+                val bt = it as MaterialButton
+                if(bt.isChecked){
+                    activarEditables(true)
+                    bt.icon = ResourcesCompat.getDrawable(resources,R.drawable.ic_save_profile,null)
+                }else{
+                    activarEditables(false)
+                    mostrarAlertDialog()
+                }
+            }
+
+
+            val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()){
+                ivProfilePicture.loadImage(it)
+                photoUri = it
+            }
+
+            ivProfilePickPhoto.setOnClickListener{
+                pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+            }
+        }
+    }
+
+    private fun mostrarUsuario(user : User){
+        with(binding){
+            firebaseAuth.currentUser?.photoUrl.notNull(
+                notNullAction = { ivProfilePicture.loadImage(firebaseAuth.currentUser!!.photoUrl)},
+                nullAction = {ivProfilePicture.loadImage(user.foto)}
+            )
+            etNombrePerfil.text = SpannableStringBuilder(user.nombre)
+            etApellidosPerfil.text = SpannableStringBuilder(user.apellidos)
+            etNacionalidadPerfil.text = SpannableStringBuilder(user.nacionalidad)
+            tvBirthday.text = user.cumpleanos?.timeToCalendar()?.format("dd/MM/yyyy") ?: getString(R.string.default_cumpleanos)
         }
     }
 
     override fun initializeObservers() {
         with(profileViewModel){
-            loginResult.observe(viewLifecycleOwner) { event ->
-                event.getContentIfNotHandled()?.let { loginResult ->
+            collectFlow(profileViewState){
+                mainActivity.setLoading(it.isLoading)
+            }
 
+            cargaUsuario.observe(viewLifecycleOwner){event->
+                event.getContentIfNotHandled()?.let { user->
+                    mostrarUsuario(user)
                 }
             }
 
@@ -105,7 +145,7 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
                         etApellidosPerfil.text.toString(),
                         etNacionalidadPerfil.text.toString(),
                         date,
-                        null)
+                        photoUri)
 
                     dialogInterface.dismiss()
                     btEditProfile.icon = ResourcesCompat.getDrawable(resources,R.drawable.ic_edit_profile,null)
@@ -123,6 +163,7 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
             etApellidosPerfil.isEnabled = activar
             etNacionalidadPerfil.isEnabled = activar
             btDate.visibilityCheck(activar)
+            ivProfilePickPhoto.visibilityCheck(activar)
         }
 
     private fun showDatePickerDialog() {

@@ -11,9 +11,9 @@ import kotlinx.coroutines.launch
 fun<T : Any?> Fragment.collectFlow(stateFlow : StateFlow<T?>, lifecycleState : Lifecycle.State = Lifecycle.State.STARTED, execute : (T) -> Unit){
     lifecycleScope.launch {
         viewLifecycleOwner.repeatOnLifecycle(lifecycleState){
-            stateFlow.collect{
-                it.notNull {
-                    execute(it!!)
+            stateFlow.collect{value->
+                value.notNull {
+                    execute(it)
                 }
             }
         }

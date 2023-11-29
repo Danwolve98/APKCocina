@@ -5,5 +5,7 @@ import java.io.Serializable
 class Producto : Serializable {
     var nombre : String? = null
     var cantidad : Float? = null
-    val tipo : String? = null
+    var tipo : String? = null
+
+    fun changeTipo(tipo : String) {this.tipo = tipo}
 }

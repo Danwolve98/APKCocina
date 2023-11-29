@@ -18,6 +18,11 @@ sealed class RegisterResult(){
     data object DuplicatedAccount : RegisterResult()
 }
 
+sealed class CargarUserResult(){
+    data object Error : CargarUserResult()
+    data class Successfull(val user: User) : CargarUserResult()
+}
+
 sealed class UpdateResult() {
     data class Error(val error: String = "Generic error") : UpdateResult()
     data class Updated(val user: User) : UpdateResult()

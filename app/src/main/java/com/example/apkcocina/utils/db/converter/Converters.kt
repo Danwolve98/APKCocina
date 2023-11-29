@@ -2,6 +2,7 @@ package com.example.apkcocina.utils.db.converter
 
 import androidx.room.TypeConverter
 import com.example.apkcocina.utils.model.Alergenos
+import com.example.apkcocina.utils.model.Producto
 import com.google.common.reflect.TypeToken
 import java.lang.reflect.Type
 import com.google.gson.Gson
@@ -50,15 +51,14 @@ class Converters {
     fun fromListAlergenostoString(list: List<Alergenos?>?): String {
         return Gson().toJson(list)
     }
-
     @TypeConverter
-    fun fromHashMap(value: HashMap<String, String>?): String? {
+    fun fromListProducto(value: List<Producto>?): String? {
         return Gson().toJson(value)
     }
 
     @TypeConverter
-    fun toHashMap(value: String?): HashMap<String, String>? {
-        return Gson().fromJson(value, object : TypeToken<HashMap<String, String>>() {}.type)
+    fun toListProducto(value: String?): List<Producto>? {
+        return Gson().fromJson(value, object : TypeToken<List<Producto>>() {}.type)
     }
 
 }

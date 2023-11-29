@@ -11,8 +11,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class RecetasBaseRespoitory @Inject constructor(
-    val firebaseFirestore: FirebaseFirestore,
-    val apkCocinaDataBase: APKCocinaDataBase
+    private val firebaseFirestore: FirebaseFirestore,
+    private val apkCocinaDataBase: APKCocinaDataBase
 ) {
 
     suspend fun getRecetas() : List<Receta>{

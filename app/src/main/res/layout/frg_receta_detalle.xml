@@ -136,7 +136,7 @@
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintTop_toBottomOf="@id/rating_bar_receta"
                 app:spanCount="7"
-                tools:listitem="@layout/item_alergeno" />
+                tools:listitem="@layout/item_alergeno_guia" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_ingredientes"

@@ -9,7 +9,9 @@ import com.example.apkcocina.utils.base.Constants
 import com.example.apkcocina.utils.extensions.getUri
 import com.example.apkcocina.utils.extensions.notNull
 import com.example.apkcocina.utils.extensions.notNullorDefault
+import com.example.apkcocina.utils.extensions.toBase64
 import com.example.apkcocina.utils.model.User
+import com.example.apkcocina.utils.states.CargarUserResult
 import com.example.apkcocina.utils.states.LoginResult
 import com.example.apkcocina.utils.states.ReauthenticateResult
 import com.example.apkcocina.utils.states.RegisterResult
@@ -26,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.toObject
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -75,7 +78,7 @@ class FireBaseService @Inject constructor(
             }
         }.toRegisterResult()
 
-    fun updateUser(
+    suspend fun updateUser(
         nombre: String? = null,
         apellidos: String? = null,
         nacionalidad: String? = null,
@@ -93,7 +96,8 @@ class FireBaseService @Inject constructor(
                             nombre.notNull { usuario.nombre = nombre }
                             apellidos.notNull { usuario.apellidos = apellidos }
                             nacionalidad.notNull { usuario.nacionalidad = nacionalidad }
-                            cumpleanos.notNull { usuario.cumpleanos = cumpleanos }
+                            cumpleanos.notNull { usuario.cumpleanos = it.timeInMillis }
+                            photoUri.notNull { usuario.foto = photoUri!!.toBase64(context) }
                             document.set(usuario)                                                              //SET
                                 .addOnSuccessListener {
                                     updateResult = UpdateResult.Updated(usuario)
@@ -118,27 +122,28 @@ class FireBaseService @Inject constructor(
         return updateResult
     }
 
-    fun updateUserAuth(photoUri: Uri? = null): Boolean {
-        var successful = false
+    private suspend fun updateUserAuth(photoUri: Uri? = null): Boolean {
         val requestUpdateUser = UserProfileChangeRequest.Builder()
             .setPhotoUri(
                 photoUri.notNullorDefault(
                     notNullAction = { return@notNullorDefault photoUri },
                     nullAction = {
-                        return@notNullorDefault auth.currentUser?.photoUrl.notNullorDefault(
-                            context.getDrawable(R.drawable.ic_chef)?.getUri(context)
+                        return@notNullorDefault auth.currentUser?.photoUrl.notNullorDefault(context.getDrawable(R.drawable.ic_chef)?.getUri(context)
                         )
                     })
             )
             .build()
-        auth.currentUser!!.updateProfile(requestUpdateUser).addOnSuccessListener {
-            File(context.cacheDir, Constants.PROFILE_IMAGES_CACHE).deleteRecursively()
-            successful = true
-        }
-            .addOnFailureListener {
-                Log.e("EXCEPTION", "EXCEPCION MALA ${it.message}")
+        return runCatching {
+            auth.currentUser!!.updateProfile(requestUpdateUser).await()
+        }.fold(
+            onSuccess = {
+                File(context.cacheDir, Constants.PROFILE_IMAGES_CACHE).deleteRecursively()
+                true
+            },
+            onFailure = {
+                false
             }
-        return successful
+        )
     }
 
     suspend fun sendVerificationEmail() = runCatching {
@@ -193,6 +198,29 @@ class FireBaseService @Inject constructor(
             }
         )
 
+    suspend fun cargarUsuario() : CargarUserResult =
+        runCatching {
+            store.collection(User.USUARIOS).document(auth.currentUser?.uid ?: "").get().await()
+        }.fold(
+            onSuccess = {
+                val user = it.toObject(User::class.java)
+                if(user != null)
+                    CargarUserResult.Successfull(User(auth.currentUser!!.uid,
+                        user.nombre,
+                        user.apellidos,
+                        user.recetas,
+                        user.nacionalidad,
+                        user.foto,
+                        user.cumpleanos,
+                        user.fechaDeRegistro))
+                else
+                    CargarUserResult.Error
+            },
+            onFailure = {
+                CargarUserResult.Error
+            }
+        )
+
     private fun Result<AuthResult>.toLoginResult() = when (val result = getOrNull()) {
         null -> LoginResult.Error(context.getString(R.string.error_login))
         else -> {
@@ -214,7 +242,7 @@ class FireBaseService @Inject constructor(
                     user.uid,
                     context.getString(R.string.chef),
                     context.getString(R.string.curioso),
-                    fechaDeRegistro = Calendar.getInstance()
+                    fechaDeRegistro = Calendar.getInstance().timeInMillis
                 )
             )
             RegisterResult.Registered(user)

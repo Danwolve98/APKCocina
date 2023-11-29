@@ -176,7 +176,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:text="@string/alergeno_no_seleccionado"
-                    app:icon="@drawable/al_huevo_unselected"
+                    app:icon="@drawable/al_huevo_bw"
                     android:layout_width="wrap_content"
                     style="@style/MaterialButtonAlergenos" />
 

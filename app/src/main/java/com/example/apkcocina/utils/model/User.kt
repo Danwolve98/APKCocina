@@ -1,5 +1,6 @@
 package com.example.apkcocina.utils.model
 
+import android.net.Uri
 import com.google.firebase.firestore.PropertyName
 import java.util.Calendar
 import java.util.Date
@@ -15,14 +16,32 @@ class User(
     var recetas : List<Int>? = null,
     @PropertyName("nacionalidad")
     var nacionalidad : String? = "Española",
+    @PropertyName("foto")
+    var foto : String? = null,
     @PropertyName("cumpleanos")
-    var cumpleanos : Calendar? = null,
+    var cumpleanos : Long? = null,
     @PropertyName("fecha_de_registro")
-    var fechaDeRegistro : Calendar? = null){
+    var fechaDeRegistro : Long? = null){
 
     companion object{
         const val USUARIOS = "users"
     }
+
+    fun cumpleanosToCalendar() : Calendar? =
+        if(cumpleanos == null)
+            null
+        else
+            Calendar.getInstance().apply {
+                timeInMillis = cumpleanos as Long
+            }
+
+    fun fechaDeRegistroToCalendar() : Calendar? =
+        if(fechaDeRegistro == null)
+            null
+        else
+            Calendar.getInstance().apply {
+                timeInMillis = fechaDeRegistro as Long
+            }
 
 /*    private fun contrasenaChanged(newPassword : String) : Pair<String,ByteArray> {
         val salt = ByteArray(16)

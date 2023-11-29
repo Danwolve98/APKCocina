@@ -5,10 +5,17 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.MotionEvent
+import android.view.View
+import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.apkcocina.R
 import com.example.apkcocina.utils.model.Receta
 import com.example.apkcocina.databinding.FrgCrearRecetaBinding
+import com.example.apkcocina.features.crearReceta.adapter.AlergenosAdapter
 import com.example.apkcocina.features.crearReceta.adapter.CrearProductosAdapter
+import com.example.apkcocina.features.crearReceta.viewModel.CrearRecetasViewModel
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.Constants
@@ -16,9 +23,18 @@ import com.example.apkcocina.utils.base.InfoActionBar
 import com.example.apkcocina.utils.dialog.InfoRecetasDialog
 import com.example.apkcocina.utils.model.Alergenos
 import com.example.apkcocina.utils.model.Producto
+import com.example.apkcocina.utils.states.CrearRecetaState
+import com.google.android.flexbox.AlignItems
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexLine
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Calendar
+import java.util.Date
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -30,7 +46,8 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
     lateinit var firestore: FirebaseFirestore
     override lateinit var actionBar: APKCocinaActionBar
 
-    private lateinit var receta : Receta
+    val viewModel by viewModels<CrearRecetasViewModel>()
+
     private var isButtonPressed : Boolean = false
 
     private var productosAdapter = CrearProductosAdapter(listOf(Producto()))
@@ -41,40 +58,46 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
     private fun mostrarDialogRecetas() = InfoRecetasDialog(requireContext()).show()
 
     override fun initializeView() {
-        binding.btCrearReceta.setOnClickListener {
-            val receta = Receta().apply {
-                descripcion = "COMIDA RICA EN POTASIO"
-                nombre = "POTATSIO PLATANOSO"
-                alergenos = listOf(Alergenos.ALTRAMUCES, Alergenos.APIO, Alergenos.GLUTEN)
-                ingredientes = hashMapOf<String, String>().apply {
-                    put("papata", "2")
-                    put("potatsio", "1g")
-                }
-                tiempoPreparacion = 70
-                imagenes = listOf()
-            }
-
-            val collection = firestore.collection(Receta.RECETAS_USUARIOS)
-
-            collection.add(receta).addOnSuccessListener { documentReference ->
-                Log.d("TAG", "Documento agregado con ID: ${documentReference.id}")
-            }
-                .addOnFailureListener { e ->
-                    Log.e("TAG", "Error al agregar el documento", e)
-                }
-        }
+        binding.btCrearReceta.setOnClickListener { crearReceta() }
 
         binding.apply {
-            addLooperSegundos()
-
+            //ALERGENOS
+            rvAlergenos.layoutManager = flexboxLayoutManager()
+            rvAlergenos.adapter = AlergenosAdapter(Alergenos.values().toList())
+            //PRODUCTOS
             rvProductos.adapter = productosAdapter
-
             btAddProducto.setOnClickListener {
                 var newList = productosAdapter.listProductos
                 newList = newList.toMutableList().also {
-                 it.add(Producto())
+                    it.add(Producto())
                 }.toList()
                 productosAdapter.updateRecetas(newList.toList())
+            }
+            //MINS
+            addLooperSegundos()
+
+        }
+    }
+
+    private fun crearReceta() {
+
+        val receta = Receta().apply {
+            descripcion = "COMIDA RICA EN POTASIO"
+            nombre = binding.etNombreReceta.text.toString()
+            alergenos = (binding.rvAlergenos.adapter as AlergenosAdapter).getSelectedAlergenos()
+            ingredientes = (binding.rvProductos.adapter as CrearProductosAdapter).listProductos
+            tiempoPreparacion = tiempo
+            imagenes = listOf()
+        }
+
+        viewModel.crearReceta(receta)
+    }
+
+    override fun initializeObservers() {
+        viewModel._sendRecetaState.observe(viewLifecycleOwner){
+            when(it){
+                is CrearRecetaState.Error -> Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
+                CrearRecetaState.Successfull -> Toast.makeText(requireContext(), getString(R.string.receta_creada_con_exito), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -88,11 +111,10 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
         btMinsSum.setOnTouchListener { view, motionEvent ->
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    etMins.setText((etMins.text.toString().toInt() + 1).toString())
+                    /*etMins.setText((etMins.text.toString().toInt() + 1).toString())*/
                     isButtonPressed = true
                     startIncrementingCounter(
                         handler,
-                        binding.etMins.text.toString().toInt(),
                         true
                     )
                     true
@@ -112,11 +134,10 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
         btMinsRes.setOnTouchListener { view, motionEvent ->
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    etMins.setText((etMins.text.toString().toInt() - 1).toString())
+                    /*etMins.setText((etMins.text.toString().toInt() - 1).toString())*/
                     isButtonPressed = true
                     startIncrementingCounter(
                         handler,
-                        binding.etMins.text.toString().toInt(),
                         false
                     )
                     true
@@ -133,25 +154,51 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
             }
         }
     }
-
-    var delayCount = 500L
+    private var tiempo = 0
+    private var delayCount = 500L
     @SuppressLint("SuspiciousIndentation")
-    fun startIncrementingCounter(handler : Handler, tiempo : Int, sum : Boolean) {
-        var counter = tiempo
+    fun startIncrementingCounter(handler : Handler, sum : Boolean) {
         handler.postDelayed({
             if (isButtonPressed) {
                 if (sum)
-                    counter++
+                    tiempo++
                 else
-                    counter--
+                    tiempo--
 
                 if(delayCount > Constants.MAX_DECEREMENT_DELAY)
-                delayCount -= Constants.DECREMENT_DELAY
+                    delayCount -= Constants.DECREMENT_DELAY
 
-                binding.etMins.setText(counter.toString())
-                startIncrementingCounter(handler,counter,sum)
+                binding.etMins.text = convertirMinutosAHorasYMinutos(tiempo)
+                startIncrementingCounter(handler,sum)
             }
         }, delayCount)
     }
+
+    fun convertirMinutosAHorasYMinutos(minutos: Int): String {
+        val horas = minutos / 60
+        val minutosRestantes = minutos % 60
+
+        // Formatear el resultado como hh:mm
+        return String.format("%02d:%02d", horas, minutosRestantes)
+    }
+
+    private fun flexboxLayoutManager() =
+        object : FlexboxLayoutManager(requireContext(), FlexDirection.ROW, FlexWrap.WRAP) {
+            init {
+                justifyContent = JustifyContent.FLEX_START
+                alignItems = AlignItems.FLEX_START
+            }
+
+            override fun getFlexItemAt(index: Int): View {
+                val item = super.getFlexItemAt(index)
+
+                val params = item.layoutParams as LayoutParams
+                params.flexBasisPercent = 0.2f
+                params.isWrapBefore = index > 0 && index % 5 == 0
+
+                return item
+            }
+        }
+
 
 }

@@ -9,12 +9,13 @@ import java.io.Serializable
 class Receta(
     @PrimaryKey(autoGenerate = true)
     var id : Int? = null,
+    var usuario : String? = null,
     var nombre : String? = null,
     var tiempoPreparacion : Int? = null,
     var alergenos: List<Alergenos>? = null,
     var descripcion : String? = null,
     var imagenes : List<String>? = null,
-    var ingredientes : HashMap<String,String>? = null
+    var ingredientes : List<Producto>? = null
 ): Serializable{
     companion object{
         val RECETAS_BASE = "recetas"

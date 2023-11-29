@@ -28,6 +28,7 @@
     </string-array>
 
     <!--LOGIN-->
+    <string name="default_cumpleanos">00/00/0000</string>
     <string name="correo">Correo</string>
     <string name="contrasena_antigua">Contraseña anterior</string>
     <string name="contrasena_nueva">Contraseña nueva</string>
@@ -105,7 +106,10 @@
     <string name="sin_descripcion">Sin descripción</string>
     <!--CREARRECETA-->
     <string name="crear_receta">Crear Receta</string>
-
+    <string name="unkown" translatable="false">…</string>
+    <string name="usuario_no_logeado">Usuario no logueado</string>
+    <string name="receta_creada_con_exito">Receta añadido con éxito</string>
+    <string name="error_al_crear_la_receta">Error al crear la receta</string>
     <!--QUE COCINO HOY-->
     <string name="que_cocino_hoy">¿Qué cocino hoy?</string>
     <string name="adivina_que_receta_nueva_podrias_cocinar_hoy">Adivina que receta nueva\npodrías cocinar hoy</string>
