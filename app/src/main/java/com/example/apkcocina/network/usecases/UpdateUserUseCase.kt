@@ -13,7 +13,7 @@ class UpdateUserUseCase @Inject constructor(private val fireBaseService : FireBa
         apellidos : String? = null,
         nacionalidad:String? = null,
         cumpleanos : Calendar?=null,
-        photoUri : Uri? = null): UpdateResult
-        = fireBaseService.updateUser(nombre,apellidos,nacionalidad,cumpleanos,photoUri)
+        photo : String? = null): UpdateResult
+        = fireBaseService.updateUser(nombre,apellidos,nacionalidad,cumpleanos,photo)
 
 }

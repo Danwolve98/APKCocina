@@ -24,6 +24,7 @@ import com.example.apkcocina.utils.extensions.loadImage
 import com.example.apkcocina.utils.extensions.notNull
 import com.example.apkcocina.utils.extensions.playAnimation
 import com.example.apkcocina.utils.extensions.timeToCalendar
+import com.example.apkcocina.utils.extensions.toBase64
 import com.example.apkcocina.utils.extensions.visibilityCheck
 import com.example.apkcocina.utils.model.User
 import com.google.android.material.button.MaterialButton
@@ -43,7 +44,7 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
 
     private val profileViewModel: ProfileViewModel by viewModels()
 
-    var photoUri : Uri? = null
+    private var photoUser : String? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
         isUserLogged()
@@ -79,7 +80,6 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
                     activarEditables(true)
                     bt.icon = ResourcesCompat.getDrawable(resources,R.drawable.ic_save_profile,null)
                 }else{
-                    activarEditables(false)
                     mostrarAlertDialog()
                 }
             }
@@ -87,11 +87,15 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
 
             val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()){
                 ivProfilePicture.loadImage(it)
-                photoUri = it
+                photoUser = it?.toBase64(requireContext())
             }
 
             ivProfilePickPhoto.setOnClickListener{
                 pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+            }
+
+            btEditPassword.setOnClickListener {
+                navigate(R.id.action_perfil_fragment_to_reestablecerContrasenaFragment)
             }
         }
     }
@@ -117,6 +121,7 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
 
             cargaUsuario.observe(viewLifecycleOwner){event->
                 event.getContentIfNotHandled()?.let { user->
+                    photoUser = user.foto
                     mostrarUsuario(user)
                 }
             }
@@ -133,7 +138,7 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
         var date : Calendar? = null
         if(!binding.tvBirthday.text.isNullOrEmpty()){
             date = Calendar.getInstance()
-            date.time = SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH).parse(binding.tvBirthday.text.toString())!!
+            date.time = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(binding.tvBirthday.text.toString())!!
         }
         AlertDialog.Builder(requireContext())
             .setTitle("Guardar perfil")
@@ -145,15 +150,17 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
                         etApellidosPerfil.text.toString(),
                         etNacionalidadPerfil.text.toString(),
                         date,
-                        photoUri)
+                        photoUser)
 
                     dialogInterface.dismiss()
                     btEditProfile.icon = ResourcesCompat.getDrawable(resources,R.drawable.ic_edit_profile,null)
+                    activarEditables(false)
                 }
             }
             .setNegativeButton("Cancelar"){ dialogInterface: DialogInterface, i: Int ->
                 dialogInterface.dismiss()
                 binding.btEditProfile.icon = ResourcesCompat.getDrawable(resources,R.drawable.ic_edit_profile,null)
+                activarEditables(false)
             }.show()
     }
 
@@ -164,6 +171,7 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
             etNacionalidadPerfil.isEnabled = activar
             btDate.visibilityCheck(activar)
             ivProfilePickPhoto.visibilityCheck(activar)
+            btEditPassword.visibilityCheck(activar)
         }
 
     private fun showDatePickerDialog() {

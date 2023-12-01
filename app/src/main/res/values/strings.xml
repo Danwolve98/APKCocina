@@ -28,6 +28,7 @@
     </string-array>
 
     <!--LOGIN-->
+    <string name="error_al_cargar_la_foto">Error al cargar la foto</string>
     <string name="default_cumpleanos">00/00/0000</string>
     <string name="correo">Correo</string>
     <string name="contrasena_antigua">Contraseña anterior</string>

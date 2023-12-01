@@ -141,9 +141,9 @@ class ProfileViewModel @Inject constructor(
         apellidos : String? = null,
         nacionalidad:String? = null,
         cumpleanos : Calendar?=null,
-        photoUri : Uri? = null) {
+        photo : String? = null) {
         viewModelScope.launch {
-            _updateResult.postValue(Event(updateUserUseCase.invoke(nombre,apellidos,nacionalidad,cumpleanos,photoUri)))
+            _updateResult.postValue(Event(updateUserUseCase.invoke(nombre,apellidos,nacionalidad,cumpleanos,photo)))
         }
     }
 

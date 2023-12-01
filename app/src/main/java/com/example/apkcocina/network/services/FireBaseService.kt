@@ -83,22 +83,21 @@ class FireBaseService @Inject constructor(
         apellidos: String? = null,
         nacionalidad: String? = null,
         cumpleanos: Calendar? = null,
-        photoUri: Uri? = null
+        photo: String? = null
     ): UpdateResult {
         var updateResult: UpdateResult = UpdateResult.Error()
         if (auth.currentUser != null) {
-            if (updateUserAuth(photoUri)) {
+
                 val document = store.collection(User.USUARIOS).document(auth.currentUser!!.uid)
-                document.get()                                                                              //GET
-                    .addOnSuccessListener { documentSnapshot ->
+                document.get().addOnSuccessListener { documentSnapshot ->
                         val usuario = documentSnapshot.toObject(User::class.java)
                         if (usuario != null) {
-                            nombre.notNull { usuario.nombre = nombre }
-                            apellidos.notNull { usuario.apellidos = apellidos }
-                            nacionalidad.notNull { usuario.nacionalidad = nacionalidad }
+                            nombre.notNull { usuario.nombre = it }
+                            apellidos.notNull { usuario.apellidos = it }
+                            nacionalidad.notNull { usuario.nacionalidad = it }
                             cumpleanos.notNull { usuario.cumpleanos = it.timeInMillis }
-                            photoUri.notNull { usuario.foto = photoUri!!.toBase64(context) }
-                            document.set(usuario)                                                              //SET
+                            photo.notNull { usuario.foto = it }
+                            document.set(usuario)
                                 .addOnSuccessListener {
                                     updateResult = UpdateResult.Updated(usuario)
                                 }
@@ -113,8 +112,7 @@ class FireBaseService @Inject constructor(
                     }
                     .addOnFailureListener {
                         UpdateResult.Error(context.getString(R.string.no_se_ha_podido_recoger_informacion_del_usuario))
-                    }
-            }
+                    }.await()
         } else {
             updateResult = UpdateResult.Error(context.getString(R.string.usuario_no_existe))
         }
@@ -122,6 +120,8 @@ class FireBaseService @Inject constructor(
         return updateResult
     }
 
+    @Deprecated("MÉTODO QUE SE USABA PARA ACTUALIZAR LA FOTO DE UN USUARIO A NIVEL DE AUTHENTIFICATOR DE FIREBASE, PERO DEBIDO A LA POCA SEGURIDAD DE USAR URIS SE CAMBIO A GUARDAR EN " +
+            "BASE64 EN BASE DE DATOS")
     private suspend fun updateUserAuth(photoUri: Uri? = null): Boolean {
         val requestUpdateUser = UserProfileChangeRequest.Builder()
             .setPhotoUri(
