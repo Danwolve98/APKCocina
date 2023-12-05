@@ -2,13 +2,16 @@ package com.example.apkcocina.features.crearReceta.repository
 
 
 import android.content.Context
+import android.widget.Toast
 import com.example.apkcocina.R
 import com.example.apkcocina.utils.model.Receta
 import com.example.apkcocina.utils.states.CrearRecetaState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class CrearRecetasRepository @Inject constructor(
@@ -27,7 +30,13 @@ class CrearRecetasRepository @Inject constructor(
             collection.add(receta).await()
         }.fold(
             onSuccess = {CrearRecetaState.Successfull},
-            onFailure = {CrearRecetaState.Error(context.getString(R.string.error_al_crear_la_receta))}
+            onFailure = {
+                withContext(Dispatchers.Main){
+                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                }
+
+                CrearRecetaState.Error(context.getString(R.string.error_al_crear_la_receta))
+            }
         )
     }
 }

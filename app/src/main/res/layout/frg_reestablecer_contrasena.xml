@@ -126,18 +126,6 @@
                 app:layout_constraintStart_toEndOf="@id/guideline3"
                 app:layout_constraintTop_toBottomOf="@id/bt_reset" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_si_ha_olvidado_su_contrasena"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="20dp"
-                android:text="@string/ha_olvidado_su_contrasena"
-                android:textColor="@color/purple_700"
-                app:layout_constraintTop_toBottomOf="@id/tv_se_enviara_un_correo"
-                app:layout_constraintEnd_toStartOf="@id/guideline4"
-                app:layout_constraintStart_toEndOf="@id/guideline3"/>
-
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline3"
                 android:layout_width="wrap_content"

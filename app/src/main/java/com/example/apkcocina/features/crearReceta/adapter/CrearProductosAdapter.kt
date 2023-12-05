@@ -11,8 +11,12 @@ import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apkcocina.R
+import com.example.apkcocina.features.crearReceta.diffUtils.ProductoDiff
+import com.example.apkcocina.utils.extensions.invisible
+import com.example.apkcocina.utils.extensions.visibilityCheck
 import com.example.apkcocina.utils.model.Producto
 import com.example.apkcocina.utils.model.Tipos
+import com.google.android.material.button.MaterialButton
 
 class CrearProductosAdapter(var listProductos: List<Producto>) :
     RecyclerView.Adapter<CrearProductosAdapter.ViewHolder>() {
@@ -33,17 +37,27 @@ class CrearProductosAdapter(var listProductos: List<Producto>) :
     }
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+        private val delete: MaterialButton = view.findViewById(R.id.bt_delete)
+
         fun bind() {
             val producto = listProductos[adapterPosition]
             val nombre = view.findViewById<AppCompatEditText>(R.id.et_producto_nombre)
             val cantidad = view.findViewById<AppCompatEditText>(R.id.et_producto_cantidad)
             val spinner = view.findViewById<AppCompatSpinner>(R.id.sp_producto_medida)
 
+            delete.invisible()
             nombre.addTextChangedListener { editable ->
                 producto.nombre = editable.toString()
             }
+
             cantidad.addTextChangedListener { editable ->
                 producto.cantidad = editable.toString().toFloat()
+            }
+
+            delete.setOnClickListener {
+                val newList = listProductos.toMutableList()
+                newList.remove(producto)
+                updateRecetas(newList)
             }
 
             if(listProductos[adapterPosition].tipo == null){
@@ -64,7 +78,13 @@ class CrearProductosAdapter(var listProductos: List<Producto>) :
                 }
             }
         }
+
+        fun enableBorrar(enable : Boolean){
+            delete.visibilityCheck(enable)
+        }
     }
+
+
 
     fun updateRecetas(newList: List<Producto>) {
         val diff = ProductoDiff(listProductos.toList(), newList.toList())

@@ -5,7 +5,11 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.net.Uri
+import android.os.Bundle
 import android.text.SpannableStringBuilder
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -45,13 +49,13 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
     private val profileViewModel: ProfileViewModel by viewModels()
 
     private var photoUser : String? = null
+    override fun assingActionBar() {
+        actionBar = TitleActionBar(getString(R.string.perfil)).apply { haveBack = false }
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         isUserLogged()
-    }
-
-    override fun assingActionBar() {
-        actionBar = TitleActionBar(getString(R.string.perfil)).apply { haveBack = false }
     }
 
     private fun isUserLogged() {
@@ -59,7 +63,7 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
             navigate(R.id.action_perfil_fragment_to_loginFragment)
         } else {
             if (!firebaseAuth.currentUser!!.isEmailVerified) {
-                Toast.makeText(requireContext(), "Se requiere validar la cuenta", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.se_requiere_validar_la_cuenta), Toast.LENGTH_SHORT).show()
                 navigate(R.id.action_perfil_fragment_to_loginFragment)
             }else
                 profileViewModel.cargarUser()
@@ -72,6 +76,9 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
                 it.playAnimation(R.anim.click_animation)
                 showDatePickerDialog()
             }
+
+            photoUser.notNull { ivProfilePicture.loadImage(it.base64toByteArray())  }
+
 
             btEditProfile.setOnClickListener {
                 it.playAnimation(R.anim.click_animation)
@@ -171,7 +178,7 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
             etNacionalidadPerfil.isEnabled = activar
             btDate.visibilityCheck(activar)
             ivProfilePickPhoto.visibilityCheck(activar)
-            btEditPassword.visibilityCheck(activar)
+            btEditPassword.visibilityCheck(!activar)
         }
 
     private fun showDatePickerDialog() {

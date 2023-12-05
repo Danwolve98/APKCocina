@@ -34,9 +34,6 @@ abstract class BaseFragment<vb : ViewBinding> : Fragment() {
 
     //SI CONTROLA ONBACKPRESSED POR DEFECTO EL FRAGMENT
     open var addOnBackPressed = false
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
 
     /**
      * Función que te obliga a inicializar un actionBar

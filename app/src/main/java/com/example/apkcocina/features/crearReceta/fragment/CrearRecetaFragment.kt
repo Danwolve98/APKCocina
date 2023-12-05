@@ -3,17 +3,17 @@ package com.example.apkcocina.features.crearReceta.fragment
 import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
-import androidx.core.widget.doOnTextChanged
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.apkcocina.R
 import com.example.apkcocina.utils.model.Receta
 import com.example.apkcocina.databinding.FrgCrearRecetaBinding
 import com.example.apkcocina.features.crearReceta.adapter.AlergenosAdapter
+import com.example.apkcocina.features.crearReceta.adapter.CrearDescripcionAdapter
 import com.example.apkcocina.features.crearReceta.adapter.CrearProductosAdapter
 import com.example.apkcocina.features.crearReceta.viewModel.CrearRecetasViewModel
 import com.example.apkcocina.utils.base.APKCocinaActionBar
@@ -21,20 +21,21 @@ import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.Constants
 import com.example.apkcocina.utils.base.InfoActionBar
 import com.example.apkcocina.utils.dialog.InfoRecetasDialog
+import com.example.apkcocina.utils.extensions.notNull
+import com.example.apkcocina.utils.extensions.playAnimation
+import com.example.apkcocina.utils.extensions.toBase64
 import com.example.apkcocina.utils.model.Alergenos
+import com.example.apkcocina.utils.model.Descripcion
 import com.example.apkcocina.utils.model.Producto
 import com.example.apkcocina.utils.states.CrearRecetaState
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
-import com.google.android.flexbox.FlexLine
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Calendar
-import java.util.Date
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -51,6 +52,7 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
     private var isButtonPressed : Boolean = false
 
     private var productosAdapter = CrearProductosAdapter(listOf(Producto()))
+    private var descripcionAdapter = CrearDescripcionAdapter(listOf(Descripcion()))
 
     override fun assingActionBar() {
         actionBar = InfoActionBar(getString(R.string.crear_receta),::mostrarDialogRecetas)
@@ -58,7 +60,10 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
     private fun mostrarDialogRecetas() = InfoRecetasDialog(requireContext()).show()
 
     override fun initializeView() {
-        binding.btCrearReceta.setOnClickListener { crearReceta() }
+        binding.btCrearReceta.setOnClickListener {
+            it.playAnimation(R.anim.click_animation)
+            crearReceta()
+        }
 
         binding.apply {
             //ALERGENOS
@@ -67,27 +72,87 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
             //PRODUCTOS
             rvProductos.adapter = productosAdapter
             btAddProducto.setOnClickListener {
+                it.playAnimation(R.anim.click_animation)
+                btDeleteProducto.isChecked = false
                 var newList = productosAdapter.listProductos
                 newList = newList.toMutableList().also {
                     it.add(Producto())
                 }.toList()
                 productosAdapter.updateRecetas(newList.toList())
+                rvProductos.smoothScrollToPosition(productosAdapter.listProductos.size-1)
             }
+
+            btDeleteProducto.addOnCheckedChangeListener {bt,checked->
+                bt.playAnimation(R.anim.click_animation)
+                enableDeleteProductos(checked)
+                if(productosAdapter.listProductos.isEmpty())
+                    bt.isChecked=false
+            }
+
             //MINS
             addLooperSegundos()
 
+            //DESCRIPCION
+            rvDescripcion.adapter = descripcionAdapter
+
+            btAddText.setOnClickListener {
+                it.playAnimation(R.anim.click_animation)
+                var newList = descripcionAdapter.listDescripcion
+                newList = newList.toMutableList().also {
+                    it.add(Descripcion())
+                }
+                descripcionAdapter.updateDescripcion(newList)
+                rvDescripcion.smoothScrollToPosition(descripcionAdapter.listDescripcion.size-1)
+            }
+
+            val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()){
+                val image = it?.toBase64(requireContext())
+
+                image.notNull{foto->
+                    var newList = descripcionAdapter.listDescripcion
+                    newList = newList.toMutableList().also {lista->
+                        lista.add(Descripcion(string = foto,isImage = true))
+                    }
+                    descripcionAdapter.updateDescripcion(newList)
+                    rvDescripcion.smoothScrollToPosition(descripcionAdapter.listDescripcion.size-1)
+                }
+            }
+
+            btAddImage.setOnClickListener {
+                it.playAnimation(R.anim.click_animation)
+                pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+            }
+
+            btDeleteDescripcion.addOnCheckedChangeListener { bt,checked->
+                bt.playAnimation(R.anim.click_animation)
+                enableDeleteDescripciones(checked)
+            }
+        }
+    }
+
+    private fun enableDeleteProductos(enable : Boolean){
+        val list = (binding.rvProductos.adapter as CrearProductosAdapter).listProductos
+
+        for ((pos) in list.withIndex()){
+            (binding.rvProductos.findViewHolderForAdapterPosition(pos) as CrearProductosAdapter.ViewHolder).enableBorrar(enable)
+        }
+    }
+
+    private fun enableDeleteDescripciones(enable : Boolean){
+        val list = (binding.rvDescripcion.adapter as CrearDescripcionAdapter).listDescripcion
+
+        for ((pos) in list.withIndex()){
+            (binding.rvDescripcion.findViewHolderForAdapterPosition(pos) as CrearProductosAdapter.ViewHolder).enableBorrar(enable)
         }
     }
 
     private fun crearReceta() {
-
         val receta = Receta().apply {
-            descripcion = "COMIDA RICA EN POTASIO"
             nombre = binding.etNombreReceta.text.toString()
             alergenos = (binding.rvAlergenos.adapter as AlergenosAdapter).getSelectedAlergenos()
             ingredientes = (binding.rvProductos.adapter as CrearProductosAdapter).listProductos
             tiempoPreparacion = tiempo
-            imagenes = listOf()
+            descripcion = (binding.rvDescripcion.adapter as CrearDescripcionAdapter).listDescripcion.filter { it.string.isNotEmpty() }
         }
 
         viewModel.crearReceta(receta)
@@ -199,6 +264,4 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
                 return item
             }
         }
-
-
 }

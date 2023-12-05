@@ -1,4 +1,4 @@
-package com.example.apkcocina.features.crearReceta.adapter
+package com.example.apkcocina.features.crearReceta.diffUtils
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.apkcocina.utils.extensions.removeAccents

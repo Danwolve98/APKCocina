@@ -5,7 +5,23 @@
     tools:background="@color/black_soft"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="10dp"
+    android:clipChildren="false"
     android:background="@color/transparent">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_delete"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        style="@style/MaterialToggle"
+        app:icon="@drawable/ic_remove_item"
+        app:iconSize="20dp"
+        android:background="@color/transparent"
+        android:layout_marginBottom="-15dp"
+        android:layout_marginEnd="-15dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/et_producto_nombre"

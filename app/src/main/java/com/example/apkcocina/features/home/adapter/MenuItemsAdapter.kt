@@ -1,6 +1,5 @@
 package com.example.apkcocina.features.home.adapter
 
-import android.provider.SyncStateContract.Constants
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.apkcocina.R
 import com.example.apkcocina.features.home.fragment.HomeFragmentDirections
 import com.example.apkcocina.features.settings.fragment.SettingsFragment
+import com.example.apkcocina.utils.extensions.notNull
 import com.example.apkcocina.utils.extensions.visible
+import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class MenuItemsAdapter(var listItems : List<String>, val navController: NavController) : RecyclerView.Adapter<MenuItemsAdapter.ViewHolder>() {
+class MenuItemsAdapter(private var listItems : List<String>, val navController: NavController,val logged : Boolean) : RecyclerView.Adapter<MenuItemsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -39,11 +42,11 @@ class MenuItemsAdapter(var listItems : List<String>, val navController: NavContr
                 1->{
                     imageID = R.drawable.im_recetas_online
                     view.findViewById<ImageView>(R.id.iv_internet).visible()
-                   /* if(auth.currentUser!=null){*/
-                        view.setOnClickListener { navController.navigate(R.id.action_inicio_fragment_to_crearRecetaFragment) }
-                    /*} else{
-                        view.isEnabled = false
-                    }*/
+                   if(logged)
+                       view.setOnClickListener { navController.navigate(R.id.action_inicio_fragment_to_crearRecetaFragment) }
+                    else
+                       view.isEnabled = false
+
                 }
                 2->{
                     imageID = R.drawable.im_crear_receta

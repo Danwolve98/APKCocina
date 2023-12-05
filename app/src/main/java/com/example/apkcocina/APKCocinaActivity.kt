@@ -103,5 +103,4 @@ class APKCocinaActivity : AppCompatActivity() {
      */
     fun changeMenuItem(menuItemId : Int) { binding.bottomNavigationView.selectedItemId = menuItemId }
 
-
 }

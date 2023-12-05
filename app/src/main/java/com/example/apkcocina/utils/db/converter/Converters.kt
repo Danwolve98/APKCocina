@@ -2,6 +2,7 @@ package com.example.apkcocina.utils.db.converter
 
 import androidx.room.TypeConverter
 import com.example.apkcocina.utils.model.Alergenos
+import com.example.apkcocina.utils.model.Descripcion
 import com.example.apkcocina.utils.model.Producto
 import com.google.common.reflect.TypeToken
 import java.lang.reflect.Type
@@ -59,6 +60,16 @@ class Converters {
     @TypeConverter
     fun toListProducto(value: String?): List<Producto>? {
         return Gson().fromJson(value, object : TypeToken<List<Producto>>() {}.type)
+    }
+
+    @TypeConverter
+    fun fromListDescripcion(value: List<Descripcion>?): String? {
+        return Gson().toJson(value)
+    }
+
+    @TypeConverter
+    fun toListDescripcion(value: String?): List<Descripcion>? {
+        return Gson().fromJson(value, object : TypeToken<List<Descripcion>>() {}.type)
     }
 
 }

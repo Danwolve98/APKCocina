@@ -11,7 +11,7 @@ import com.example.apkcocina.utils.db.dao.RecetasBaseDAO
     entities = [
         Receta::class
     ]
-, version = 2, exportSchema = false
+, version = 1, exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class APKCocinaDataBase : RoomDatabase() {

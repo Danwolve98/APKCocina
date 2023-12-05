@@ -38,7 +38,9 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
             btIniciarSesion.setOnClickListener { login() }
             btRegistrarse.setOnClickListener { navigate(R.id.action_loginFragment_to_registerFragment) }
             //FIXME IMPLEMENTAR
-            tvOlvidasteTuContrasena.setOnClickListener {  }
+            tvSiHaOlvidadoSuContrasena.setOnClickListener {
+
+            }
 
             ilContrasenaLogin.errorIconDrawable = null
 
