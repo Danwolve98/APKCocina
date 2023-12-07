@@ -66,7 +66,7 @@ fun ImageView.loadImage(uri : Uri?) {
         .into(this)
 }
 
-fun ImageView.loadImage(uri : String?) {
+fun ImageView.loadImage(string : String?) {
 
     val progressDrawable = CircularProgressDrawable(context).apply {
         strokeWidth = 25f
@@ -80,7 +80,7 @@ fun ImageView.loadImage(uri : String?) {
 
     Glide.with(this)
         .asDrawable()
-        .load(uri)
+        .load(string)
         .error(R.drawable.ic_chef)
         .placeholder(progressDrawable)
         .addListener(object : RequestListener<Drawable>{

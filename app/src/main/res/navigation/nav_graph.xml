@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_inicio_fragment_to_queCocinoHoyFragment"
             app:destination="@id/queCocinoHoyFragment" />
+        <action
+            android:id="@+id/action_inicio_fragment_to_recetasOnlineFragment"
+            app:destination="@id/recetasOnlineFragment" />
     </fragment>
 
     <fragment
@@ -146,8 +149,14 @@
         app:popUpTo="@id/inicio_fragment" />
     <fragment
         android:id="@+id/queCocinoHoyFragment"
-        android:name="com.example.apkcocina.features.quecocinohoy.QueCocinoHoyFragment"
+        android:name="com.example.apkcocina.features.queCocinoHoy.QueCocinoHoyFragment"
         android:label="QueCocinoHoyFragment"
         tools:layout="@layout/frg_que_cocino_hoy"/>
+    <action android:id="@+id/action_global_recetaDetalle" app:destination="@id/recetaDetalle" />
+    <fragment
+        android:id="@+id/recetasOnlineFragment"
+        android:name="com.example.apkcocina.features.recetasOnline.fragment.RecetasOnlineFragment"
+        android:label="RecetasOnlineFragment"
+        tools:layout="@layout/frg_recetas_base"/>
 
 </navigation>

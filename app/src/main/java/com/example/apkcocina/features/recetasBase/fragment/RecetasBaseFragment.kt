@@ -18,8 +18,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class RecetasBaseFragment() : BaseFragment<FrgRecetasBaseBinding>() {
 
-    @Inject
-    lateinit var firebaseStorage: FirebaseStorage
     val recetasBaseViewModel : RecetasBaseViewModel by viewModels()
     override lateinit var actionBar: APKCocinaActionBar
 
@@ -37,7 +35,7 @@ class RecetasBaseFragment() : BaseFragment<FrgRecetasBaseBinding>() {
         })
         recetasBaseViewModel.mutableRecetas.observe(this, Observer {
            listaRecetasBase = it
-            binding.rvRecetasBase.adapter = RecetasAdapter(listaRecetasBase!!,{onRecetaClickListener(it)},firebaseStorage)
+            binding.rvRecetas.adapter = RecetasAdapter(listaRecetasBase!!,{onRecetaClickListener(it)})
         })
     }
 

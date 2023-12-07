@@ -39,7 +39,7 @@ class CrearDescripcionAdapter(var listDescripcion : List<Descripcion>) : Recycle
     }
 
     override fun getItemViewType(position: Int): Int =
-        if(listDescripcion[position].isImage)
+        if(listDescripcion[position].image)
             ViewType.IMAGE.int
         else
             ViewType.TEXT.int

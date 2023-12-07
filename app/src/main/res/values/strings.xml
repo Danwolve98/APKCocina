@@ -28,6 +28,8 @@
     </string-array>
 
     <!--LOGIN-->
+    <string name="error_en_el_servidor">Error en el servidor</string>
+    <string name="inicie_sesion_para_esta_funcionalidad">Inicie sesion para esta funcionalidad</string>
     <string name="error_al_cargar_la_foto">Error al cargar la foto</string>
     <string name="se_requiere_validar_la_cuenta">Se requiere validar la cuenta</string>
     <string name="default_cumpleanos">00/00/0000</string>

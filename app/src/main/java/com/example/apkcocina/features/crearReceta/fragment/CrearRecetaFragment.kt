@@ -111,7 +111,7 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
                 image.notNull{foto->
                     var newList = descripcionAdapter.listDescripcion
                     newList = newList.toMutableList().also {lista->
-                        lista.add(Descripcion(string = foto,isImage = true))
+                        lista.add(Descripcion(string = foto,image = true))
                     }
                     descripcionAdapter.updateDescripcion(newList)
                     rvDescripcion.smoothScrollToPosition(descripcionAdapter.listDescripcion.size-1)

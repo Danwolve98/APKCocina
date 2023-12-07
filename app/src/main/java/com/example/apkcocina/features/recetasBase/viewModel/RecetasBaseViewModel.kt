@@ -18,7 +18,6 @@ val getRecetasBaseUseCase: GetRecetasBaseUseCase
 
     val mutableRecetas = MutableLiveData<List<Receta>>()
     val loading = MutableLiveData<Boolean>()
-
     fun loadRecetas(){
         viewModelScope.launch(Dispatchers.IO){
             loading.postValue(true)
@@ -27,4 +26,5 @@ val getRecetasBaseUseCase: GetRecetasBaseUseCase
             loading.postValue(false)
         }
     }
+
 }

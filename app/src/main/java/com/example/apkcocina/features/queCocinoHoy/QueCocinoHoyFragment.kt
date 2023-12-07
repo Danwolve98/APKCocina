@@ -1,4 +1,4 @@
-package com.example.apkcocina.features.quecocinohoy
+package com.example.apkcocina.features.queCocinoHoy
 
 import android.annotation.SuppressLint
 import android.content.Context.VIBRATOR_MANAGER_SERVICE

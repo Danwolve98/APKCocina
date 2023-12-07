@@ -87,8 +87,10 @@ class APKCocinaActivity : AppCompatActivity() {
     fun setLoading(loading: Boolean){
         if(loading){
             binding.clLoading.visible()
+            binding.bottomNavigationView.isClickable = false
         }else{
             binding.clLoading.invisible()
+            binding.bottomNavigationView.isClickable = true
         }
     }
 
