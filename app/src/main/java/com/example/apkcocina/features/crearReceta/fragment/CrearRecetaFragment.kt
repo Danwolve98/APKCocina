@@ -15,19 +15,21 @@ import com.example.apkcocina.databinding.FrgCrearRecetaBinding
 import com.example.apkcocina.features.crearReceta.adapter.AlergenosAdapter
 import com.example.apkcocina.features.crearReceta.adapter.CrearDescripcionAdapter
 import com.example.apkcocina.features.crearReceta.adapter.CrearProductosAdapter
+import com.example.apkcocina.features.crearReceta.adapter.ViewHolderDeletable
 import com.example.apkcocina.features.crearReceta.viewModel.CrearRecetasViewModel
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.Constants
 import com.example.apkcocina.utils.base.InfoActionBar
 import com.example.apkcocina.utils.dialog.InfoRecetasDialog
+import com.example.apkcocina.utils.extensions.collectFlow
 import com.example.apkcocina.utils.extensions.notNull
 import com.example.apkcocina.utils.extensions.playAnimation
 import com.example.apkcocina.utils.extensions.toBase64
 import com.example.apkcocina.utils.model.Alergenos
 import com.example.apkcocina.utils.model.Descripcion
 import com.example.apkcocina.utils.model.Producto
-import com.example.apkcocina.utils.states.CrearRecetaState
+import com.example.apkcocina.utils.states.SendRecetaState
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -74,6 +76,7 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
             btAddProducto.setOnClickListener {
                 it.playAnimation(R.anim.click_animation)
                 btDeleteProducto.isChecked = false
+                btDeleteDescripcion.isChecked = false
                 var newList = productosAdapter.listProductos
                 newList = newList.toMutableList().also {
                     it.add(Producto())
@@ -101,6 +104,8 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
                 newList = newList.toMutableList().also {
                     it.add(Descripcion())
                 }
+                btDeleteDescripcion.isChecked = false
+                btDeleteProducto.isChecked = false
                 descripcionAdapter.updateDescripcion(newList)
                 rvDescripcion.smoothScrollToPosition(descripcionAdapter.listDescripcion.size-1)
             }
@@ -120,12 +125,16 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
 
             btAddImage.setOnClickListener {
                 it.playAnimation(R.anim.click_animation)
+                btDeleteDescripcion.isChecked = false
+                btDeleteProducto.isChecked = false
                 pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
             }
 
             btDeleteDescripcion.addOnCheckedChangeListener { bt,checked->
                 bt.playAnimation(R.anim.click_animation)
                 enableDeleteDescripciones(checked)
+                if(descripcionAdapter.listDescripcion.isEmpty())
+                    bt.isChecked = false
             }
         }
     }
@@ -142,7 +151,7 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
         val list = (binding.rvDescripcion.adapter as CrearDescripcionAdapter).listDescripcion
 
         for ((pos) in list.withIndex()){
-            (binding.rvDescripcion.findViewHolderForAdapterPosition(pos) as CrearProductosAdapter.ViewHolder).enableBorrar(enable)
+            (binding.rvDescripcion.findViewHolderForAdapterPosition(pos) as ViewHolderDeletable).enableBorrar(enable)
         }
     }
 
@@ -159,10 +168,16 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
     }
 
     override fun initializeObservers() {
-        viewModel._sendRecetaState.observe(viewLifecycleOwner){
-            when(it){
-                is CrearRecetaState.Error -> Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
-                CrearRecetaState.Successfull -> Toast.makeText(requireContext(), getString(R.string.receta_creada_con_exito), Toast.LENGTH_SHORT).show()
+        collectFlow(viewModel.crearRecetaUI){
+            mainActivity.setLoading(it.isLoading)
+        }
+
+        viewModel.sendRecetaState.observe(viewLifecycleOwner){event->
+            event.getContentIfNotHandled()?.let {
+                when(it){
+                    is SendRecetaState.Error -> Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
+                    SendRecetaState.Successfull -> Toast.makeText(requireContext(), getString(R.string.receta_creada_con_exito), Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -239,7 +254,7 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
         }, delayCount)
     }
 
-    fun convertirMinutosAHorasYMinutos(minutos: Int): String {
+    private fun convertirMinutosAHorasYMinutos(minutos: Int): String {
         val horas = minutos / 60
         val minutosRestantes = minutos % 60
 

@@ -3,6 +3,7 @@ package com.example.apkcocina.features.recetasBase.fragment
 import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.example.apkcocina.NavGraphDirections
 import com.example.apkcocina.R
 import com.example.apkcocina.databinding.FrgRecetasBaseBinding
 import com.example.apkcocina.utils.model.Receta
@@ -18,7 +19,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class RecetasBaseFragment() : BaseFragment<FrgRecetasBaseBinding>() {
 
-    val recetasBaseViewModel : RecetasBaseViewModel by viewModels()
+    private val recetasBaseViewModel : RecetasBaseViewModel by viewModels()
     override lateinit var actionBar: APKCocinaActionBar
 
     private var listaRecetasBase : List<Receta>? = null
@@ -35,10 +36,14 @@ class RecetasBaseFragment() : BaseFragment<FrgRecetasBaseBinding>() {
         })
         recetasBaseViewModel.mutableRecetas.observe(this, Observer {
            listaRecetasBase = it
-            binding.rvRecetas.adapter = RecetasAdapter(listaRecetasBase!!,{onRecetaClickListener(it)})
+            binding.rvRecetas.adapter = RecetasAdapter(listaRecetasBase!!) {receta->
+                onRecetaClickListener(
+                    receta
+                )
+            }
         })
     }
 
-    private fun onRecetaClickListener(receta: Receta){ mainActivity.navigate(R.id.action_recetasBaseFragment_to_recetaDetalle,Bundle().apply { putSerializable("receta",receta) }) }
+    private fun onRecetaClickListener(receta: Receta){ navigate(NavGraphDirections.actionGlobalRecetaDetalle(receta.nombre ?: getString(R.string.unkown),receta.id)) }
 
 }

@@ -1,58 +1,120 @@
 package com.example.apkcocina.features.recetasBase.fragment
 
 import android.content.Context
-import android.os.Build
-import com.bumptech.glide.Glide
+import android.view.View
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.example.apkcocina.R
 import com.example.apkcocina.databinding.FrgRecetaDetalleBinding
+import com.example.apkcocina.features.crearReceta.adapter.AlergenosAdapter
+import com.example.apkcocina.features.recetasBase.adapter.IngredientesAdapter
+import com.example.apkcocina.features.recetasOnline.adapter.RecetaDetalleDescripcionAdapter
+import com.example.apkcocina.features.recetasOnline.viewModel.GetRecetasViewModel
 import com.example.apkcocina.utils.model.Receta
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
-import com.example.apkcocina.utils.base.TitleActionBar
-import com.google.firebase.storage.FirebaseStorage
+import com.example.apkcocina.utils.base.InfoActionBar
+import com.example.apkcocina.utils.dialog.InfoRecetasDialog
+import com.example.apkcocina.utils.extensions.notNull
+import com.example.apkcocina.utils.extensions.playAnimation
+import com.google.android.flexbox.AlignItems
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayout
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class RecetaDetalle : BaseFragment<FrgRecetaDetalleBinding>() {
 
     override lateinit var actionBar: APKCocinaActionBar
-    private lateinit var receta : Receta
-    @Inject
-    lateinit var firebaseStorage : FirebaseStorage
+    private val args : RecetaDetalleArgs by navArgs()
+    private val viewModel: GetRecetasViewModel by viewModels()
 
     override fun onAttach(context: Context) {
-        receta = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getSerializable("receta",Receta::class.java) ?: Receta()
-        }else{
-            arguments?.getSerializable("receta") as Receta
-        }
-
         super.onAttach(context)
+        if(args.idReceta != null)
+            viewModel.getReceta(args.idReceta)
+        else {
+            Toast.makeText(requireContext(), getString(R.string.error_en_el_servidor), Toast.LENGTH_SHORT).show()
+            navController.popBackStack()
+        }
     }
-
-   /* int spanCount = 3; // 3 columns
-    int spacing = 50; // 50px
-    boolean includeEdge = true;
-    recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));*/
 
     override fun assingActionBar() {
-        actionBar = TitleActionBar(receta.nombre.toString())
+        actionBar = InfoActionBar(args.name,::mostrarDialogRecetas)
     }
 
-    override fun initializeView() {
-        cargarDatos()
+    private fun mostrarDialogRecetas() = InfoRecetasDialog(requireContext(),false).show()
+
+    override fun initializeObservers() {
+        super.initializeObservers()
+        viewModel.recetaResult.observe(viewLifecycleOwner){event->
+            event.getContentIfNotHandled()?.let{pair->
+                cargarDatos(pair.first,pair.second)
+            }
+        }
+
+        viewModel.setRecetaFav.observe(viewLifecycleOwner){event->
+            event.getContentIfNotHandled()?.let{_->
+                Toast.makeText(requireContext(), getString(R.string.receta_guardada_en_favoritos), Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        viewModel.setRecetaFavError.observe(viewLifecycleOwner){event->
+            event.getContentIfNotHandled()?.let { error->
+                Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        viewModel.removeRecetaFav.observe(viewLifecycleOwner){event->
+            event.getContentIfNotHandled()?.let { _->
+                Toast.makeText(requireContext(), getString(R.string.receta_borrada_de_favoritos), Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        viewModel.removeRecetaFavError.observe(viewLifecycleOwner){event->
+            event.getContentIfNotHandled()?.let { error->
+                Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
-    private fun cargarDatos(){
-        /*val storageReference = firebaseStorage.getReference(receta.getReferencia())
-        storageReference.downloadUrl.addOnSuccessListener {
-            Glide.with(requireContext()).load(it.toString()).into(binding.ivDetalle)
-        }*/
+    private fun cargarDatos(receta : Receta,isFav : Boolean){
         binding.apply {
             tvNombreReceta.text = receta.nombre
             tvTiempoReceta.text = formatearTiempo(receta.tiempoPreparacion)
-            /*tvDescripcion.text = receta.descripcion ?: getString(R.string.sin_descripcion)*/
+            receta.alergenos.notNull { rvAlergenos.adapter = AlergenosAdapter(it,false) }
+
+            tgFavReceta.isChecked = isFav
+            tgFavReceta.addOnCheckedChangeListener { bt, isChecked ->
+                bt.playAnimation(R.anim.click_animation)
+                viewModel.changeFav(receta.id,isChecked)
+            }
+
+            rvAlergenos.layoutManager = object  : FlexboxLayoutManager(requireContext(),FlexDirection.ROW,FlexWrap.WRAP){
+                init {
+                    justifyContent = JustifyContent.FLEX_START
+                    alignItems = AlignItems.FLEX_START
+                }
+
+                override fun getFlexItemAt(index: Int): View {
+                    val item = super.getFlexItemAt(index)
+
+                    val params = item.layoutParams as LayoutParams
+                    params.flexBasisPercent = 0.15f
+                    params.isWrapBefore = index > 0 && index % 6 == 0
+
+                    return item
+                }
+
+            }
+
+            receta.ingredientes.notNull {ingredientes-> rvIngredientes.adapter = IngredientesAdapter(ingredientes.map {producto-> producto.toString() }.toMutableList(),requireContext()) }
+
+            receta.descripcion.notNull { rvInstrucciones.adapter = RecetaDetalleDescripcionAdapter(it) }
         }
     }
 

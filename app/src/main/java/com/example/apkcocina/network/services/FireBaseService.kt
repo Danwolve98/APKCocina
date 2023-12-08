@@ -87,7 +87,6 @@ class FireBaseService @Inject constructor(
     ): UpdateResult {
         var updateResult: UpdateResult = UpdateResult.Error()
         if (auth.currentUser != null) {
-
                 val document = store.collection(User.USUARIOS).document(auth.currentUser!!.uid)
                 document.get().addOnSuccessListener { documentSnapshot ->
                         val usuario = documentSnapshot.toObject(User::class.java)

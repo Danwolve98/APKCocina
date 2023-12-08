@@ -1,7 +1,6 @@
 package com.example.apkcocina.features.profile.viewModel
 
 import android.content.Context
-import android.net.Uri
 import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
@@ -10,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apkcocina.R
+import com.example.apkcocina.features.recetasOnline.useCase.GetRecetasUsuarioUseCase
 import com.example.apkcocina.network.usecases.CargarUsuarioUseCase
 import com.example.apkcocina.network.usecases.CreateAccountUseCase
 import com.example.apkcocina.network.usecases.LoginUseCase
@@ -18,10 +18,12 @@ import com.example.apkcocina.network.usecases.SendEmailVerificationUseCase
 import com.example.apkcocina.network.usecases.UpdateUserUseCase
 import com.example.apkcocina.network.usecases.VerifyEmailUseCase
 import com.example.apkcocina.utils.core.Event
+import com.example.apkcocina.utils.model.Receta
 import com.example.apkcocina.utils.model.User
 import com.example.apkcocina.utils.states.CargarUserResult
 import com.example.apkcocina.utils.states.LoginResult
 import com.example.apkcocina.utils.states.ProfileState
+import com.example.apkcocina.utils.states.RecetasOnlineState
 import com.example.apkcocina.utils.states.RegisterResult
 import com.example.apkcocina.utils.states.ResetPassWordResult
 import com.example.apkcocina.utils.states.UpdateResult
@@ -43,7 +45,8 @@ class ProfileViewModel @Inject constructor(
     private val verifyEmailUseCase: VerifyEmailUseCase,
     private val updateUserUseCase: UpdateUserUseCase,
     private val resetPassWordUserCase: ResetPassWordUserCase,
-    private val cargarUsuarioUseCase: CargarUsuarioUseCase
+    private val cargarUsuarioUseCase: CargarUsuarioUseCase,
+    private val cargarRecetasUsuarioUseCase: GetRecetasUsuarioUseCase
 ) : ViewModel() {
 
     private val _profileViewState = MutableStateFlow(ProfileState())
@@ -72,6 +75,12 @@ class ProfileViewModel @Inject constructor(
 
     private var _resetEmailSent = MutableLiveData<Event<ResetPassWordResult>>()
     val resetEmailSent: LiveData<Event<ResetPassWordResult>> = _resetEmailSent
+
+    private val _recetasUsuario = MutableLiveData<Event<List<Receta>>>()
+    val recetasUsuario: LiveData<Event<List<Receta>>> = _recetasUsuario
+
+    private val _recetasUsuarioFail = MutableLiveData<Event<String>>()
+    val recetasUsuarioFail : LiveData<Event<String>> = _recetasUsuarioFail
 
     companion object{
         const val MIN_LONG_ENTRY = 6
@@ -246,6 +255,17 @@ class ProfileViewModel @Inject constructor(
             _profileViewState.value = ProfileState(isLoading = false)
         }
 
+    }
+
+    fun cargarRecetasUsuario(){
+        viewModelScope.launch {
+            _profileViewState.value = ProfileState(isLoading = true)
+            when(val result = cargarRecetasUsuarioUseCase()){
+                is RecetasOnlineState.Error -> _recetasUsuarioFail.value = Event(result.error)
+                is RecetasOnlineState.Successfull -> _recetasUsuario.value = Event(result.listRecetas)
+            }
+            _profileViewState.value = ProfileState(isLoading = false)
+        }
     }
 
 

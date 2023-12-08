@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginEnd="40dp"
     android:layout_width="match_parent"
-    android:layout_height="20dp">
+    android:layout_height="30dp">
 
     <View
         android:layout_width="match_parent"
@@ -17,8 +17,8 @@
         android:layout_height="match_parent"
         android:textColor="@color/black"
         app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="14sp"
-        app:autoSizeMaxTextSize="18sp"
+        app:autoSizeMinTextSize="18sp"
+        app:autoSizeMaxTextSize="20sp"
         android:lineSpacingExtra="0dp"
         android:gravity="center_vertical"
         android:layout_marginStart="50dp"

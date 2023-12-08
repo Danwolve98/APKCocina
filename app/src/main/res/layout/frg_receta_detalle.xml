@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_width="match_parent"
+<androidx.core.widget.NestedScrollView android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -86,13 +86,16 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Lasaña casera" />
 
-            <com.google.android.material.button.MaterialButtonToggleGroup
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/tg_fav_receta"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:background="@drawable/fav_toogle_selector"
+                style="@style/MaterialButtonAlergenos"
+                android:paddingStart="0dp"
+                android:checkable="true"
+                app:icon="@drawable/fav_toogle_selector"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <androidx.appcompat.widget.AppCompatRatingBar
                 android:id="@+id/rating_bar_receta"
@@ -133,7 +136,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@id/rating_bar_receta"
                 app:spanCount="7"
                 tools:listitem="@layout/item_alergeno_guia" />
@@ -168,4 +171,4 @@
             app:layout_constraintGuide_percent="0.4"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

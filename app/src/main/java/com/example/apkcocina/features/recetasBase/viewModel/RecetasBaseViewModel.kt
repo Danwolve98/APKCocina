@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apkcocina.utils.model.Receta
 import com.example.apkcocina.features.recetasBase.usecase.GetRecetasBaseUseCase
+import com.example.apkcocina.network.usecases.CargarUsuarioUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,11 +14,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RecetasBaseViewModel @Inject constructor(
-val getRecetasBaseUseCase: GetRecetasBaseUseCase
+    private val getRecetasBaseUseCase: GetRecetasBaseUseCase
 ) : ViewModel(){
 
     val mutableRecetas = MutableLiveData<List<Receta>>()
     val loading = MutableLiveData<Boolean>()
+
     fun loadRecetas(){
         viewModelScope.launch(Dispatchers.IO){
             loading.postValue(true)

@@ -28,6 +28,11 @@
     </string-array>
 
     <!--LOGIN-->
+    <string name="receta_guardada_en_favoritos">Receta guardada en favoritos</string>
+    <string name="receta_borrada_de_favoritos">Receta borrada de favoritos</string>
+    <string name="no_se_pudo_guardar_en_favoritos">No se pudo guardar en favoritos</string>
+    <string name="no_se_han_encontrado_recetas">No se han encontrado recetas</string>
+    <string name="ingredientes">Ingredientes:</string>
     <string name="error_en_el_servidor">Error en el servidor</string>
     <string name="inicie_sesion_para_esta_funcionalidad">Inicie sesion para esta funcionalidad</string>
     <string name="error_al_cargar_la_foto">Error al cargar la foto</string>

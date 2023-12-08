@@ -1,10 +1,10 @@
 package com.example.apkcocina.features.recetasBase.usecase
 
 import com.example.apkcocina.utils.model.Receta
-import com.example.apkcocina.features.recetasBase.repository.RecetasBaseRespoitory
+import com.example.apkcocina.features.recetasBase.repository.RecetasDataBaseRespoitory
 import javax.inject.Inject
 
-class GetRecetasBaseUseCase @Inject constructor(val recetasBaseRespoitory: RecetasBaseRespoitory) {
+class GetRecetasBaseUseCase @Inject constructor(private val recetasDataBaseRespoitory: RecetasDataBaseRespoitory) {
 
-    suspend operator fun invoke() : List<Receta> = recetasBaseRespoitory.getRecetas()
+    suspend operator fun invoke() : List<Receta> = recetasDataBaseRespoitory.getRecetas()
 }

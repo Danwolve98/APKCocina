@@ -10,8 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.apkcocina.R
 import com.example.apkcocina.features.crearReceta.diffUtils.DescripcionDiff
 import com.example.apkcocina.utils.extensions.base64toByteArray
+import com.example.apkcocina.utils.extensions.invisible
 import com.example.apkcocina.utils.extensions.loadImage
+import com.example.apkcocina.utils.extensions.visibilityCheck
 import com.example.apkcocina.utils.model.Descripcion
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.imageview.ShapeableImageView
 import java.lang.IllegalArgumentException
 
@@ -25,7 +28,7 @@ class CrearDescripcionAdapter(var listDescripcion : List<Descripcion>) : Recycle
         viewType: Int
     ): RecyclerView.ViewHolder = when(viewType){
             ViewType.IMAGE.int-> ViewHolderImagen(LayoutInflater.from(parent.context).inflate(R.layout.item_foto,parent,false))
-            ViewType.TEXT.int-> ViewHolderTexto(LayoutInflater.from(parent.context).inflate(R.layout.item_texto,parent,false))
+            ViewType.TEXT.int-> ViewHolderTexto(LayoutInflater.from(parent.context).inflate(R.layout.item_texto_editable,parent,false))
             else -> throw IllegalArgumentException("Error tipo, no identificado")
     }
 
@@ -33,8 +36,8 @@ class CrearDescripcionAdapter(var listDescripcion : List<Descripcion>) : Recycle
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder){
-            is ViewHolderTexto->holder.bind()
-            is ViewHolderImagen->holder.bind(listDescripcion[position].string)
+            is ViewHolderTexto->holder.bind(listDescripcion[position])
+            is ViewHolderImagen->holder.bind(listDescripcion[position])
         }
     }
 
@@ -51,20 +54,43 @@ class CrearDescripcionAdapter(var listDescripcion : List<Descripcion>) : Recycle
         result.dispatchUpdatesTo(this)
     }
 
-    inner class ViewHolderTexto(val view : View) : RecyclerView.ViewHolder(view){
-        fun bind(){
+    inner class ViewHolderTexto(val view : View) : RecyclerView.ViewHolder(view),ViewHolderDeletable{
+        val btDelete = view.findViewById<MaterialButton>(R.id.bt_delete)
+        fun bind(item : Descripcion){
+            btDelete.invisible()
+            btDelete.setOnClickListener {
+                val newList = listDescripcion.toMutableList()
+                newList.remove(item)
+                updateDescripcion(newList)
+            }
             val editText = view.findViewById<AppCompatEditText>(R.id.tv_descripcion_item)
             editText.addTextChangedListener {
                 listDescripcion[adapterPosition].string = it.toString()
             }
         }
+        override fun enableBorrar(enable : Boolean){btDelete.visibilityCheck(enable)}
     }
 
-    inner class ViewHolderImagen(val view : View) : RecyclerView.ViewHolder(view){
-        fun bind(foto : String){
+    inner class ViewHolderImagen(val view : View) : RecyclerView.ViewHolder(view),ViewHolderDeletable {
+        private val btDelete: MaterialButton = view.findViewById(R.id.bt_delete)
+        fun bind(item: Descripcion) {
+            btDelete.invisible()
+            btDelete.setOnClickListener {
+                val newList = listDescripcion.toMutableList()
+                newList.remove(item)
+                updateDescripcion(newList)
+            }
             val textView = view.findViewById<ShapeableImageView>(R.id.iv_descripcion_item)
-            textView.loadImage(foto.base64toByteArray())
+            textView.loadImage(item.string.base64toByteArray())
+        }
+
+        override fun enableBorrar(enable: Boolean) {
+            btDelete.visibilityCheck(enable)
         }
     }
 
+}
+
+interface ViewHolderDeletable{
+    fun enableBorrar(enable : Boolean)
 }

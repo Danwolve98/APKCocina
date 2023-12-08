@@ -1,4 +1,4 @@
-package com.example.apkcocina.features.queCocinoHoy
+package com.example.apkcocina.features.queCocinoHoy.fragment
 
 import android.annotation.SuppressLint
 import android.content.Context.VIBRATOR_MANAGER_SERVICE
@@ -10,19 +10,40 @@ import android.os.Vibrator
 import android.os.VibratorManager
 import android.view.MotionEvent
 import android.widget.Toast
+import androidx.fragment.app.viewModels
+import com.example.apkcocina.NavGraphDirections
 import com.example.apkcocina.R
 import com.example.apkcocina.databinding.FrgQueCocinoHoyBinding
+import com.example.apkcocina.features.recetasOnline.viewModel.GetRecetasViewModel
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.TitleActionBar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.random.Random
 
+@AndroidEntryPoint
 class QueCocinoHoyFragment : BaseFragment<FrgQueCocinoHoyBinding>() {
 
     override lateinit var actionBar: APKCocinaActionBar
+    private val viewModel : GetRecetasViewModel by viewModels()
 
     override fun assingActionBar() {
         actionBar = TitleActionBar(getString(R.string.que_cocino_hoy))
+    }
+
+    override fun initializeObservers() {
+        super.initializeObservers()
+        viewModel.idRecetaRandom.observe(viewLifecycleOwner){event->
+            event.getContentIfNotHandled()?.let { pair->
+                navigate(NavGraphDirections.actionGlobalRecetaDetalle(idReceta = pair.first,name = pair.second))
+            }
+        }
+
+        viewModel.idRecetaRandomeError.observe(viewLifecycleOwner){event->
+            event.getContentIfNotHandled()?.let{error->
+                Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -48,8 +69,7 @@ class QueCocinoHoyFragment : BaseFragment<FrgQueCocinoHoyBinding>() {
                             }
                         }
                         override fun onFinish() {
-                            Toast.makeText(requireContext(), "NAVEGAR", Toast.LENGTH_SHORT).show()
-                            /*navigate(R.id.action_recetasBaseFragment_to_recetaDetalle)*/
+                            viewModel.getRandomReceta()
                         }
                     }.start()
                     lottieAnim.animate().alpha(1f).setDuration(1000).start()

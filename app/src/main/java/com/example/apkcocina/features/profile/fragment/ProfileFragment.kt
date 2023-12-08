@@ -99,15 +99,16 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
             btEditPassword.setOnClickListener {
                 navigate(R.id.action_perfil_fragment_to_reestablecerContrasenaFragment)
             }
+
+            btMisRecetas.setOnClickListener {
+                navigate(R.id.action_perfil_fragment_to_misRecetasFragment)
+            }
         }
     }
 
     private fun mostrarUsuario(user : User){
         with(binding){
-            firebaseAuth.currentUser?.photoUrl.notNull(
-                notNullAction = { ivProfilePicture.loadImage(firebaseAuth.currentUser!!.photoUrl)},
-                nullAction = {ivProfilePicture.loadImage(user.foto)}
-            )
+            ivProfilePicture.loadImage(user.foto?.base64toByteArray())
             etNombrePerfil.text = SpannableStringBuilder(user.nombre)
             etApellidosPerfil.text = SpannableStringBuilder(user.apellidos)
             etNacionalidadPerfil.text = SpannableStringBuilder(user.nacionalidad)

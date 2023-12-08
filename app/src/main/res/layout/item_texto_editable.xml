@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_delete"
         android:layout_width="30dp"
@@ -18,14 +19,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/iv_descripcion_item"
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/tv_descripcion_item"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginHorizontal="20dp"
-        android:scaleType="centerCrop"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:hint="Escribe aquí..."
+        android:paddingStart="10dp"
+        android:textColorHint="@color/white_trans"
+        android:paddingVertical="10dp"
         android:layout_marginBottom="10dp"
-        tools:src="@drawable/img_francais"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:textSize="18sp"
+        android:background="@null"
+        android:inputType="none"
+        tools:background="@color/black_soft"
+        app:layout_constraintTop_toTopOf="parent"
+         />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

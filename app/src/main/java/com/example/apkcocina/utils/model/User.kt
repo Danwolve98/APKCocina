@@ -1,9 +1,8 @@
 package com.example.apkcocina.utils.model
 
-import android.net.Uri
+import androidx.room.Delete
 import com.google.firebase.firestore.PropertyName
 import java.util.Calendar
-import java.util.Date
 
 class User(
     @PropertyName("id")
@@ -21,7 +20,9 @@ class User(
     @PropertyName("cumpleanos")
     var cumpleanos : Long? = null,
     @PropertyName("fecha_de_registro")
-    var fechaDeRegistro : Long? = null){
+    var fechaDeRegistro : Long? = null,
+    @PropertyName("recetasFav")
+    var recetasFav : List<String>? = null){
 
     companion object{
         const val USUARIOS = "users"

@@ -49,23 +49,20 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_tiempo_receta"
         android:layout_width="0dp"
-        android:textSize="16sp"
         android:layout_marginEnd="10dp"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMaxTextSize="16sp"
-        app:autoSizeMinTextSize="12sp"
+        android:textSize="18sp"
         android:fontFamily="@font/inika_regular"
-        app:layout_constraintBottom_toTopOf="@id/rating_bar_receta"
-        app:layout_constraintEnd_toStartOf="@id/line_3"
-        app:layout_constraintTop_toBottomOf="@id/tv_nombre_receta"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        tools:text="1h 20min"/>
+        tools:text="1h 20min"
+        app:layout_constraintBottom_toTopOf="@id/rating_bar_receta"
+        app:layout_constraintEnd_toStartOf="@id/line_3"
+        app:layout_constraintTop_toBottomOf="@id/tv_nombre_receta"/>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_tiempo"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toStartOf="@id/tv_tiempo_receta"
         app:layout_constraintTop_toTopOf="@id/tv_tiempo_receta"

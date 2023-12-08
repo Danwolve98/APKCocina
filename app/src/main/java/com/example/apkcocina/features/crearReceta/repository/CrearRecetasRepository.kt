@@ -7,7 +7,7 @@ import com.example.apkcocina.R
 import com.example.apkcocina.utils.extensions.base64ToUri
 import com.example.apkcocina.utils.model.Descripcion
 import com.example.apkcocina.utils.model.Receta
-import com.example.apkcocina.utils.states.CrearRecetaState
+import com.example.apkcocina.utils.states.SendRecetaState
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -25,9 +25,9 @@ class CrearRecetasRepository @Inject constructor(
     private val firebaseFirestore: FirebaseFirestore,
     private val firebaseAuth: FirebaseAuth
 ) : ICrearRecetas {
-    override suspend fun sendReceta(receta: Receta): CrearRecetaState {
+    override suspend fun sendReceta(receta: Receta): SendRecetaState {
         val user = firebaseAuth.currentUser
-            ?: return CrearRecetaState.Error(context.getString(R.string.usuario_no_existe))
+            ?: return SendRecetaState.Error(context.getString(R.string.usuario_no_existe))
 
         receta.usuario = user.uid
         val collection = firebaseFirestore.collection(Receta.RECETAS_USUARIOS)
@@ -36,13 +36,23 @@ class CrearRecetasRepository @Inject constructor(
             receta.descripcion = saveImages(timeMilis.toString(),receta.descripcion)
             collection.add(receta).await()
         }.fold(
-            onSuccess = { CrearRecetaState.Successfull },
+            onSuccess = {
+                    val documentId = mapOf(
+                        "id" to it.id
+                    )
+                runCatching {
+                    collection.document(it.id).update(documentId)
+                }.fold(
+                    onSuccess = {SendRecetaState.Successfull},
+                    onFailure = {SendRecetaState.Error(context.getString(R.string.error_al_crear_la_receta))}
+                )
+                        },
             onFailure = {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 }
 
-                CrearRecetaState.Error(context.getString(R.string.error_al_crear_la_receta))
+                SendRecetaState.Error(context.getString(R.string.error_al_crear_la_receta))
             }
         )
     }
@@ -78,5 +88,5 @@ class CrearRecetasRepository @Inject constructor(
 }
 
 interface ICrearRecetas{
-    suspend fun sendReceta(receta : Receta) : CrearRecetaState
+    suspend fun sendReceta(receta : Receta) : SendRecetaState
 }

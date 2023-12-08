@@ -10,7 +10,7 @@ import com.example.apkcocina.utils.extensions.playAnimation
 import com.example.apkcocina.utils.model.Alergenos
 import com.google.android.material.button.MaterialButton
 
-class AlergenosAdapter (val alergenos : List<Alergenos>) : RecyclerView.Adapter<AlergenosAdapter.ViewHolder>() {
+class AlergenosAdapter (val alergenos : List<Alergenos>, val editables : Boolean = true) : RecyclerView.Adapter<AlergenosAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_alergeno_receta,parent,false))
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -22,11 +22,17 @@ class AlergenosAdapter (val alergenos : List<Alergenos>) : RecyclerView.Adapter<
     inner class ViewHolder(val view : View) : RecyclerView.ViewHolder(view){
         fun bind(){
             val mb = view.findViewById<MaterialButton>(R.id.iv_alergeno)
+            if(!editables){
+                mb.isChecked = true
+                mb.isToggleCheckedStateOnClick = false
+            }else
+                mb.addOnCheckedChangeListener { _, isChecked ->
+                    alergenos[adapterPosition].checked = isChecked
+                }
+
             mb.setOnClickListener { it.playAnimation(R.anim.click_animation) }
-            mb.addOnCheckedChangeListener { button, isChecked ->
-                alergenos[adapterPosition].checked = isChecked
-            }
             mb.icon = ResourcesCompat.getDrawable(view.context.resources,alergenos[adapterPosition].drawableId,null)
+
         }
     }
 

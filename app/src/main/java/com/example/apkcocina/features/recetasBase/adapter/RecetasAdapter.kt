@@ -28,14 +28,26 @@ class RecetasAdapter(private var listRecetas : List<Receta>, val onClickRecetaLi
     inner class ViewHolder(val view : View) : RecyclerView.ViewHolder(view) {
 
         fun renderReceta(receta: Receta) {
-            val iv_receta = view.findViewById<ImageView>(R.id.iv_receta)
-            val tv_receta = view.findViewById<TextView>(R.id.tv_nombre_receta)
+            val ivReceta = view.findViewById<ImageView>(R.id.iv_receta)
+            val tvReceta = view.findViewById<TextView>(R.id.tv_nombre_receta)
+            val tvTiempoReceta = view.findViewById<TextView>(R.id.tv_tiempo_receta)
 
-            iv_receta.loadImage(receta.descripcion?.get(1)?.string)
-            tv_receta.text = receta.nombre
+            ivReceta.loadImage(receta.descripcion?.get(1)?.string)
+            tvReceta.text = receta.nombre
+            tvTiempoReceta.text = formatearTiempo(receta.tiempoPreparacion)
 
             view.setOnClickListener { onClickRecetaListener(receta) }
 
         }
+
+        private fun formatearTiempo(tiempo:Int?) : String =
+            if(tiempo == null)
+                "?"
+            else{
+                val hours = tiempo / 60
+                val minutosRestantes = tiempo % 60
+
+                "%dh/%dmins".format(hours,minutosRestantes)
+            }
     }
 }
