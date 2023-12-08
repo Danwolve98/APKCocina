@@ -11,6 +11,7 @@ class Receta(
     var id : String = "",
     var usuario : String? = null,
     var nombre : String? = null,
+    var imagenPrincipal : String? = null,
     var tiempoPreparacion : Int? = null,
     var alergenos: List<Alergenos>? = null,
     var descripcion : List<Descripcion>? = null,

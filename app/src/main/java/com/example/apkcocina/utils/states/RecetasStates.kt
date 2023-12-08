@@ -11,6 +11,7 @@ sealed class SendRecetaState {
 
 sealed class RecetasOnlineState {
     data class Successfull(val listRecetas: List<Receta>) : RecetasOnlineState()
+    data object SinRecetasFav : RecetasOnlineState()
     data class Error(val error : String) : RecetasOnlineState()
 }
 

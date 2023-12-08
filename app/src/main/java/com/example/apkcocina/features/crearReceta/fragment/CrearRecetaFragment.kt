@@ -5,6 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.MotionEvent
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,6 +24,7 @@ import com.example.apkcocina.utils.base.Constants
 import com.example.apkcocina.utils.base.InfoActionBar
 import com.example.apkcocina.utils.dialog.InfoRecetasDialog
 import com.example.apkcocina.utils.extensions.collectFlow
+import com.example.apkcocina.utils.extensions.loadImage
 import com.example.apkcocina.utils.extensions.notNull
 import com.example.apkcocina.utils.extensions.playAnimation
 import com.example.apkcocina.utils.extensions.toBase64
@@ -52,6 +54,7 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
     val viewModel by viewModels<CrearRecetasViewModel>()
 
     private var isButtonPressed : Boolean = false
+    private var imagenReceta : String? = null
 
     private var productosAdapter = CrearProductosAdapter(listOf(Producto()))
     private var descripcionAdapter = CrearDescripcionAdapter(listOf(Descripcion()))
@@ -68,6 +71,19 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
         }
 
         binding.apply {
+            //IMAGEN PRINCIPAL
+            val pickMediaPrincipal = registerForActivityResult(ActivityResultContracts.PickVisualMedia()){
+                ivPrincipal.apply {
+                    imageTintMode = null
+                    scaleType = ImageView.ScaleType.CENTER_CROP
+                    loadImage(it)
+                }
+                imagenReceta = it?.toBase64(requireContext())
+            }
+            ivPrincipal.setOnClickListener {
+                pickMediaPrincipal.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+            }
+
             //ALERGENOS
             rvAlergenos.layoutManager = flexboxLayoutManager()
             rvAlergenos.adapter = AlergenosAdapter(Alergenos.values().toList())
@@ -156,15 +172,19 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
     }
 
     private fun crearReceta() {
-        val receta = Receta().apply {
-            nombre = binding.etNombreReceta.text.toString()
-            alergenos = (binding.rvAlergenos.adapter as AlergenosAdapter).getSelectedAlergenos()
-            ingredientes = (binding.rvProductos.adapter as CrearProductosAdapter).listProductos
-            tiempoPreparacion = tiempo
-            descripcion = (binding.rvDescripcion.adapter as CrearDescripcionAdapter).listDescripcion.filter { it.string.isNotEmpty() }
+        if(imagenReceta!= null && !binding.etNombreReceta.text.isNullOrEmpty()){
+            val receta = Receta().apply {
+                nombre = binding.etNombreReceta.text.toString()
+                alergenos = (binding.rvAlergenos.adapter as AlergenosAdapter).getSelectedAlergenos()
+                ingredientes = (binding.rvProductos.adapter as CrearProductosAdapter).listProductos
+                tiempoPreparacion = tiempo
+                descripcion = (binding.rvDescripcion.adapter as CrearDescripcionAdapter).listDescripcion.filter { it.string.isNotEmpty() }
+                imagenPrincipal = imagenReceta
+            }
+            viewModel.crearReceta(receta)
+        }else{
+            Toast.makeText(requireContext(), getString(R.string.nombre_y_foto_son_obligatorios), Toast.LENGTH_SHORT).show()
         }
-
-        viewModel.crearReceta(receta)
     }
 
     override fun initializeObservers() {
@@ -176,7 +196,14 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
             event.getContentIfNotHandled()?.let {
                 when(it){
                     is SendRecetaState.Error -> Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
-                    SendRecetaState.Successfull -> Toast.makeText(requireContext(), getString(R.string.receta_creada_con_exito), Toast.LENGTH_SHORT).show()
+                    SendRecetaState.Successfull -> {
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.receta_creada_con_exito),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        navController.popBackStack()
+                    }
                 }
             }
         }

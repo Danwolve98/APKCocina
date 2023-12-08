@@ -12,4 +12,214 @@
     <string name="perfil">Profile</string>
     <string name="ajustes">Settings</string>
     <string name="producto">Product</string>
+    <string name="alergenos">Allergens</string>
+    <string name="tiempo">Time</string>
+    <string name="productos">Products</string>
+    <string name="descripcion">Description</string>
+    <string name="huevos">Eggs</string>
+    <string name="manual">Manual</string>
+    <string name="alergeno_seleccionado">Selected allergen</string>
+    <string name="alergeno_no_seleccionado">Not selected allergen</string>
+    <string name="anadir_producto">Add product</string>
+    <string name="anadir_texto">Add text</string>
+    <string name="anadir_imagen">Add image</string>
+    <string name="habilitar_borrar">Enable delete</string>
+    <string name="deshabilitar_borrar">Disable delete</string>
+    <string name="borrar_elemento">Delete element</string>
+    <string name="nombre_y_foto_son_obligatorios">Name and photo are mandatory</string>
+    <string name="recetas_online">Online Recipes</string>
+    <string name="receta_guardada_en_favoritos">Recipe saved in favorites</string>
+    <string name="receta_borrada_de_favoritos">Recipe deleted from favorites</string>
+    <string name="no_se_pudo_guardar_en_favoritos">Could not save to favorites</string>
+    <string name="no_se_han_encontrado_recetas">No recipes found</string>
+    <string name="ingredientes">Ingredients:</string>
+    <string name="error_en_el_servidor">Server error</string>
+    <string name="inicie_sesion_para_esta_funcionalidad">Log in for this functionality</string>
+    <string name="error_al_cargar_la_foto">Error loading the photo</string>
+    <string name="se_requiere_validar_la_cuenta">Account validation required</string>
+    <string name="default_cumpleanos">00/00/0000</string>
+    <string name="correo">Email</string>
+    <string name="contrasena_antigua">Old Password</string>
+    <string name="contrasena_nueva">New Password</string>
+    <string name="contrasena">Password</string>
+    <string name="ha_olvidado_su_contrasena">Forgot your password?</string>
+    <string name="confirmar_contrasena">Confirm Password</string>
+    <string name="iniciar_sesion">Log In</string>
+    <string name="registrarse">Sign Up</string>
+    <string name="no_tienes_cuenta">Don\'t have an account?\nSign up here</string>
+    <string name="se_enviara_un_correo_para_reestablecer_la_contrasena">An email will be sent to reset the password</string>
+    <string name="se_ha_enviado_un_correo_a_tu_email_para_reestablecer_la_contrasena">An email has been sent to your email to reset the password</string>
+    <string name="reestablecer_contrasena">Reset Password</string>
+    <string name="enviado">Sent</string>
+    <string name="enviar">Send</string>
+    <string name="chef">Chef</string>
+    <string name="curioso">Curious</string>
+    <string name="contrasena_demasiado_corta">Password too short</string>
+    <string name="contrasena_debe_incluir_al_menos_una_mayuscula">Password must include at least one uppercase letter</string>
+    <string name="contrasena_debe_incluir_al_menos_un_caracter_especial">Password must include at least one special character</string>
+    <string name="escribe_un_email_valido">Enter a valid email</string>
+    <string name="email_o_contrasena_no_validos">Invalid email or password</string>
+    <string name="email_no_es_valido">Invalid email</string>
+    <string name="contrasena_no_es_valida">Invalid password:</string>
+    <string name="debe_contener_una_mayuscula">*Must contain at least one uppercase letter</string>
+    <string name="debe_contener_un_numero">*Must contain at least one digit</string>
+    <string name="debe_tener_minimo_seis_caracteres">*Must have a minimum length of 6</string>
+    <string name="usuario_no_existe">User does not exist, sign up</string>
+    <string name="error_login">Error trying to log in</string>
+    <string name="error_register">Error trying to register</string>
+    <string name="se_ha_enviado_un_email_de_verificacion_a_tu_correo">A verification email has been sent to your email</string>
+    <string name="cuenta_no_verificada_se_ha_enviado_un_email_de_verificacion_a_tu_correo">Unverified account, a verification email has been sent to your email</string>
+    <string name="verificacion_con_exito">Successfully verified</string>
+    <string name="error_default">An error occurred</string>
+    <string name="error_al_autentificar_el_usuario">Error authenticating the user</string>
+    <string name="error_update_profile">Could not update the user, try again later</string>
+    <string name="no_se_ha_podido_recoger_informacion_del_usuario">Could not retrieve user information</string>
+    <string name="cuenta_ya_existente_inicie_sesion">Account already exists, log in</string>
+    <string name="cuenta_no_existente">Account with this email does not exist</string>
+    <string name="ha_ocurrido_un_error_en_la_red_vuelve_a_intentarlo_mas_tarde">There was an error in the network, please try again later</string>
+    <string name="hubo_un_problema_al_verificar_la_cuenta">There was a problem verifying the account</string>
+    <string name="has_agotado_los_intentos_prueba_mas_tarde">You have exhausted your attempts, try again later</string>
+    <string name="has_agotado_los_intentos_para_autentificarte">You have exhausted your attempts to authenticate</string>
+    <string name="has_agotado_los_intentos_para_cambiar_la_contrasena">You have exhausted your attempts to change the password</string>
+    <string name="verificando">Verifying…</string>
+    <!--PROFILE-->
+    <string name="nombre">Name</string>
+    <string name="apellidos">Last Name</string>
+    <string name="nacionalidad">Nationality</string>
+    <string name="edad">Age</string>
+    <string name="mis_recetas">My Recipes</string>
+    <!--REGISTER-->
+    <string name="register">Register</string>
+    <string name="las_contrasena_deben_coincidir">Passwords must match</string>
+    <!--SETTINGS-->
+
+    <!--RECETASBASE-->
+    <string name="recetas_base">Base Recipes</string>
+
+    <!--AJUSTES-->
+    <string name="idioma">Language</string>
+    <string name="cerrar_sesion">Log Out</string>
+    <string name="seguro_desea_cerrar_sesion">Are you sure you want to log out?</string>
+    <string name="ayuda">Help</string>
+    <string name="compartir">Share</string>
+    <string name="informacion">Information</string>
+    <string name="mira_esta_increible_apk_de_cocina">Check out this amazing cooking app!</string>
+    <string name="te_recomiendo_esta_apk">I recommend this app</string>
+    <string name="aceptar">Accept</string>
+    <string name="cancelar">Cancel</string>
+
+    <!--FAVORITOS-->
+    <string name="favoritos">Favorites</string>
+
+    <!--RECETASDETALLE-->
+    <string name="sin_descripcion">No description</string>
+    <!--CREARRECETA-->
+    <string name="crear_receta">Create Recipe</string>
+    <string name="unkown" translatable="false">…</string>
+    <string name="usuario_no_logeado">User not logged in</string>
+    <string name="receta_creada_con_exito">Recipe added successfully</string>
+    <string name="error_al_crear_la_receta">Error creating the recipe</string>
+    <!--QUE COCINO HOY-->
+    <string name="que_cocino_hoy">What Should I Cook Today?</string>
+    <string name="adivina_que_receta_nueva_podrias_cocinar_hoy">Guess what new recipe\nyou could cook today</string>
+    <string name="no_tienes_ninguna_receta_en_favoritos">You don\'t have any recipes in favorites</string>
+    <string name="debes_iniciar_sesion">You must log in</string>
+    <string name="no_has_creado_ninguna_receta_todavia">You haven\'t created any recipes yet</string>
+
+    <string name="ayuda_general"><![CDATA[
+    <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      a {
+        text-decoration: none;
+        margin-right: 25px;
+      }
+      strong {
+        font-size: 14pt;
+      }
+    </style>
+  </head>
+  <body>
+    <p style="text-align: center;">
+      <center><img src="https://lh7-us.googleusercontent.com/KTJipiBI4ddgpFQsDdq71tBZY6-GWweR8mNvReXonkPJc-Xl6SsUF52CgelPWnJOsCh7o8MytJgtlJRjJEuq4o47sUGmutWBBpyV4Krcw-4FiBD-NH2yOQKQReZA-qhfYLYGRHlYqq0BRTZrpKinz6M" width="239" height="239"></center>
+    </p>
+
+    <p style="margin:20px 0px 0px 20px;">This application currently does not support technical service. If you have any issues, you can always <strong>contact us</strong> through our <strong>social networks</strong> or even via the <strong>email</strong> provided. We apologize for any inconvenience caused.</p>
+
+    <p><br></p>
+
+    <center>
+      <p>
+        <a href="https://www.instagram.com">
+          <img class="imgMargin" src="https://lh7-us.googleusercontent.com/byePYu1-pSjNJlImV5XmPq-3luyPH17nbpU5xPSu-0EGefc7biUuMimeLL4Ta1oBHy4410L4vDg_YyeumjIahk3U5u4Fjli1vfAb1RWH2fDBTcdY7d1hM7QmG6QqHznP9sffZOZR6AZXXpKe5wYqMnU" width="55" height="55">
+        </a>
+        <a href="https://www.twitter.com">
+          <img class="imgMargin" src="https://lh7-us.googleusercontent.com/FUeR89zUHHAJSGcebF8GDSsjCgjlX7t5xzGmBvtYRWp18UqeULxdyB_Fp_su4XCrbEeNUbYhjj9mE2Bul4ZltrTxt7a_f6qsvIr9M50uhQFiXFSaNR6iXYiZh6g5Ee-MorhxG_C9YFRFZupbOsg2BhE" width="50" height="50">
+        </a>
+        <a href="https://www.github.com">
+          <img class="imgMargin" src="https://lh7-us.googleusercontent.com/dsFX6QCY_VXRQW2e2VTB37U8HVjIAyhhflEhD0cqhdVLleiypoKDZQ0pWU64cJgJgYWowvw-34yAAo3LgceUDDwv-9a6liD90MG3G4OyUTpXX0pVBCQW9JFcNbcdgg6K1tvvJxg1G01hbe8P-TicxpY" width="55" height="55">
+        </a>
+        <a style="margin-right:0;" href="mailto:apkcocina@gmail.com?subject=Subject&body=Message body">
+          <img class="imgMargin" src="https://lh7-us.googleusercontent.com/bFYj08FNQne1YJ0Np0DvBfw7v1NDwanvE0pwra6xSCMiv4sk4l0T8W6pKlM5dEVUoM9sgdACkDUluf2ERmKRTnCNfc9Bgb3EdA1mEg8e6CZ5Fc66Tn0JUbxf9J3-7h8FeLUPqFHSa-d4rq0lsdxa2cM" width="53" height="55">
+        </a>
+      </p>
+    </center>
+ </body>
+</html>]]></string>
+
+
+    <string name="info_general">
+        <![CDATA[
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="UTF-8">
+            <style>
+                body {
+                margin-left: 25px;
+                margin-right: 25px;
+                }
+                strong {
+                font-size: 14pt;
+                }
+            </style>
+        </head>
+        <body>
+            <p><center><strong><u><img src="https://lh7-us.googleusercontent.com/LYH6T87f3F658F68LItuEp2dEXrQPmGjaozADzYB_Uu1BXaN4KCNHzqGQu2vryVEcUYYuo6YwVDSuEbrv3EazFb_K4a58HC19YcN5NEBo0RDIu6sT-9mZh-AUZ2o_YH_q6s-Yb8UJVJLXVDIrm15eDI" width="150" height="150"></u></strong></center></p>
+            <p><br/></p>
+            <p><strong>APKCocina is a cooking application where you can create, save, and view recipes.</strong></p>
+            <p><center><img src="https://lh7-us.googleusercontent.com/186tYIW1wQTM00WV-8U3PW4OAKcAqUTq3Ja9IgOGaYdz61rNm5bHpGvhjgmsuW0BTLwvfFaBoDmFlbuSmkujdaQZOzlVMLqu_EYfFvOF2q3zKbPySbfEVJ9ZUOLbsXHxRpsivhLn3EmXtGE95z9G3Ts" width="75" height="60"></center></p>
+            <p><center><strong>Important</strong></center></p>
+            <p>Regarding the information provided in user-created recipes, <strong>the application is NOT responsible</strong> for possible <strong>false</strong> information or conflicts, such as when entering allergens and derivatives, <strong>each user must be responsible for their actions</strong>.</p>
+            <p>In <strong>future versions</strong> and upcoming updates, a system of <strong>comments and reports</strong> will be introduced to address these issues.</p>
+            <p><strong>Base Recipes</strong></p>
+            <p>We have basic functions where <strong>no previous registration will be required</strong>, such as <strong>base recipes</strong>, which are already included by default in the application.</p>
+            <p><img src="https://lh7-us.googleusercontent.com/kKnpXUT2Uk3gQc28SmItm9x7bGJaubrPjj-RilanUkRe6dELm0cq0AejtETBYikXOBD2JY6yDn9Ml-mLDsIcBd_1eI86HC4OW09jgNc2TnUuturKtdxyksRq_r9xpikaT6XXZC0Ka62cecP1PGyBtcs" width="310" height="145"></p>
+            <p><strong>Users</strong></p>
+            <p>However, to <strong>manage your profile</strong> and access <i>online</i> functions, <strong>registration in the application is required</strong>.</p>
+            <p>You can change your personal information, add a photo, and check your own uploaded recipes.</p>
+            <p>User information is completely confidential; currently, in this version of the application, the only thing made public to users is the recipes you create.</p>
+            <p><img src="https://lh7-us.googleusercontent.com/1psYW_TLM1U_EJ3kvc-i8AxJNhqYvd6p1K-ByRKn5M8uYUILZSIG7uynNd6xlmwk7F5xqedOQBu3xgioq0HeA-73XWDzMV-NTL0UBeAJDDvm2JI5t5LO3vy3O6yv6vYDPdJrxxFG9hk7PlMBOLOsXfM" width="190" height="325"></p>
+            <p><strong>Favorites</strong></p>
+            <p>There is also a favorites section that allows the user to have a system for saving online recipes they liked and thus easily access them later.</p>
+            <p><img src="https://lh7-us.googleusercontent.com/ILuctmlITapX_ZvV26ByIPfX8nnAl8665yGIv-MdMtbfLqAlH5Psm1_TMda3QEf1LTC9y4ZEbKBuT9dE5GFqXG_vYDxDlveLdpEOsh9oJbfegZj_RDoib3PKn7w1Tvu79_xeRpho0xWXlduBG_FY_js" width="90" height="95"></p>
+            <p><strong>Language</strong></p>
+            <p>In the settings section, you can change the language of the application to the following languages:</p>
+            <ul>
+                <li> <p>Spanish</p> </li>
+                <li> <p>French</p> </li>
+                <li> <p>English</p> </li>
+            </ul>
+            <p><img src="https://lh7-us.googleusercontent.com/zPZ8gWZZYufdylvQV1RDRWQTi5aK5ag8Fi8p-zu9VGu_3X6plVVutR9eCNmlJcfwC6_6IFkipoNlqYaltG82rzsfpD_9AlUl89voGIx6LzjXMOF6aaRB7FRt_xr8tTA34DKySh2R6oFjoStXJrCGeWw" width="250" height="250"></p>
+            <p><strong>Help</strong></p>
+            <p>In the help section, you can find support or relevant information for customer service for the application. If you have had any problems or want to make a suggestion, you should do it here.</p>
+            <p><strong>What to Cook Today?</strong></p>
+            <p>This section will simply pick a random recipe from the existing ones, so you\'ll have some references for cooking or just for the fun of discovering new recipes in a more entertaining way.</p>
+            <p><img src="https://lh7-us.googleusercontent.com/jaXehkw4ghGEkNUzCZiLAg6UcZDgCpqdhSmkIGZaZtvS8DipMG9A4P7hv4Z4UyzqlxWbkIEkA7xW9h
+            </body>
+            </html>]]>
+    </string>
+
 </resources>

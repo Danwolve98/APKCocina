@@ -20,7 +20,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:strokeColor="@color/black"
             app:strokeWidth="2dp"
-            tools:scaleType="centerCrop" />
+            tools:scaleType="centerCrop"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_usuario"

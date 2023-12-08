@@ -48,11 +48,6 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
         actionBar = TitleActionBar(getString(R.string.perfil)).apply { haveBack = false }
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        isUserLogged()
-    }
-
     private fun isUserLogged() {
         if (firebaseAuth.currentUser == null) {
             navigate(R.id.action_perfil_fragment_to_loginFragment)
@@ -66,6 +61,8 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
     }
 
     override fun initializeView() {
+        isUserLogged()
+
         with(binding){
             btDate.setOnClickListener {
                 it.playAnimation(R.anim.click_animation)
@@ -73,7 +70,6 @@ class ProfileFragment : BaseFragment<FrgProfileBinding>() {
             }
 
             photoUser.notNull { ivProfilePicture.loadImage(it.base64toByteArray())  }
-
 
             btEditProfile.setOnClickListener {
                 it.playAnimation(R.anim.click_animation)

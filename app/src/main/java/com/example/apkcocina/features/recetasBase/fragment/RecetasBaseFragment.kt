@@ -1,6 +1,7 @@
 package com.example.apkcocina.features.recetasBase.fragment
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.apkcocina.NavGraphDirections
@@ -12,6 +13,7 @@ import com.example.apkcocina.features.recetasBase.viewModel.RecetasBaseViewModel
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.TitleActionBar
+import com.example.apkcocina.utils.extensions.collectFlow
 import com.google.firebase.storage.FirebaseStorage
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -22,28 +24,40 @@ class RecetasBaseFragment() : BaseFragment<FrgRecetasBaseBinding>() {
     private val recetasBaseViewModel : RecetasBaseViewModel by viewModels()
     override lateinit var actionBar: APKCocinaActionBar
 
-    private var listaRecetasBase : List<Receta>? = null
-
     override fun assingActionBar() {
         actionBar = TitleActionBar(getString(R.string.recetas_base))
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun initializeView() {
+        super.initializeView()
         recetasBaseViewModel.loadRecetas()
-        recetasBaseViewModel.loading.observe(this, Observer {
-            mainActivity.setLoading(it)
-        })
-        recetasBaseViewModel.mutableRecetas.observe(this, Observer {
-           listaRecetasBase = it
-            binding.rvRecetas.adapter = RecetasAdapter(listaRecetasBase!!) {receta->
-                onRecetaClickListener(
-                    receta
-                )
-            }
-        })
     }
 
-    private fun onRecetaClickListener(receta: Receta){ navigate(NavGraphDirections.actionGlobalRecetaDetalle(receta.nombre ?: getString(R.string.unkown),receta.id)) }
+    override fun initializeObservers() {
+        super.initializeObservers()
+        collectFlow(recetasBaseViewModel.loading){
+            mainActivity.setLoading(it.isLoading)
+        }
+
+        recetasBaseViewModel.recetas.observe(viewLifecycleOwner){event->
+            event.getContentIfNotHandled()?.let {
+                binding.rvRecetas.adapter = RecetasAdapter(it) {receta->
+                    onRecetaClickListener(
+                        receta
+                    )
+                }
+            }
+        }
+
+        recetasBaseViewModel.recetasError.observe(viewLifecycleOwner){event->
+            event.getContentIfNotHandled()?.let {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                navController.popBackStack()
+            }
+        }
+
+    }
+
+    private fun onRecetaClickListener(receta: Receta){ navigate(NavGraphDirections.actionGlobalRecetaDetalle(receta.nombre ?: getString(R.string.unkown),receta.id,Receta.RECETAS_BASE)) }
 
 }

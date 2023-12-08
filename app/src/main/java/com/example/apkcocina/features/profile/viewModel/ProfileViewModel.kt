@@ -263,6 +263,7 @@ class ProfileViewModel @Inject constructor(
             when(val result = cargarRecetasUsuarioUseCase()){
                 is RecetasOnlineState.Error -> _recetasUsuarioFail.value = Event(result.error)
                 is RecetasOnlineState.Successfull -> _recetasUsuario.value = Event(result.listRecetas)
+                else -> {}
             }
             _profileViewState.value = ProfileState(isLoading = false)
         }

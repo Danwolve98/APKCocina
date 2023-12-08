@@ -32,7 +32,7 @@ class RecetasAdapter(private var listRecetas : List<Receta>, val onClickRecetaLi
             val tvReceta = view.findViewById<TextView>(R.id.tv_nombre_receta)
             val tvTiempoReceta = view.findViewById<TextView>(R.id.tv_tiempo_receta)
 
-            ivReceta.loadImage(receta.descripcion?.get(1)?.string)
+            ivReceta.loadImage(receta.imagenPrincipal ?: receta.descripcion?.find { it.image }?.string ?: "")
             tvReceta.text = receta.nombre
             tvTiempoReceta.text = formatearTiempo(receta.tiempoPreparacion)
 

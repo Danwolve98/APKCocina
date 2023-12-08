@@ -11,6 +11,7 @@ import com.example.apkcocina.features.recetasOnline.viewModel.GetRecetasViewMode
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.TitleActionBar
+import com.example.apkcocina.utils.extensions.visible
 import com.example.apkcocina.utils.model.Receta
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,8 +33,17 @@ class MisRecetasFragment : BaseFragment<FrgRecetasBaseBinding>() {
         super.initializeObservers()
         viewModel.recetasUsuario.observe(viewLifecycleOwner){ event ->
             event.getContentIfNotHandled()?.let {listaRecetas->
-                binding.rvRecetas.adapter = RecetasAdapter(listaRecetas) { receta ->
-                    onRecetasClick(receta)
+                if(!listaRecetas.isNullOrEmpty()){
+                    binding.rvRecetas.adapter = RecetasAdapter(listaRecetas) { receta ->
+                        onRecetasClick(receta)
+                    }
+                }else{
+                    with(binding){
+                        animationCat.setAnimation(R.raw.box_empy_animation)
+                        animationCat.visible()
+                        tvSinRecetasFav.text = getString(R.string.no_has_creado_ninguna_receta_todavia)
+                        tvSinRecetasFav.visible()
+                    }
                 }
             }
         }
@@ -47,7 +57,7 @@ class MisRecetasFragment : BaseFragment<FrgRecetasBaseBinding>() {
     }
 
     private fun onRecetasClick(receta: Receta){
-        navigate(NavGraphDirections.actionGlobalRecetaDetalle(receta.nombre ?: getString(R.string.unkown),receta.id))
+        navigate(NavGraphDirections.actionGlobalRecetaDetalle(receta.nombre ?: getString(R.string.unkown),receta.id,Receta.RECETAS_USUARIOS))
         Toast.makeText(requireContext(), "CLICK ${receta.nombre}", Toast.LENGTH_SHORT).show()
     }
 

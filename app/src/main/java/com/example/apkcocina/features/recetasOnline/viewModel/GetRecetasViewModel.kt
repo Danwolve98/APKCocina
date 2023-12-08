@@ -13,12 +13,15 @@ import com.example.apkcocina.features.recetasOnline.useCase.RemoveRecetaFavUseCa
 import com.example.apkcocina.features.recetasOnline.useCase.SetRecetaFavUseCase
 import com.example.apkcocina.utils.core.Event
 import com.example.apkcocina.utils.model.Receta
+import com.example.apkcocina.utils.states.CrearRecetaStateUI
 import com.example.apkcocina.utils.states.LoginResult
 import com.example.apkcocina.utils.states.RandomRecetaState
 import com.example.apkcocina.utils.states.RecetaState
 import com.example.apkcocina.utils.states.RecetasOnlineState
 import com.example.apkcocina.utils.states.SetRecetaFavState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,6 +34,9 @@ class GetRecetasViewModel @Inject constructor(
    private val removeRecetaFavUseCase: RemoveRecetaFavUseCase,
    private val getRecetasFavUseCase: GetRecetasFavUseCase
 ) : ViewModel() {
+
+    private val _recetasFavState = MutableStateFlow(CrearRecetaStateUI())
+    val recetasFavState : StateFlow<CrearRecetaStateUI> = _recetasFavState
 
     //LIST RECETAS
     private val _recetasResult = MutableLiveData<Event<List<Receta>>>()
@@ -72,15 +78,19 @@ class GetRecetasViewModel @Inject constructor(
     private val _getRecetasFavError = MutableLiveData<Event<String>>()
     val getRecetasFavError: LiveData<Event<String>> = _getRecetasFavError
 
+    private val _sinRecetasFav = MutableLiveData<Event<Boolean>>()
+    val sinRecetasFav: LiveData<Event<Boolean>> = _sinRecetasFav
+
     fun getRecetas() = viewModelScope.launch {
         when(val result = getRecetasOnlineUseCase() ){
             is RecetasOnlineState.Error -> _recetasError.value = Event(result.error)
             is RecetasOnlineState.Successfull -> _recetasResult.value = Event(result.listRecetas)
+            else->{}
         }
     }
 
-    fun getReceta(recetaId : String) = viewModelScope.launch {
-        when(val result = getRecetaUseCase(recetaId) ){
+    fun getReceta(recetaId : String,collection : String) = viewModelScope.launch {
+        when(val result = getRecetaUseCase(recetaId,collection) ){
             is RecetaState.Error -> _recetaError.value = Event(result.error)
             is RecetaState.Successfull -> _recetaResult.value = Event(Pair(result.receta,result.isFav))
         }
@@ -122,10 +132,13 @@ class GetRecetasViewModel @Inject constructor(
 
     fun getRecetasFav(){
         viewModelScope.launch {
+            _recetasFavState.value = CrearRecetaStateUI(isLoading = true)
             when(val result = getRecetasFavUseCase()){
                 is RecetasOnlineState.Error -> {_getRecetasFavError.value = Event(result.error) }
                 is RecetasOnlineState.Successfull -> {_getRecetasFav.value = Event(result.listRecetas) }
+                RecetasOnlineState.SinRecetasFav -> {_sinRecetasFav.value = Event(true)}
             }
+            _recetasFavState.value = CrearRecetaStateUI(isLoading = false)
         }
     }
 }

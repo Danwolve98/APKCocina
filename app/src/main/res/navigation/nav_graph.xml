@@ -86,6 +86,9 @@
         <argument
             android:name="id_receta"
             app:argType="string" />
+        <argument
+            android:name="collection"
+            app:argType="string" />
     </fragment>
 
     <fragment

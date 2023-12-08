@@ -2,8 +2,6 @@ package com.example.apkcocina.features.recetasOnline.fragment
 
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavDirections
-import androidx.navigation.Navigation
 import com.example.apkcocina.NavGraphDirections
 import com.example.apkcocina.R
 import com.example.apkcocina.databinding.FrgRecetasBaseBinding
@@ -22,7 +20,7 @@ class RecetasOnlineFragment : BaseFragment<FrgRecetasBaseBinding>() {
     val viewModel : GetRecetasViewModel by viewModels()
 
     override fun assingActionBar() {
-        actionBar = TitleActionBar("Recetas online")
+        actionBar = TitleActionBar(getString(R.string.recetas_online))
     }
 
     override fun initializeView() {
@@ -48,7 +46,7 @@ class RecetasOnlineFragment : BaseFragment<FrgRecetasBaseBinding>() {
     }
 
     private fun onRecetasClick(receta: Receta){
-        navigate(NavGraphDirections.actionGlobalRecetaDetalle(receta.nombre ?: getString(R.string.unkown),receta.id))
+        navigate(NavGraphDirections.actionGlobalRecetaDetalle(receta.nombre ?: getString(R.string.unkown),receta.id,Receta.RECETAS_USUARIOS))
     }
 
 }

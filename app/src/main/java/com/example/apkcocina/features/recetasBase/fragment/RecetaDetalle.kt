@@ -16,6 +16,7 @@ import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.InfoActionBar
 import com.example.apkcocina.utils.dialog.InfoRecetasDialog
+import com.example.apkcocina.utils.extensions.loadImage
 import com.example.apkcocina.utils.extensions.notNull
 import com.example.apkcocina.utils.extensions.playAnimation
 import com.google.android.flexbox.AlignItems
@@ -36,7 +37,7 @@ class RecetaDetalle : BaseFragment<FrgRecetaDetalleBinding>() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if(args.idReceta != null)
-            viewModel.getReceta(args.idReceta)
+            viewModel.getReceta(args.idReceta,args.collection)
         else {
             Toast.makeText(requireContext(), getString(R.string.error_en_el_servidor), Toast.LENGTH_SHORT).show()
             navController.popBackStack()
@@ -93,6 +94,8 @@ class RecetaDetalle : BaseFragment<FrgRecetaDetalleBinding>() {
                 bt.playAnimation(R.anim.click_animation)
                 viewModel.changeFav(receta.id,isChecked)
             }
+
+            ivReceta.loadImage(receta.imagenPrincipal)
 
             rvAlergenos.layoutManager = object  : FlexboxLayoutManager(requireContext(),FlexDirection.ROW,FlexWrap.WRAP){
                 init {

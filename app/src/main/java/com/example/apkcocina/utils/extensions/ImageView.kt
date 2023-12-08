@@ -81,7 +81,7 @@ fun ImageView.loadImage(string : String?) {
     Glide.with(this)
         .asDrawable()
         .load(string)
-        .error(R.drawable.ic_chef)
+        .error(R.drawable.apkcocina_logo)
         .placeholder(progressDrawable)
         .addListener(object : RequestListener<Drawable>{
             override fun onLoadFailed(
@@ -90,7 +90,6 @@ fun ImageView.loadImage(string : String?) {
                 target: Target<Drawable>,
                 isFirstResource: Boolean
             ): Boolean {
-                Toast.makeText(context, context.getString(R.string.error_al_cargar_la_foto), Toast.LENGTH_SHORT).show()
                 return false
             }
 

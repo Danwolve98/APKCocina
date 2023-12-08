@@ -5,6 +5,5 @@ import com.example.apkcocina.features.recetasBase.repository.RecetasDataBaseResp
 import javax.inject.Inject
 
 class GetRecetasBaseUseCase @Inject constructor(private val recetasDataBaseRespoitory: RecetasDataBaseRespoitory) {
-
-    suspend operator fun invoke() : List<Receta> = recetasDataBaseRespoitory.getRecetas()
+    suspend operator fun invoke() = recetasDataBaseRespoitory.getRecetas()
 }

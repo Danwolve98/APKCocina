@@ -1,6 +1,7 @@
 package com.example.apkcocina.features.queCocinoHoy.fragment
 
 import android.annotation.SuppressLint
+import android.content.Context.RECEIVER_EXPORTED
 import android.content.Context.VIBRATOR_MANAGER_SERVICE
 import android.content.Context.VIBRATOR_SERVICE
 import android.os.Build
@@ -18,6 +19,7 @@ import com.example.apkcocina.features.recetasOnline.viewModel.GetRecetasViewMode
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.TitleActionBar
+import com.example.apkcocina.utils.model.Receta
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.random.Random
 
@@ -35,7 +37,7 @@ class QueCocinoHoyFragment : BaseFragment<FrgQueCocinoHoyBinding>() {
         super.initializeObservers()
         viewModel.idRecetaRandom.observe(viewLifecycleOwner){event->
             event.getContentIfNotHandled()?.let { pair->
-                navigate(NavGraphDirections.actionGlobalRecetaDetalle(idReceta = pair.first,name = pair.second))
+                navigate(NavGraphDirections.actionGlobalRecetaDetalle(idReceta = pair.first,name = pair.second, collection = Receta.RECETAS_USUARIOS))
             }
         }
 

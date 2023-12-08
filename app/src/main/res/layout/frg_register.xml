@@ -71,8 +71,7 @@
                     android:textSize="16sp"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:inputType="textPassword"
-                    android:text="Rambombai99"/>
+                    android:inputType="textPassword"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,8 +96,7 @@
                     android:textSize="16sp"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:inputType="textPassword"
-                    android:text="Rambombai99"/>
+                    android:inputType="textPassword"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

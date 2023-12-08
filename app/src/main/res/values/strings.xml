@@ -4,7 +4,7 @@
     <!--INICIO-->
     <string name="inicio">Inicio</string>
     <string name="perfil">Perfil</string>
-    <string name="fav">Fav</string>
+    <string name="fav" translatable="false">Fav</string>
     <string name="ajustes">Ajustes</string>
     <string-array name="menu_items">
         <item>"Recetas base"</item>
@@ -28,6 +28,8 @@
     </string-array>
 
     <!--LOGIN-->
+    <string name="nombre_y_foto_son_obligatorios">Nombre y foto son obligatorios</string>
+    <string name="recetas_online">Recetas Online</string>
     <string name="receta_guardada_en_favoritos">Receta guardada en favoritos</string>
     <string name="receta_borrada_de_favoritos">Receta borrada de favoritos</string>
     <string name="no_se_pudo_guardar_en_favoritos">No se pudo guardar en favoritos</string>
@@ -122,7 +124,8 @@
     <!--QUE COCINO HOY-->
     <string name="que_cocino_hoy">¿Qué cocino hoy?</string>
     <string name="adivina_que_receta_nueva_podrias_cocinar_hoy">Adivina que receta nueva\npodrías cocinar hoy</string>
-
+    <string name="debes_iniciar_sesion">Debes iniciar sesión</string>
+    <string name="no_has_creado_ninguna_receta_todavia">No has creado ninguna receta todavía</string>
 
     <!--TEXTOS GENERALES-->
     <string name="ayuda_general"><![CDATA[
@@ -246,4 +249,5 @@
     <string name="deshabilitar_borrar">Deshabilitar borrar</string>
     <string name="borrar_elemento">Borrar elemento</string>
     <string name="producto">Producto</string>
+    <string name="no_tienes_ninguna_receta_en_favoritos">No tienes ninguna receta en favoritos</string>
 </resources>

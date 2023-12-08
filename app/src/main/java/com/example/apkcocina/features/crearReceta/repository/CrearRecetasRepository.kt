@@ -5,6 +5,7 @@ import android.net.Uri
 import android.widget.Toast
 import com.example.apkcocina.R
 import com.example.apkcocina.utils.extensions.base64ToUri
+import com.example.apkcocina.utils.extensions.notNull
 import com.example.apkcocina.utils.model.Descripcion
 import com.example.apkcocina.utils.model.Receta
 import com.example.apkcocina.utils.states.SendRecetaState
@@ -34,6 +35,8 @@ class CrearRecetasRepository @Inject constructor(
         val timeMilis = Calendar.getInstance().time.time
         return runCatching {
             receta.descripcion = saveImages(timeMilis.toString(),receta.descripcion)
+            if(receta.imagenPrincipal != null)
+                receta.imagenPrincipal = saveImagePrincipal(timeMilis.toString(),receta.imagenPrincipal!!)
             collection.add(receta).await()
         }.fold(
             onSuccess = {
@@ -48,14 +51,35 @@ class CrearRecetasRepository @Inject constructor(
                 )
                         },
             onFailure = {
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                }
-
                 SendRecetaState.Error(context.getString(R.string.error_al_crear_la_receta))
             }
         )
     }
+
+    private suspend fun saveImagePrincipal(idFolder : String,imagenPrincipal: String) : String?{
+        val referencia = storage.reference.child("images/${firebaseAuth.currentUser!!.uid}/$idFolder/mainImage")
+        return runCatching {
+            referencia.putFile(imagenPrincipal.base64ToUri(context)!!).await()
+        }.fold(
+            onSuccess = {
+                runCatching {
+                    it.storage.downloadUrl.await()
+                }   .fold(
+                    onSuccess = {
+                        it.toString()
+                    },
+                    onFailure = {
+                        null
+                    }
+                )
+            },
+            onFailure = {
+                null
+            }
+        )
+    }
+
+
 
     private suspend fun saveImages(idFolder : String, recetaDescripcion: List<Descripcion>?): List<Descripcion>?
     {

@@ -38,9 +38,7 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
             btIniciarSesion.setOnClickListener { login() }
             btRegistrarse.setOnClickListener { navigate(R.id.action_loginFragment_to_registerFragment) }
             //FIXME IMPLEMENTAR
-            tvSiHaOlvidadoSuContrasena.setOnClickListener {
-
-            }
+            tvSiHaOlvidadoSuContrasena.setOnClickListener {}
 
             ilContrasenaLogin.errorIconDrawable = null
 
@@ -102,38 +100,10 @@ class LoginFragment() : BaseFragment<FrgLoginBinding>() {
             }
         }
     }
-
-    private fun updateView(et: AppCompatEditText, valid: Boolean) {
-        if(!valid)
-            et.setTextColor(requireContext().getColor(R.color.red))
-        else
-            et.setTextColor(requireContext().getColor(R.color.green_base))
-    }
-
     private fun login() {
         val correo = binding.etCorreoLogin.text.toString()
         val contrasena = binding.etContrasenaLogin.text.toString()
         profileViewModel.login(correo,contrasena)
-    }
-
-    private fun validEntryTexts(correo : String, contrasena : String) = correo.isNotEmpty() && contrasena.isNotEmpty()
-
-    private fun <T>showAlert(task : Task<T>){
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Error")
-        builder.setMessage(task.exception.toString())
-        builder.setPositiveButton("Aceptar",null)
-        val dialog = builder.create()
-        dialog.show()
-    }
-
-    private fun showAlert(title : String,texto : String){
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle(title)
-        builder.setMessage(texto)
-        builder.setPositiveButton("Aceptar",null)
-        val dialog = builder.create()
-        dialog.show()
     }
 }
 

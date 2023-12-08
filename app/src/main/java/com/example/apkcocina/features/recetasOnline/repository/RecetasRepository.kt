@@ -37,12 +37,13 @@ class RecetasRepository @Inject constructor(
             }
         )
 
-    override suspend fun getReceta(id: String): RecetaState =
+    override suspend fun getReceta(id: String,collection : String): RecetaState =
         runCatching {
-            firestore.collection(Receta.RECETAS_USUARIOS).document(id).get().await()
+            firestore.collection(collection).document(id).get().await()
         }.fold(
             onSuccess = {
                 val receta = it.toObject(Receta::class.java)!!
+                //ESTA PARTE DE AQUÍ ES PARA SABER SI LA RECETA SACADA EL USUARIO LA TIENE EN FAVORITOS
                 if(auth.currentUser != null) {
                     val user = firestore.collection(User.USUARIOS).document(auth.currentUser!!.uid).get().await()
                     val recestasFav = user.toObject(User::class.java)!!.recetasFav
@@ -50,7 +51,6 @@ class RecetasRepository @Inject constructor(
                 } else{
                     RecetaState.Successfull(receta)
                 }
-
             },
             onFailure = {
                 RecetaState.Error(context.getString(R.string.error_en_el_servidor))
@@ -121,7 +121,7 @@ class RecetasRepository @Inject constructor(
                         RecetasOnlineState.Successfull(recetasFavUser)
                     },
                     onFailure = {
-                        RecetasOnlineState.Error(context.getString(R.string.error_en_el_servidor))
+                        RecetasOnlineState.SinRecetasFav
                     }
                 )
             },
@@ -138,7 +138,7 @@ class RecetasRepository @Inject constructor(
 
 interface IRecetas{
     suspend fun getRecetas() : RecetasOnlineState
-    suspend fun getReceta(id : String) : RecetaState
+    suspend fun getReceta(id : String,collection : String) : RecetaState
     suspend fun getRecetasUser() : RecetasOnlineState
     suspend fun getRecetaAletatoria() : RandomRecetaState
     suspend fun setRecetaFav(recetaId : String) : SetRecetaFavState
