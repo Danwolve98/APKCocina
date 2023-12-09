@@ -13,7 +13,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/base_2">
+            android:background="@color/base_2"
+            android:paddingBottom="40dp">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_register_logo"
@@ -45,8 +46,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:textSize="16sp"
-                    android:inputType="textEmailAddress"
-                    android:text="bombeto987@gmail.com" />
+                    android:inputType="textEmailAddress"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -122,8 +122,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.91" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

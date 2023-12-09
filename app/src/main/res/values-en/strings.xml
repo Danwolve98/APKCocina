@@ -32,7 +32,7 @@
     <string name="receta_borrada_de_favoritos">Recipe deleted from favorites</string>
     <string name="no_se_pudo_guardar_en_favoritos">Could not save to favorites</string>
     <string name="no_se_han_encontrado_recetas">No recipes found</string>
-    <string name="ingredientes">Ingredients:</string>
+    <string name="ingredientes">Ingredients</string>
     <string name="error_en_el_servidor">Server error</string>
     <string name="inicie_sesion_para_esta_funcionalidad">Log in for this functionality</string>
     <string name="error_al_cargar_la_foto">Error loading the photo</string>

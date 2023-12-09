@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.APKCocina" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/base_1</item>
+        <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryVariant">@color/base_2</item>
         <item name="colorOnPrimary">@color/base_3</item>
         <!-- Secondary brand color. -->

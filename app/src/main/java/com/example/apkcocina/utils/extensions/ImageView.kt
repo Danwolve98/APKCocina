@@ -81,6 +81,7 @@ fun ImageView.loadImage(string : String?) {
     Glide.with(this)
         .asDrawable()
         .load(string)
+        .centerCrop()
         .error(R.drawable.apkcocina_logo)
         .placeholder(progressDrawable)
         .addListener(object : RequestListener<Drawable>{

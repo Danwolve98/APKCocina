@@ -9,6 +9,6 @@ class Producto : Serializable {
 
     fun changeTipo(tipo : String) {this.tipo = tipo}
 
-    override fun toString(): String = "· $nombre \t${cantidad?.toInt()} $tipo"
+    override fun toString(): String = "· ${nombre ?: ""} \t${cantidad?.toInt() ?: ""} ${tipo ?: ""}"
 
 }

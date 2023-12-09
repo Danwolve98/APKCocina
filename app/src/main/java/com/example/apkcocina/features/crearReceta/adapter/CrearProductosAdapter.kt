@@ -84,10 +84,8 @@ class CrearProductosAdapter(var listProductos: List<Producto>) :
         }
     }
 
-
-
     fun updateRecetas(newList: List<Producto>) {
-        val diff = ProductoDiff(listProductos.toList(), newList.toList())
+        val diff = ProductoDiff(listProductos, newList)
         val result = DiffUtil.calculateDiff(diff)
         listProductos = newList
         result.dispatchUpdatesTo(this)

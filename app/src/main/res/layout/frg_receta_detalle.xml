@@ -9,6 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
         android:background="@color/black_soft">
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -115,9 +116,10 @@
                 android:layout_marginTop="10dp"
                 android:src="@drawable/ic_tiempo"
                 android:tint="@color/white"
-                app:layout_constraintBottom_toBottomOf="@id/rating_bar_receta"
+                app:layout_constraintTop_toBottomOf="@id/tv_nombre_receta"
+                app:layout_constraintBottom_toTopOf="@id/rv_alergenos"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/tg_fav_receta" />
+                />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_tiempo_receta"
@@ -127,8 +129,9 @@
                 android:fontFamily="@font/inika_regular"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@id/rating_bar_receta"
+                app:layout_constraintTop_toTopOf="@id/iv_tiempo"
                 app:layout_constraintEnd_toStartOf="@id/iv_tiempo"
+                app:layout_constraintBottom_toBottomOf="@id/iv_tiempo"
                 tools:text="1h 20mins" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -137,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/rating_bar_receta"
+                app:layout_constraintTop_toBottomOf="@id/iv_tiempo"
                 app:spanCount="7"
                 tools:listitem="@layout/item_alergeno_guia" />
 

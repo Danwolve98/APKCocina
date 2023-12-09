@@ -10,13 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
-        android:gravity="center"
         android:fontFamily="@font/amiko_regular"
+        android:gravity="center"
         android:text="@string/adivina_que_receta_nueva_podrias_cocinar_hoy"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@id/guideline8"
-        app:layout_constraintTop_toTopOf="@id/guideline8"/>
+        app:layout_constraintTop_toTopOf="@id/guideline8"
+        app:layout_constraintVertical_bias="0.518"
+        tools:layout_editor_absoluteX="40dp" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_huella"

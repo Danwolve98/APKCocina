@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="menu_items">
+        <item>"Recettes de base"</item>
+        <item>"Recettes en ligne"</item>
+        <item>"Créer une recette"</item>
+        <item>"Que devrais-je cuisiner aujourd'hui?"</item>
+        <item>"Information"</item>
+    </string-array>
     <string name="inicio">Accueil</string>
     <string name="perfil">Profil</string>
     <string name="fav">Favoris</string>
@@ -25,7 +32,7 @@
     <string name="receta_borrada_de_favoritos">Recette supprimée des favoris</string>
     <string name="no_se_pudo_guardar_en_favoritos">Impossible d\'ajouter aux favoris</string>
     <string name="no_se_han_encontrado_recetas">Aucune recette trouvée</string>
-    <string name="ingredientes">Ingrédients :</string>
+    <string name="ingredientes">Ingrédients</string>
     <string name="error_en_el_servidor">Erreur du serveur</string>
     <string name="inicie_sesion_para_esta_funcionalidad">Connectez-vous pour cette fonctionnalité</string>
     <string name="error_al_cargar_la_foto">Erreur lors du chargement de la photo</string>
@@ -37,7 +44,7 @@
     <string name="contrasena">Mot de passe</string>
     <string name="ha_olvidado_su_contrasena">Vous avez oublié votre mot de passe ?</string>
     <string name="confirmar_contrasena">Confirmer le mot de passe</string>
-    <string name="iniciar_sesion">Se connecter</string>
+    <string name="iniciar_sesion">Connecter</string>
     <string name="registrarse">S\'inscrire</string>
     <string name="no_tienes_cuenta">Vous n\'avez pas de compte ?\nInscrivez-vous ici</string>
     <string name="se_enviara_un_correo_para_reestablecer_la_contrasena">Un e-mail sera envoyé pour réinitialiser le mot de passe</string>

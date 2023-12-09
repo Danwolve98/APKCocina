@@ -1,6 +1,8 @@
 package com.example.apkcocina.features.crearReceta.fragment
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.view.MotionEvent
@@ -10,6 +12,11 @@ import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.example.apkcocina.R
 import com.example.apkcocina.utils.model.Receta
 import com.example.apkcocina.databinding.FrgCrearRecetaBinding
@@ -72,13 +79,14 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
 
         binding.apply {
             //IMAGEN PRINCIPAL
-            val pickMediaPrincipal = registerForActivityResult(ActivityResultContracts.PickVisualMedia()){
+            val pickMediaPrincipal = registerForActivityResult(ActivityResultContracts.PickVisualMedia()){uri->
                 ivPrincipal.apply {
                     imageTintMode = null
-                    scaleType = ImageView.ScaleType.CENTER_CROP
-                    loadImage(it)
+                    uri.notNull {
+                        Glide.with(requireContext()).load(it).centerCrop().into(this)
+                    }
                 }
-                imagenReceta = it?.toBase64(requireContext())
+                imagenReceta = uri?.toBase64(requireContext())
             }
             ivPrincipal.setOnClickListener {
                 pickMediaPrincipal.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
@@ -89,6 +97,8 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
             rvAlergenos.adapter = AlergenosAdapter(Alergenos.values().toList())
             //PRODUCTOS
             rvProductos.adapter = productosAdapter
+            rvProductos.recycledViewPool.setMaxRecycledViews(0,0)
+
             btAddProducto.setOnClickListener {
                 it.playAnimation(R.anim.click_animation)
                 btDeleteProducto.isChecked = false
@@ -113,6 +123,7 @@ class CrearRecetaFragment() : BaseFragment<FrgCrearRecetaBinding>(){
 
             //DESCRIPCION
             rvDescripcion.adapter = descripcionAdapter
+            rvDescripcion.recycledViewPool.setMaxRecycledViews(0,0)
 
             btAddText.setOnClickListener {
                 it.playAnimation(R.anim.click_animation)

@@ -3,6 +3,7 @@ package com.example.apkcocina.features.recetasBase.fragment
 import android.content.Context
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.clearFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.apkcocina.R
@@ -16,6 +17,7 @@ import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.InfoActionBar
 import com.example.apkcocina.utils.dialog.InfoRecetasDialog
+import com.example.apkcocina.utils.extensions.invisible
 import com.example.apkcocina.utils.extensions.loadImage
 import com.example.apkcocina.utils.extensions.notNull
 import com.example.apkcocina.utils.extensions.playAnimation
@@ -49,6 +51,17 @@ class RecetaDetalle : BaseFragment<FrgRecetaDetalleBinding>() {
     }
 
     private fun mostrarDialogRecetas() = InfoRecetasDialog(requireContext(),false).show()
+
+    override fun initializeView() {
+        super.initializeView()
+        if(args.collection == Receta.RECETAS_BASE){
+            with(binding){
+                ratingBarReceta.invisible()
+                clUsuario.invisible()
+                tgFavReceta.invisible()
+            }
+        }
+    }
 
     override fun initializeObservers() {
         super.initializeObservers()

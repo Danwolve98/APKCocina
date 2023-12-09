@@ -12,6 +12,7 @@ import androidx.core.content.res.ResourcesCompat
 import com.example.apkcocina.R
 import com.example.apkcocina.utils.extensions.invisible
 import com.example.apkcocina.utils.extensions.notNull
+import com.example.apkcocina.utils.extensions.playAnimation
 import com.google.android.flexbox.FlexboxLayout
 import com.google.android.material.button.MaterialButton
 import java.lang.invoke.ConstantCallSite
@@ -37,7 +38,10 @@ class InfoRecetasDialog(context : Context, private val showManual : Boolean = tr
         }
 
         cl.setOnClickListener { dismiss() }
-        btCancel.setOnClickListener { dismiss() }
+        btCancel.setOnClickListener {
+            it.playAnimation(R.anim.click_animation)
+            dismiss()
+        }
 
         if(!showManual){
             findViewById<FlexboxLayout>(R.id.fl_manual).invisible()

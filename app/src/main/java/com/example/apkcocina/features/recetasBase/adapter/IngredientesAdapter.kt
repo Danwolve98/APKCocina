@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apkcocina.R
 import com.google.android.material.textview.MaterialTextView
@@ -23,7 +24,7 @@ class IngredientesAdapter (private val listIngrediente : MutableList<String>, co
 
     inner class ViewHolder(val view : View) : RecyclerView.ViewHolder(view){
         fun bind(ingrediente : String){
-            val textView = view.findViewById<MaterialTextView>(R.id.tv_ingrediente)
+            val textView = view.findViewById<AppCompatTextView>(R.id.tv_ingrediente)
             textView.text = ingrediente
         }
     }

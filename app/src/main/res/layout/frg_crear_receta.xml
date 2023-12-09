@@ -7,6 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
+        android:paddingBottom="40dp"
         >
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -139,7 +140,7 @@
                 android:id="@+id/tv_productos"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/productos"
+                android:text="@string/ingredientes"
                 android:layout_marginTop="20dp"
                 android:textAppearance="@style/ApparenceTextTitle"
                 app:layout_constraintStart_toStartOf="parent"

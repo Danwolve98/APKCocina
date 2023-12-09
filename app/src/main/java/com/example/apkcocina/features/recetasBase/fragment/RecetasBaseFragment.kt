@@ -41,7 +41,7 @@ class RecetasBaseFragment() : BaseFragment<FrgRecetasBaseBinding>() {
 
         recetasBaseViewModel.recetas.observe(viewLifecycleOwner){event->
             event.getContentIfNotHandled()?.let {
-                binding.rvRecetas.adapter = RecetasAdapter(it) {receta->
+                binding.rvRecetas.adapter = RecetasAdapter(it,recetasBase = true) {receta->
                     onRecetaClickListener(
                         receta
                     )

@@ -23,8 +23,9 @@
         android:gravity="center"
         android:textSize="22sp"
         android:fontFamily="@font/arial"
-        android:textStyle="bold"
+        android:textStyle="italic"
         android:visibility="gone"
+        android:textColor="@color/black"
         tools:visibility="visible"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
