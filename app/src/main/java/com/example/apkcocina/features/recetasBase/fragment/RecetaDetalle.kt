@@ -71,6 +71,13 @@ class RecetaDetalle : BaseFragment<FrgRecetaDetalleBinding>() {
             }
         }
 
+        viewModel.recetaError.observe(viewLifecycleOwner){event->
+            event.getContentIfNotHandled()?.let{error->
+                Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+                navController.popBackStack()
+            }
+        }
+
         viewModel.setRecetaFav.observe(viewLifecycleOwner){event->
             event.getContentIfNotHandled()?.let{_->
                 Toast.makeText(requireContext(), getString(R.string.receta_guardada_en_favoritos), Toast.LENGTH_SHORT).show()

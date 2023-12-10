@@ -12,8 +12,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Source
-import com.google.firebase.firestore.toObject
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -42,7 +40,7 @@ class RecetasRepository @Inject constructor(
             firestore.collection(collection).document(id).get().await()
         }.fold(
             onSuccess = {
-                val receta = it.toObject(Receta::class.java)!!
+                val receta = it.toObject(Receta::class.java) ?: return@fold RecetaState.Error(context.getString(R.string.error_en_el_servidor))
                 //ESTA PARTE DE AQUÍ ES PARA SABER SI LA RECETA SACADA EL USUARIO LA TIENE EN FAVORITOS
                 if(auth.currentUser != null) {
                     val user = firestore.collection(User.USUARIOS).document(auth.currentUser!!.uid).get().await()
