@@ -10,6 +10,7 @@ import com.example.apkcocina.features.recetasOnline.viewModel.GetRecetasViewMode
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.TitleActionBar
+import com.example.apkcocina.utils.extensions.collectFlow
 import com.example.apkcocina.utils.model.Receta
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,6 +30,10 @@ class RecetasOnlineFragment : BaseFragment<FrgRecetasBaseBinding>() {
     }
     override fun initializeObservers() {
         super.initializeObservers()
+        collectFlow(viewModel.recetasFavState){
+            mainActivity.setLoading(it.isLoading)
+        }
+
         viewModel.recetasResult.observe(viewLifecycleOwner){ event ->
             event.getContentIfNotHandled()?.let {listaRecetas->
                 binding.rvRecetas.adapter = RecetasAdapter(listaRecetas) { receta ->

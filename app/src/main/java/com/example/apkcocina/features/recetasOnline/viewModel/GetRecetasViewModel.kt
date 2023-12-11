@@ -92,25 +92,31 @@ class GetRecetasViewModel @Inject constructor(
     val recetaPuntuacionYaActualizada: LiveData<Event<Boolean>> = _recetaPuntuacionYaActualizada
 
     fun getRecetas() = viewModelScope.launch {
+        _recetasFavState.value = CrearRecetaStateUI(isLoading = true)
         when(val result = getRecetasOnlineUseCase() ){
             is RecetasOnlineState.Error -> _recetasError.value = Event(result.error)
             is RecetasOnlineState.Successfull -> _recetasResult.value = Event(result.listRecetas)
             else->{}
         }
+        _recetasFavState.value = CrearRecetaStateUI(isLoading = false)
     }
 
     fun getReceta(recetaId : String,collection : String) = viewModelScope.launch {
+        _recetasFavState.value = CrearRecetaStateUI(isLoading = true)
         when(val result = getRecetaUseCase(recetaId,collection) ){
             is RecetaState.Error -> _recetaError.value = Event(result.error)
             is RecetaState.Successfull -> _recetaResult.value = Event(Pair(result.receta,result.isFav))
         }
+        _recetasFavState.value = CrearRecetaStateUI(isLoading = false)
     }
 
     fun getRandomReceta() = viewModelScope.launch {
+        _recetasFavState.value = CrearRecetaStateUI(isLoading = true)
         when(val result = getRandomRecetaUseCase()){
             is RandomRecetaState.Error -> _idRecetaRandomeError.value = Event(result.error)
             is RandomRecetaState.Successfull -> _idRecetaRandom.value = Event(Pair(result.idRecetaRandom,result.nombreReceta))
         }
+        _recetasFavState.value = CrearRecetaStateUI(isLoading = false)
     }
 
     fun changeFav(recetaId: String,fav : Boolean){

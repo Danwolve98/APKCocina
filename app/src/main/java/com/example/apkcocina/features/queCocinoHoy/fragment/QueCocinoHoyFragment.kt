@@ -19,6 +19,7 @@ import com.example.apkcocina.features.recetasOnline.viewModel.GetRecetasViewMode
 import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.TitleActionBar
+import com.example.apkcocina.utils.extensions.collectFlow
 import com.example.apkcocina.utils.model.Receta
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.random.Random

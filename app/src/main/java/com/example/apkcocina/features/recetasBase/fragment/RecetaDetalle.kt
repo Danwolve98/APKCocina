@@ -18,6 +18,7 @@ import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.InfoActionBar
 import com.example.apkcocina.utils.dialog.InfoRecetasDialog
+import com.example.apkcocina.utils.extensions.collectFlow
 import com.example.apkcocina.utils.extensions.invisible
 import com.example.apkcocina.utils.extensions.loadImage
 import com.example.apkcocina.utils.extensions.notNull
@@ -75,6 +76,9 @@ class RecetaDetalle : BaseFragment<FrgRecetaDetalleBinding>() {
 
     override fun initializeObservers() {
         super.initializeObservers()
+        collectFlow(viewModel.recetasFavState){
+            mainActivity.setLoading(it.isLoading)
+        }
         viewModel.recetaResult.observe(viewLifecycleOwner){event->
             event.getContentIfNotHandled()?.let{pair->
                 cargarDatos(pair.first,pair.second)
