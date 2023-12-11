@@ -39,6 +39,7 @@
     <string name="se_requiere_validar_la_cuenta">Validation du compte requise</string>
     <string name="default_cumpleanos">00/00/0000</string>
     <string name="correo">E-mail</string>
+    <string name="error_al_puntuar">Erreur de ponctuation</string>
     <string name="contrasena_antigua">Ancien mot de passe</string>
     <string name="contrasena_nueva">Nouveau mot de passe</string>
     <string name="contrasena">Mot de passe</string>

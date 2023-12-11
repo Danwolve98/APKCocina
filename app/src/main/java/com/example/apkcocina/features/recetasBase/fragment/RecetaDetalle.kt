@@ -2,6 +2,7 @@ package com.example.apkcocina.features.recetasBase.fragment
 
 import android.content.Context
 import android.view.View
+import android.widget.RatingBar
 import android.widget.Toast
 import androidx.fragment.app.clearFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -35,7 +36,8 @@ class RecetaDetalle : BaseFragment<FrgRecetaDetalleBinding>() {
     override lateinit var actionBar: APKCocinaActionBar
     private val args : RecetaDetalleArgs by navArgs()
     private val viewModel: GetRecetasViewModel by viewModels()
-
+    private lateinit var receta : Receta
+    private var nuevaPuntuacion : Float = 0f
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if(args.idReceta != null)
@@ -59,6 +61,14 @@ class RecetaDetalle : BaseFragment<FrgRecetaDetalleBinding>() {
                 ratingBarReceta.invisible()
                 clUsuario.invisible()
                 tgFavReceta.invisible()
+            }
+        }
+
+        binding.ratingBarReceta.setOnRatingBarChangeListener { ratingBar: RatingBar, fl: Float, userInteract: Boolean ->
+            if(userInteract){
+                nuevaPuntuacion = (receta.puntuacion + fl)/2
+                ratingBar.rating = nuevaPuntuacion
+                viewModel.updatePuntuacionReceta(receta.id,nuevaPuntuacion)
             }
         }
     }
@@ -101,9 +111,31 @@ class RecetaDetalle : BaseFragment<FrgRecetaDetalleBinding>() {
                 Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
             }
         }
+
+        viewModel.recetaPuntuacion.observe(viewLifecycleOwner){event->
+            event.getContentIfNotHandled()?.let { _->
+                Toast.makeText(requireContext(), "Puntuación actualizada", Toast.LENGTH_SHORT).show()
+                receta.puntuacion = nuevaPuntuacion
+            }
+        }
+
+        viewModel.recetaError.observe(viewLifecycleOwner){event->
+            event.getContentIfNotHandled()?.let { error->
+                Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+                binding.ratingBarReceta.rating = receta.puntuacion
+            }
+        }
+
+        viewModel.recetaPuntuacionYaActualizada.observe(viewLifecycleOwner){event->
+            event.getContentIfNotHandled()?.let { _->
+                Toast.makeText(requireContext(), "Ya habías puntuado esta receta", Toast.LENGTH_SHORT).show()
+                binding.ratingBarReceta.rating = receta.puntuacion
+            }
+        }
     }
 
     private fun cargarDatos(receta : Receta,isFav : Boolean){
+        this.receta = receta
         binding.apply {
             tvNombreReceta.text = receta.nombre
             tvTiempoReceta.text = formatearTiempo(receta.tiempoPreparacion)
@@ -134,6 +166,8 @@ class RecetaDetalle : BaseFragment<FrgRecetaDetalleBinding>() {
                 }
 
             }
+
+            binding.ratingBarReceta.rating = receta.puntuacion
 
             receta.ingredientes.notNull {ingredientes-> rvIngredientes.adapter = IngredientesAdapter(ingredientes.map {producto-> producto.toString() }.toMutableList(),requireContext()) }
 

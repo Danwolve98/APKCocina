@@ -16,8 +16,8 @@ class Receta(
     var alergenos: List<Alergenos>? = null,
     var descripcion : List<Descripcion>? = null,
     var ingredientes : List<Producto>? = null,
-    val numVotos : Int? = null,
-    val puntuacion : Int? = null
+    val usuariosPuntuacion : List<String> = listOf(),
+    var puntuacion : Float = 0f
 ): Serializable{
     companion object{
         val RECETAS_BASE = "recetas"

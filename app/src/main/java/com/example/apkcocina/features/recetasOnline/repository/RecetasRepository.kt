@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.apkcocina.R
 import com.example.apkcocina.utils.model.Receta
 import com.example.apkcocina.utils.model.User
+import com.example.apkcocina.utils.states.PuntuacionRecetaState
 import com.example.apkcocina.utils.states.RandomRecetaState
 import com.example.apkcocina.utils.states.RecetaState
 import com.example.apkcocina.utils.states.RecetasOnlineState
@@ -128,6 +129,38 @@ class RecetasRepository @Inject constructor(
             }
         )
 
+    override suspend fun actualizarPuntuacionReceta(recetaId : String,puntuacion : Float): PuntuacionRecetaState =
+        runCatching {
+            firestore.collection(Receta.RECETAS_USUARIOS).document(recetaId).get().await()
+        }.fold(
+            onSuccess = {document->
+                val receta = document.toObject(Receta::class.java)!!
+                if(receta.usuariosPuntuacion.contains(auth.currentUser!!.uid))
+                    return@fold PuntuacionRecetaState.YaPuntuado
+                val nuevosUsuarios = receta.usuariosPuntuacion.toMutableList().apply {
+                    add(auth.currentUser!!.uid)
+                }
+                val updates = hashMapOf(
+                    "puntuacion" to puntuacion,
+                    "usuariosPuntuacion" to nuevosUsuarios
+                )
+                runCatching {
+                    firestore.collection(Receta.RECETAS_USUARIOS).document(recetaId).update(updates).await()
+                }.fold(
+                    onSuccess = {
+                        PuntuacionRecetaState.Successfull
+                    },
+                    onFailure = {
+                        PuntuacionRecetaState.Error(context.getString(R.string.error_al_puntuar))
+                    }
+                )
+
+            },
+            onFailure = {
+                PuntuacionRecetaState.Error(context.getString(R.string.error_en_el_servidor))
+            }
+        )
+
 
 }
 
@@ -142,4 +175,5 @@ interface IRecetas{
     suspend fun setRecetaFav(recetaId : String) : SetRecetaFavState
     suspend fun removeRecetaFav(recetaId : String) : SetRecetaFavState
     suspend fun getRecetasFavUser() : RecetasOnlineState
+    suspend fun actualizarPuntuacionReceta(recetaId : String,puntuacion : Float) : PuntuacionRecetaState
 }

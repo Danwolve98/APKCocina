@@ -100,14 +100,14 @@
 
             <androidx.appcompat.widget.AppCompatRatingBar
                 android:id="@+id/rating_bar_receta"
-                style="@style/Widget.AppCompat.RatingBar.Indicator"
+                style="@style/Widget.AppCompat.RatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:numStars="5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_nombre_receta"
-                tools:rating="3.5" />
+                />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_tiempo"
@@ -138,7 +138,7 @@
                 android:id="@+id/rv_alergenos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
                 android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@id/iv_tiempo"
                 app:spanCount="7"

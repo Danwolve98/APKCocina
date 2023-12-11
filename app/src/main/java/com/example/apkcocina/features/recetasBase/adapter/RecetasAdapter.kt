@@ -33,8 +33,9 @@ class RecetasAdapter(private var listRecetas : List<Receta>,val recetasBase : Bo
             val ivReceta = view.findViewById<ImageView>(R.id.iv_receta)
             val tvReceta = view.findViewById<TextView>(R.id.tv_nombre_receta)
             val tvTiempoReceta = view.findViewById<TextView>(R.id.tv_tiempo_receta)
+            val ratingBar = view.findViewById<AppCompatRatingBar>(R.id.rating_bar_receta)
 
-
+            ratingBar.rating = receta.puntuacion
             ivReceta.loadImage(receta.imagenPrincipal ?: receta.descripcion?.find { it.image }?.string ?: "")
             tvReceta.text = receta.nombre
             tvTiempoReceta.text = formatearTiempo(receta.tiempoPreparacion)

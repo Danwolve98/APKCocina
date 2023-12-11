@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.apkcocina.features.recetasOnline.useCase.ActualizarPuntuacionRecetaUseCase
 import com.example.apkcocina.features.recetasOnline.useCase.GetRandomRecetaUseCase
 import com.example.apkcocina.features.recetasOnline.useCase.GetRecetaUseCase
 import com.example.apkcocina.features.recetasOnline.useCase.GetRecetasFavUseCase
@@ -13,6 +14,7 @@ import com.example.apkcocina.features.recetasOnline.useCase.SetRecetaFavUseCase
 import com.example.apkcocina.utils.core.Event
 import com.example.apkcocina.utils.model.Receta
 import com.example.apkcocina.utils.states.CrearRecetaStateUI
+import com.example.apkcocina.utils.states.PuntuacionRecetaState
 import com.example.apkcocina.utils.states.RandomRecetaState
 import com.example.apkcocina.utils.states.RecetaState
 import com.example.apkcocina.utils.states.RecetasOnlineState
@@ -30,7 +32,8 @@ class GetRecetasViewModel @Inject constructor(
    private val getRandomRecetaUseCase: GetRandomRecetaUseCase,
    private val setRecetaFavUseCase: SetRecetaFavUseCase,
    private val removeRecetaFavUseCase: RemoveRecetaFavUseCase,
-   private val getRecetasFavUseCase: GetRecetasFavUseCase
+   private val getRecetasFavUseCase: GetRecetasFavUseCase,
+   private val actulizarPuntuacionUseCase : ActualizarPuntuacionRecetaUseCase
 ) : ViewModel() {
 
     private val _recetasFavState = MutableStateFlow(CrearRecetaStateUI())
@@ -78,6 +81,15 @@ class GetRecetasViewModel @Inject constructor(
 
     private val _sinRecetasFav = MutableLiveData<Event<Boolean>>()
     val sinRecetasFav: LiveData<Event<Boolean>> = _sinRecetasFav
+
+    private val _recetaPuntuacion = MutableLiveData<Event<Boolean>>()
+    val recetaPuntuacion: LiveData<Event<Boolean>> = _recetaPuntuacion
+
+    private val _recetaPuntuacionError = MutableLiveData<Event<Boolean>>()
+    val recetaPuntuacionError: LiveData<Event<Boolean>> = _recetaPuntuacionError
+
+    private val _recetaPuntuacionYaActualizada = MutableLiveData<Event<Boolean>>()
+    val recetaPuntuacionYaActualizada: LiveData<Event<Boolean>> = _recetaPuntuacionYaActualizada
 
     fun getRecetas() = viewModelScope.launch {
         when(val result = getRecetasOnlineUseCase() ){
@@ -135,6 +147,19 @@ class GetRecetasViewModel @Inject constructor(
                 is RecetasOnlineState.Error -> {_getRecetasFavError.value = Event(result.error) }
                 is RecetasOnlineState.Successfull -> {_getRecetasFav.value = Event(result.listRecetas) }
                 RecetasOnlineState.SinRecetasFav -> {_sinRecetasFav.value = Event(true)}
+            }
+            _recetasFavState.value = CrearRecetaStateUI(isLoading = false)
+        }
+    }
+
+    fun updatePuntuacionReceta(recetaId : String , puntuacion : Float){
+        viewModelScope.launch {
+            _recetasFavState.value = CrearRecetaStateUI(isLoading = true)
+            when(val result = actulizarPuntuacionUseCase(recetaId,puntuacion)){
+                is PuntuacionRecetaState.Error -> {_recetaPuntuacionError.value = Event(true)}
+                PuntuacionRecetaState.Successfull -> {_recetaPuntuacion.value = Event(true)}
+                PuntuacionRecetaState.YaPuntuado -> {_recetaPuntuacionYaActualizada.value = Event(true)
+                }
             }
             _recetasFavState.value = CrearRecetaStateUI(isLoading = false)
         }

@@ -29,3 +29,9 @@ sealed class SetRecetaFavState {
     data object Successfull : SetRecetaFavState()
     data class Error(val error : String) : SetRecetaFavState()
 }
+
+sealed class PuntuacionRecetaState {
+    data object Successfull : PuntuacionRecetaState()
+    data object YaPuntuado : PuntuacionRecetaState()
+    data class Error(val error : String) : PuntuacionRecetaState()
+}
