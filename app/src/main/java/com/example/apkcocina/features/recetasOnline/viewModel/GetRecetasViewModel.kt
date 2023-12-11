@@ -12,7 +12,9 @@ import com.example.apkcocina.features.recetasOnline.useCase.GetRecetasOnlineUseC
 import com.example.apkcocina.features.recetasOnline.useCase.RemoveRecetaFavUseCase
 import com.example.apkcocina.features.recetasOnline.useCase.SetRecetaFavUseCase
 import com.example.apkcocina.utils.core.Event
+import com.example.apkcocina.utils.extensions.notNull
 import com.example.apkcocina.utils.model.Receta
+import com.example.apkcocina.utils.model.User
 import com.example.apkcocina.utils.states.CrearRecetaStateUI
 import com.example.apkcocina.utils.states.PuntuacionRecetaState
 import com.example.apkcocina.utils.states.RandomRecetaState
@@ -91,6 +93,9 @@ class GetRecetasViewModel @Inject constructor(
     private val _recetaPuntuacionYaActualizada = MutableLiveData<Event<Boolean>>()
     val recetaPuntuacionYaActualizada: LiveData<Event<Boolean>> = _recetaPuntuacionYaActualizada
 
+    private val _leerUsuario = MutableLiveData<Event<User>>()
+    val leerUsuario: LiveData<Event<User>> = _leerUsuario
+
     fun getRecetas() = viewModelScope.launch {
         _recetasFavState.value = CrearRecetaStateUI(isLoading = true)
         when(val result = getRecetasOnlineUseCase() ){
@@ -105,7 +110,10 @@ class GetRecetasViewModel @Inject constructor(
         _recetasFavState.value = CrearRecetaStateUI(isLoading = true)
         when(val result = getRecetaUseCase(recetaId,collection) ){
             is RecetaState.Error -> _recetaError.value = Event(result.error)
-            is RecetaState.Successfull -> _recetaResult.value = Event(Pair(result.receta,result.isFav))
+            is RecetaState.Successfull -> {
+                _recetaResult.value = Event(Pair(result.receta, result.isFav))
+                result.user.notNull { _leerUsuario.value = Event(it) }
+            }
         }
         _recetasFavState.value = CrearRecetaStateUI(isLoading = false)
     }

@@ -34,6 +34,7 @@
             app:layout_constraintEnd_toStartOf="@id/guideline6">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_user_receta"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:padding="3dp"
@@ -42,6 +43,7 @@
                 tools:src="@drawable/ic_profile" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_nombre_user_receta"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="5dp"

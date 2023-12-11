@@ -1,6 +1,7 @@
 package com.example.apkcocina.utils.states
 
 import com.example.apkcocina.utils.model.Receta
+import com.example.apkcocina.utils.model.User
 
 class CrearRecetaStateUI(var isLoading: Boolean = false)
 
@@ -16,7 +17,7 @@ sealed class RecetasOnlineState {
 }
 
 sealed class RecetaState {
-    data class Successfull(val receta: Receta,val isFav : Boolean = false) : RecetaState()
+    data class Successfull(val receta: Receta,val isFav : Boolean = false,val user : User? = null) : RecetaState()
     data class Error(val error : String) : RecetaState()
 }
 

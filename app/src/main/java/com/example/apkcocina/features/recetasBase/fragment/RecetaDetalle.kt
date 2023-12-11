@@ -18,6 +18,8 @@ import com.example.apkcocina.utils.base.APKCocinaActionBar
 import com.example.apkcocina.utils.base.BaseFragment
 import com.example.apkcocina.utils.base.InfoActionBar
 import com.example.apkcocina.utils.dialog.InfoRecetasDialog
+import com.example.apkcocina.utils.extensions.base64ToUri
+import com.example.apkcocina.utils.extensions.base64toByteArray
 import com.example.apkcocina.utils.extensions.collectFlow
 import com.example.apkcocina.utils.extensions.invisible
 import com.example.apkcocina.utils.extensions.loadImage
@@ -63,6 +65,8 @@ class RecetaDetalle : BaseFragment<FrgRecetaDetalleBinding>() {
                 clUsuario.invisible()
                 tgFavReceta.invisible()
             }
+        }else{
+
         }
 
         binding.ratingBarReceta.setOnRatingBarChangeListener { ratingBar: RatingBar, fl: Float, userInteract: Boolean ->
@@ -134,6 +138,15 @@ class RecetaDetalle : BaseFragment<FrgRecetaDetalleBinding>() {
             event.getContentIfNotHandled()?.let { _->
                 Toast.makeText(requireContext(), "Ya habías puntuado esta receta", Toast.LENGTH_SHORT).show()
                 binding.ratingBarReceta.rating = receta.puntuacion
+            }
+        }
+
+        viewModel.leerUsuario.observe(viewLifecycleOwner){event->
+            event.getContentIfNotHandled()?.let { user->
+                with(binding){
+                    tvNombreUserReceta.text = user.nombre
+                    ivUserReceta.loadImage(user.foto?.base64toByteArray())
+                }
             }
         }
     }

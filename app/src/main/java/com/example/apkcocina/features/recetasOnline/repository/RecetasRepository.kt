@@ -46,7 +46,17 @@ class RecetasRepository @Inject constructor(
                 if(auth.currentUser != null) {
                     val user = firestore.collection(User.USUARIOS).document(auth.currentUser!!.uid).get().await()
                     val recestasFav = user.toObject(User::class.java)!!.recetasFav
-                    RecetaState.Successfull(receta,recestasFav?.contains(receta.id) ?: false)
+                    runCatching {
+                        firestore.collection(User.USUARIOS).document(receta.usuario ?: "").get().await()
+                    }.fold(
+                        onSuccess = {userDoc->
+                            val user = userDoc.toObject(User::class.java)
+                            RecetaState.Successfull(receta,recestasFav?.contains(receta.id) ?: false,user)
+                        },
+                        onFailure = {
+                            RecetaState.Successfull(receta,recestasFav?.contains(receta.id) ?: false)
+                        }
+                    )
                 } else{
                     RecetaState.Successfull(receta)
                 }
