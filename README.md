@@ -1,7 +1,7 @@
 # APKCocina
 ![MainImage](https://raw.githubusercontent.com/Danwolve98/APKCocina/master/apk_cocina.png)
 
-![Version](https://img.shields.io/badge/version-0.0.1-blue?logo=codechef&logoColor=white
+![Version](https://img.shields.io/badge/version-1.0.0-blue?logo=codechef&logoColor=white
 )
 </br>
 ![TotalCommits](https://img.shields.io/github/commit-activity/y/Danwolve98/APKCocina?logo=github)
